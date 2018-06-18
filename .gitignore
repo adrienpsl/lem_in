@@ -1,6 +1,3 @@
 .idea/
 cmake-build-debug/
 *.o
-.idea/
-cmake-build-debug/
-*.o
