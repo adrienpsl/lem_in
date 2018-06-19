@@ -10,60 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_STRUCT_H
-# define LEM_IN_STRUCT_H
+#include "all_includes.h"
 
-# include "all_includes.h"
-#include "../libft/include/dll_header.h"
+#ifndef GETTER_H
+# define GETTER_H
 
 
 /*
-**    struct ========================================================
+**    data
 */
-
-/*
-**    lem
-*/
-typedef struct		s_lem
+typedef struct		s_get_data_00
 {
-
-}					*t_lem;
-
-
-
-
-typedef struct		s_room_00
-{
+	t_dll room;
+	t_dll link;
+	t_dll_l start;
+	t_dll_l end;
 	int x;
 	int y;
-	char *name;
-	t_dll l_tube;
-} 					t_room_00;
-typedef t_room_00 *t_room;
-void     destroy_room(t_room room);
-t_dll_l new_room_link(char *x, char *y, char *name);
+	int nb_fourmis;
+} 					t_get_data_00;
+typedef t_get_data_00 *t_get_data;
 
+/*
+**    utils
+*/
+typedef struct		s_get_utils_00
+{
+	int fd;
+	int tmp;
+	t_str_split split;
+	char *line;
 
+} 					t_get_utils_00;
+typedef t_get_utils_00 *t_get_utils;
 
 
 /*
-**    construct ================================================================
+**    getter
 */
-void  destroy_lem(t_lem *lem);
-t_lem new_lem();
+typedef struct		s_getter_00
+{
+	t_get_data_00 data;
+	t_get_utils_00 utils;
+} 					t_getter_00;
+typedef t_getter_00 *t_getter;
 
-/*
-**    method ===================================================================
-*/
-
-
-/*
-**    utils ====================================================================
-*/
-
-/*
-**    debug ====================================================================
-*/
-
-
-#endif
+#endif //LEM_IN_GETTER_H
