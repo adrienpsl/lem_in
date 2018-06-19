@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.9.4)
 project(lem_in C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(lem_in main.c)
+add_executable(lem_in main.c project/includes/all_includes.h)
