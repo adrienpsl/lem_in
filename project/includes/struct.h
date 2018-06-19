@@ -10,38 +10,62 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/all_includes.h"
+#ifndef LEM_IN_STRUCT_H
+# define LEM_IN_STRUCT_H
 
-//// fonction pour gere les erreur
-// tester pk mon atoi deconne
-int     get_fufu(t_getter get)
+# include "all_includes.h"
+#include "../libft/include/dll_header.h"
+
+
+/*
+**    struct ========================================================
+*/
+
+/*
+**    lem
+*/
+typedef struct		s_lem
 {
-	char *str = "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
 
-	int a = ft_atoi(str);
-	ask_gnl(0, &get->line);
+}					*t_lem;
 
-
-	return (1);
-}
-
-//  get le nb de fourmis
-
-// fonction qui gere premiere vague
-
-// fonction qui gere deuxieme vague
-
-//
-
-
-
-// premiere fonction get sur gnl les data
-void     lem_read_line()
+/*
+**    getter
+*/
+typedef struct		s_getter_00
 {
-    t_getter_00 get;
+	int x;
+	int y;
+	int fufu;
+	char *line;
+	t_dll room;
+	t_dll link;
 
-	ft_memset(&get, 0, sizeof(t_getter_00));
 
-	free_str(&get.line);
 
-}
+} 					t_getter_00;
+typedef t_getter_00 *t_getter;
+
+
+
+/*
+**    construct ================================================================
+*/
+void  destroy_lem(t_lem *lem);
+t_lem new_lem();
+
+/*
+**    method ===================================================================
+*/
+
+
+/*
+**    utils ====================================================================
+*/
+
+/*
+**    debug ====================================================================
+*/
+
+
+#endif
