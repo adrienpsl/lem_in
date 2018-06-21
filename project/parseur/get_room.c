@@ -44,7 +44,7 @@ void get_coord_room(t_getter get)
 	while (ask_gnl(utils->fd, &utils->line))
 	{
 		split = new_str_split(utils->line, ' ');
-		if (split->current[0] == '#')
+		if (split->current && split->current[0] == '#')
 			utils->type_salle = manage_comment(split);
 		else if (split->all == 3)
 		{

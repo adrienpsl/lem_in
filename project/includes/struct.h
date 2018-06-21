@@ -29,6 +29,12 @@ typedef struct		s_lem
 
 }					*t_lem;
 
+typedef struct		s_tunnel_00
+{
+	char *room_1;
+	char *room_2;
+} 					t_tunnel_00;
+typedef t_tunnel_00 *t_tunnel;
 
 
 
@@ -40,6 +46,11 @@ typedef struct		s_room_00
 	t_dll l_tube;
 } 					t_room_00;
 typedef t_room_00 *t_room;
+
+
+t_dll_l new_tunnel_link(char *room_1, char *room_2);
+void     destroy_tunnel(t_tunnel *ptr_tunnel);
+
 void     destroy_room(t_room room);
 t_dll_l new_room_link(char *x, char *y, char *name);
 

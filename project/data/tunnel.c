@@ -10,48 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "all_includes.h"
+#include "../includes/all_includes.h"
 
-#ifndef GETTER_H
-# define GETTER_H
-
-
-/*
-**    data
-*/
-typedef struct		s_get_data_00
+t_dll_l new_tunnel_link(char *room_1, char *room_2)
 {
-	t_dll room;
-	t_dll tunnel;
-	t_dll_l start;
-	t_dll_l end;
-	int x;
-	int y;
-	int nb_fourmis;
-} 					t_get_data_00;
-typedef t_get_data_00 *t_get_data;
+	t_tunnel_00 tunnel;
+	t_dll_l tunnel_link = NULL;
 
-/*
-**    utils
-*/
-typedef struct		s_get_utils_00
+	tunnel.room_1 = ft_strdup(room_1);
+	tunnel.room_2 = ft_strdup(room_2);
+	tunnel_link = new_dll_l(&tunnel, sizeof(t_tunnel_00));
+	return (tunnel_link);
+}
+
+void destroy_tunnel(t_tunnel *ptr_tunnel)
 {
-	int fd;
-	int type_salle;
-	char *line;
+	static t_tunnel tunnel;
 
-} 					t_get_utils_00;
-typedef t_get_utils_00 *t_get_utils;
-
-
-/*
-**    getter
-*/
-typedef struct		s_getter_00
-{
-	t_get_data_00 data;
-	t_get_utils_00 utils;
-} 					t_getter_00;
-typedef t_getter_00 *t_getter;
-
-#endif //LEM_IN_GETTER_H
+	tunnel = *ptr_tunnel;
+	free_str(&tunnel->room_1);
+	free_str(&tunnel->room_2);
+	free(tunnel);
+	*ptr_tunnel = NULL;
+}
