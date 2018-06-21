@@ -26,6 +26,7 @@ void     print_tunnel(t_dll_l room_link);
 */
 void	lem_read_line();
 void	get_coord_room(t_getter get);
+void 	get_tunnel(t_getter get);
 
 
 /*
@@ -34,6 +35,8 @@ void	get_coord_room(t_getter get);
 int		manage_comment(t_str_split split);
 int		is_right_room(t_dll_l link, void *ptr_new_room);
 void	check_err_room(t_get_data data);
+void	get_size_map(t_get_data data, int x, int y);
+
 
 
 #endif //LEM_IN_FUNCTION_H

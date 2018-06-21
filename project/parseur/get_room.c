@@ -19,6 +19,7 @@
 t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 {
 	t_dll_l room_link;
+	t_room room;
 
 	room_link = new_room_link(*split->start,
 							  *(split->start + 1),
@@ -30,7 +31,22 @@ t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 	utils->type_salle = 0;
 	if (room_link && dll_find(data->room, is_right_room, room_link) != NULL)
 		destroy_dll_l(&room_link);
+	if (room_link)
+	{
+		room = room_link->content;
+		get_size_map(data, room->x, room->y);
+	}
 	return (room_link);
+}
+
+void check_err_room(t_get_data data)
+{
+	if (data->start == NULL)
+		ft_error("pas de start");
+	if (data->end == NULL)
+		ft_error("pas de end");
+	if (data->start == data->end)
+		ft_error("start et end sont les memes");
 }
 
 void get_coord_room(t_getter get)

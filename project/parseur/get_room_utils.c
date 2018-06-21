@@ -56,12 +56,10 @@ int is_right_room(t_dll_l link, void *ptr_new_room)
 	return (FALSE);
 }
 
-void check_err_room(t_get_data data)
+void get_size_map(t_get_data data, int x, int y)
 {
-	if (data->start == NULL)
-		ft_error("pas de start");
-	if (data->end == NULL)
-		ft_error("pas de end");
-	if (data->start == data->end)
-		ft_error("start et end sont les memes");
+	if (x > data->x)
+		data->x = x;
+	if (y > data->y)
+		data->y = y;
 }
