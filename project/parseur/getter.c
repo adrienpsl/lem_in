@@ -29,59 +29,48 @@ void get_nb_foumis(t_getter get)
 	get->data.nb_fourmis = result;
 }
 
-int manage_comment(t_str_split split)
+
+t_dll_l get_tunnel(t_str_split split, t_get_data data,)
 {
-	if (ft_strcmp(split->current, "##start") == 0)
-		return (L_START);
-	else if (ft_strcmp(split->current, "##end") == 0)
-		return (L_END);
-	return (FALSE);
+
 }
 
-// check que toutes les entree soit des nombres
-// rien faire pour le L:
-t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
-{
-	t_dll_l room_link;
 
-	room_link = new_room_link(split->current,
-							  split->current + 1,
-							  split->current + 2);
-	if (utils->type_salle == L_START)
-	    data->start = room_link;
-	if (utils->type_salle == L_END)
-		data->end = room_link;
-	return (room_link);
-}
 
-void get_coord_room(t_getter get)
+// fonction qui gere deuxieme vague
+/*------------------------------------*\
+    surveiller que ce soit bien des nb,
+    et que j'ai bien des rooms qui matche avec ca
+    esquiver les commentaires
+
+\*------------------------------------*/
+void get_tunnel(t_getter get)
 {
 	static t_get_utils utils;
-	static t_dll_l room_link;
+	static t_dll_l tunnel_link;
 	t_str_split split;
 
+	split = NULL;
 	utils = &get->utils;
 	while (ask_gnl(utils->fd, &utils->line))
 	{
 		split = new_str_split(utils->line, ' ');
-		if (split->all == 3)
-		{
-			room_link = get_room(split, &get->data, &get->utils);
-			if (room_link == NULL)
-				break;
-			else
-				dll_add(room_link, get->data.room);
-		}
-		if (split->all == 1 &&
-			split->current[0] == '#')
+		if (split->current[0] == '#')
 			utils->type_salle = manage_comment(split);
+		else if (split->all == 2)
+		{
+//			room_link = get_room(split, &get->data, &get->utils);
+//			if (room_link == NULL)
+//				ft_error("err dans un link");
+//			else
+//				dll_add(room_link, get->data.room);
+		}
 		else
 			break;
 		destroy_str_split(&split);
 	}
 	destroy_str_split(&split);
 }
-// fonction qui gere deuxieme vague
 
 
 // premiere fonction get sur gnl les data
@@ -99,5 +88,16 @@ void lem_read_line()
 	get_nb_foumis(&get);
 
 	get_coord_room(&get);
+	check_err_room(&get.data);
+
+
+	ft_printf("list \n");
+	dll_func(get.data.room, &print_room);
+
+	ft_printf("start \n");
+	print_room(get.data.start);
+	ft_printf("end \n");
+	print_room(get.data.end);
+
 	free_str(&get.utils.line);
 }

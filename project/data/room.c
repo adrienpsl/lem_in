@@ -12,7 +12,7 @@
 
 #include "../includes/all_includes.h"
 
-t_dll_l new_room_link(char *x, char *y, char *name)
+t_dll_l new_room_link(char *name, char *x, char *y)
 {
 	static t_room_00 room;
 	static t_dll_l room_link = NULL;
