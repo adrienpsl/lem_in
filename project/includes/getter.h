@@ -22,7 +22,7 @@
 typedef struct		s_get_data_00
 {
 	t_dll room;
-	t_dll link;
+	t_dll connextion;
 	t_dll_l start;
 	t_dll_l end;
 	int x;
@@ -37,8 +37,7 @@ typedef t_get_data_00 *t_get_data;
 typedef struct		s_get_utils_00
 {
 	int fd;
-	int tmp;
-	t_str_split split;
+	int type_salle;
 	char *line;
 
 } 					t_get_utils_00;

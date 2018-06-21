@@ -15,6 +15,12 @@
 # include "function.h"
 
 /*
+**    debug
+*/
+void     print_room(t_dll_l room_link);
+
+
+/*
 **    DEFINE
 */
 #define L_START 1

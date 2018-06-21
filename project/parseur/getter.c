@@ -10,85 +10,78 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 /*------------------------------------*\
     changer le fd dans les functions
 \*------------------------------------*/
 
 #include "../includes/all_includes.h"
 
-//// fonction pour gere les erreur
-// tester pk mon atoi deconne
-void get_fufu(t_getter get)
+/*
+**    get le bon nb de fourmis
+*/
+void get_nb_foumis(t_getter get)
 {
+	static int result = 0;
+
 	ask_gnl(get->utils.fd, &get->utils.line);
-	get->data.nb_fourmis = ft_atoi(get->utils.line);
-	if (get->data.nb_fourmis <= 0)
-		ft_error("il n'y a pas de fourmis ou le nb n'est pas valable");
+	if (is_int(get->utils.line, &result) == FAIL || result <= 0)
+		ft_error("Il n'y a pas de fourmis OU le nb n'est pas Valable");
+	get->data.nb_fourmis = result;
 }
 
-// fonction qui gere premiere vague
-// stock les coord dans une list
-
-void manage_comment(t_get_utils utils)
+int manage_comment(t_str_split split)
 {
-
-	if (utils->split->current[0] == '#' ||
-		utils->split->current[0] == 'l')
-		if (ft_strcmp(utils->line, "##start") == 0)
-			utils->tmp = L_START;
-		else if (ft_strcmp(utils->line, "##end") == 0)
-			utils->tmp = L_END;
+	if (ft_strcmp(split->current, "##start") == 0)
+		return (L_START);
+	else if (ft_strcmp(split->current, "##end") == 0)
+		return (L_END);
+	return (FALSE);
 }
 
-void get_room(t_getter get)
+// check que toutes les entree soit des nombres
+// rien faire pour le L:
+t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 {
-	static t_dll_l room_link = NULL;
-	static t_str_split split;
+	t_dll_l room_link;
 
-	split = get->utils.split;
 	room_link = new_room_link(split->current,
 							  split->current + 1,
 							  split->current + 2);
-	// doit mettre le bon truc
-
-	dll_add(room_link, get->data.room);
-
-	//
+	if (utils->type_salle == L_START)
+	    data->start = room_link;
+	if (utils->type_salle == L_END)
+		data->end = room_link;
+	return (room_link);
 }
 
 void get_coord_room(t_getter get)
 {
 	static t_get_utils utils;
+	static t_dll_l room_link;
+	t_str_split split;
 
 	utils = &get->utils;
 	while (ask_gnl(utils->fd, &utils->line))
 	{
-		utils->split = new_str_split(utils->line, ' ');
-		// get room
-		if (utils->split->all == 3)
-			get_room(get);
-
-			// stop next serie
-		else if (utils->split->all == 2)
-			break;
-
-			//get comment
-		else if (utils->split->all == 1)
-			manage_comment(get);
-
+		split = new_str_split(utils->line, ' ');
+		if (split->all == 3)
+		{
+			room_link = get_room(split, &get->data, &get->utils);
+			if (room_link == NULL)
+				break;
+			else
+				dll_add(room_link, get->data.room);
+		}
+		if (split->all == 1 &&
+			split->current[0] == '#')
+			utils->type_salle = manage_comment(split);
 		else
-			ft_error("err dans les salles mechant");
-
-
-		// clear split
+			break;
+		destroy_str_split(&split);
 	}
+	destroy_str_split(&split);
 }
 // fonction qui gere deuxieme vague
-
-//
-
 
 
 // premiere fonction get sur gnl les data
@@ -97,10 +90,14 @@ void lem_read_line()
 	t_getter_00 get;
 
 	ft_memset(&get, 0, sizeof(t_getter_00));
+	get.data.room = new_dll();
+	get.data.connextion = new_dll();
+
 
 	get.utils.fd = open_file(
 	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
-	get_fufu(&get);
+	get_nb_foumis(&get);
+
 	get_coord_room(&get);
 	free_str(&get.utils.line);
 }
