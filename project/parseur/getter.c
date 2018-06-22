@@ -57,6 +57,7 @@ void lem_read_line()
 
 	dll_func(get.data.tunnel, &print_tunnel);
 
+	ft_printf("%d %d %d \n", get.data.x, get.data.x, get.data.room->length);
 
 	// nb de salle,
 	// le ration entre les sallw

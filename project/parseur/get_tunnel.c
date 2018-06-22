@@ -51,10 +51,7 @@ t_dll_l get_tunnel_link(t_str_split split, t_get_data data)
 
 // fonction qui gere deuxieme vague
 /*------------------------------------*\
-    surveiller que ce soit bien des nb,
-    et que j'ai bien des rooms qui matche avec ca
-    esquiver les commentaires
-
+	je ne verifie ppas si j'ai deux fois le meme tunnel
 \*------------------------------------*/
 void get_tunnel(t_getter get)
 {
