@@ -33,15 +33,10 @@ t_dll_l get_room_link(t_dll room_list, char *room_str)
 void set_tunnel(t_room room, t_dll_l to_this_link)
 {
 	t_dll_l link;
-//	t_lem_ptr_00 ptr;
-//
-//	ptr.ptr = to_this_link;
-	void *a = 0;
+	static void *a = 0;
+
 	link = new_dll_l(&a, sizeof(void*));
 	link->content = to_this_link->content;
-//	printf("%p\n", link->content);
-//	printf("%lx\n", a);
-
 	dll_add(link, room->l_tube);
 }
 
