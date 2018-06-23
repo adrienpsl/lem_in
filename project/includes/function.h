@@ -27,7 +27,7 @@ void     print_tunnel(t_dll_l room_link);
 void	lem_read_line();
 void	get_coord_room(t_getter get);
 void 	get_tunnel(t_getter get);
-
+void set_tab_tunnel(t_getter get);
 
 /*
 **    paseur utils

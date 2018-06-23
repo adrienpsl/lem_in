@@ -46,18 +46,21 @@ void lem_read_line()
 	check_err_room(&get.data);
 
 	get_tunnel(&get);
+	set_tab_tunnel(&get);
 
-	ft_printf("list \n");
+	ft_printf("LIST --------------------\n");
 	dll_func(get.data.room, &print_room);
 
-	ft_printf("start \n");
-	print_room(get.data.start);
-	ft_printf("end \n");
-	print_room(get.data.end);
+//	ft_printf("start \n");
+//	print_room(get.data.start);
 
-	dll_func(get.data.tunnel, &print_tunnel);
 
-	ft_printf("%d %d %d \n", get.data.x, get.data.x, get.data.room->length);
+//	ft_printf("end \n");
+//	print_room(get.data.end);
+//
+//	dll_func(get.data.tunnel, &print_tunnel);
+
+//	ft_printf("%d %d %d \n", get.data.x, get.data.x, get.data.room->length);
 
 	// nb de salle,
 	// le ration entre les sallw

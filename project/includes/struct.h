@@ -21,6 +21,15 @@
 **    struct ========================================================
 */
 
+
+typedef struct		s_lem_ptr_00
+{
+	void	*ptr;
+} 					t_lem_ptr_00;
+typedef t_lem_ptr_00 *t_lem_ptr;
+
+
+
 /*
 **    lem
 */
@@ -36,13 +45,14 @@ typedef struct		s_tunnel_00
 } 					t_tunnel_00;
 typedef t_tunnel_00 *t_tunnel;
 
-
-
+#define PATH 1
+#define TAKEN 2
 typedef struct		s_room_00
 {
 	int x;
 	int y;
 	char *name;
+	int state;
 	t_dll l_tube;
 } 					t_room_00;
 typedef t_room_00 *t_room;
