@@ -27,7 +27,7 @@ void     print_tunnel(t_dll_l room_link);
 void	lem_read_line();
 void	get_coord_room(t_getter get);
 void 	get_tunnel(t_getter get);
-void set_tab_tunnel(t_getter get);
+void	set_tab_tunnel(t_getter get);
 
 /*
 **    paseur utils
@@ -38,5 +38,9 @@ void	check_err_room(t_get_data data);
 void	get_size_map(t_get_data data, int x, int y);
 
 
+/*
+**    exit
+*/
+void destroy_room_list(t_dll room_list);
 
 #endif //LEM_IN_FUNCTION_H

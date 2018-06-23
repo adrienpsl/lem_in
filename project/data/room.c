@@ -12,6 +12,11 @@
 
 #include "../includes/all_includes.h"
 
+void dll_nothing(void *link)
+{
+	(void) link;
+}
+
 t_dll_l new_room_link(char *name, char *x, char *y)
 {
 	static t_room_00 room;
@@ -27,9 +32,17 @@ t_dll_l new_room_link(char *name, char *x, char *y)
 	return (room_link);
 }
 
-void     destroy_room(t_room room)
+void destroy_room(void *room_ptr)
 {
-    	free_str(&room->name);
-		destroy_dll(&room->l_tube);
-		free(room);
+	t_room room;
+
+	room = room_ptr;
+	free_str(&room->name);
+	destroy_dll_func(&room->l_tube, &dll_nothing);
+	free(room);
+}
+
+void destroy_room_list(t_dll room_list)
+{
+	destroy_dll_func(&room_list, &destroy_room);
 }

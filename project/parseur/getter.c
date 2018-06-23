@@ -51,6 +51,7 @@ void lem_read_line()
 	ft_printf("LIST --------------------\n");
 	dll_func(get.data.room, &print_room);
 
+	destroy_room_list(get.data.room);
 //	ft_printf("start \n");
 //	print_room(get.data.start);
 
