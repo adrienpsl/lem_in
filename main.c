@@ -3,11 +3,13 @@
 
 int main()
 {
-	void *tab[10000];
+//	void *tab[10000];
+	t_lem lem;
 
-	printf("%zu \n", sizeof(tab));
 
-	lem_read_line();
+	printf("%zu \n", sizeof(t_gnl));
+
+	lem_read_line(NULL);
 
 	return 0;
 }

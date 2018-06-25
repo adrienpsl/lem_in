@@ -27,10 +27,11 @@ void get_nb_foumis(t_getter get)
 	if (is_int(get->utils.line, &result) == FAIL || result <= 0)
 		ft_error("Il n'y a pas de fourmis OU le nb n'est pas Valable");
 	get->data.nb_fourmis = result;
+	free_str(&get->utils.line);
 }
 
 // premiere fonction get sur gnl les data
-void lem_read_line()
+void lem_read_line(t_lem lem)
 {
 	t_getter_00 get;
 
@@ -49,9 +50,8 @@ void lem_read_line()
 	set_tab_tunnel(&get);
 
 	ft_printf("LIST --------------------\n");
-	dll_func(get.data.room, &print_room);
+//	dll_func(get.data.room, &print_room);
 
-	destroy_room_list(get.data.room);
 //	ft_printf("start \n");
 //	print_room(get.data.start);
 
@@ -59,11 +59,13 @@ void lem_read_line()
 //	ft_printf("end \n");
 //	print_room(get.data.end);
 //
-//	dll_func(get.data.tunnel, &print_tunnel);
+	dll_func(get.data.tunnel, &print_tunnel);
 
 //	ft_printf("%d %d %d \n", get.data.x, get.data.x, get.data.room->length);
 
 	// nb de salle,
 	// le ration entre les sallw
+	destroy_room_list(get.data.room);
+	destroy_dll_func(&get.data.tunnel, &destroy_tunnel);
 	free_str(&get.utils.line);
 }

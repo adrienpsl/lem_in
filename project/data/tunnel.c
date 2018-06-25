@@ -23,13 +23,12 @@ t_dll_l new_tunnel_link(char *room_1, char *room_2)
 	return (tunnel_link);
 }
 
-void destroy_tunnel(t_tunnel *ptr_tunnel)
+void destroy_tunnel(void *ptr_tunnel)
 {
 	static t_tunnel tunnel;
 
-	tunnel = *ptr_tunnel;
+	tunnel = ptr_tunnel;
 	free_str(&tunnel->room_1);
 	free_str(&tunnel->room_2);
 	free(tunnel);
-	*ptr_tunnel = NULL;
 }

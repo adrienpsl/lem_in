@@ -35,7 +35,13 @@ typedef t_lem_ptr_00 *t_lem_ptr;
 */
 typedef struct		s_lem
 {
-
+	t_dll room;
+	t_dll tunnel;
+	t_dll_l start;
+	t_dll_l end;
+	int x;
+	int y;
+	int nb_fourmis;
 }					*t_lem;
 
 typedef struct		s_tunnel_00
@@ -59,7 +65,7 @@ typedef t_room_00 *t_room;
 
 
 t_dll_l new_tunnel_link(char *room_1, char *room_2);
-void     destroy_tunnel(t_tunnel *ptr_tunnel);
+void     destroy_tunnel(void *ptr_tunnel);
 
 void     destroy_room(void* room_ptr);
 t_dll_l new_room_link(char *x, char *y, char *name);
