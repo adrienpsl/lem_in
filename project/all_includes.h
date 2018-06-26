@@ -5,19 +5,19 @@
 /*
 **    LIBFT
 */
-# include "../libft/ft_library_header.h"
+# include "libft/ft_library_header.h"
 
 /*
 **    project includes
 */
-# include "struct.h"
-# include "getter.h"
-# include "function.h"
+# include "includes/struct.h"
+# include "includes/getter.h"
+# include "includes/function.h"
 
 /*
 **    debug
 */
-void     print_room(t_dll_l room_link);
+void     print_room_dll_l(t_dll_l room_link);
 
 
 /*

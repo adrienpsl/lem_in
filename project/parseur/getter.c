@@ -14,7 +14,7 @@
     changer le fd dans les functions
 \*------------------------------------*/
 
-#include "../includes/all_includes.h"
+#include "../all_includes.h"
 
 /*
 **    get le bon nb de fourmis
@@ -40,8 +40,7 @@ t_get_data_00 lem_read_line()
 	get.data.tunnel = new_dll();
 
 	get.utils.fd = open_file(
-//	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
-	 "/Users/steeve/Desktop/adrien/lem_in-master/project/test/test_2");
+	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
 	get_nb_foumis(&get);
 
 	get_coord_room(&get);
@@ -50,15 +49,14 @@ t_get_data_00 lem_read_line()
 	get_tunnel(&get);
 	set_tab_tunnel(&get);
 
-	ft_printf("LIST --------------------\n");
-//	dll_func(get.data.room, &print_room);
+//	dll_func(get.data.room, &print_room_dll_l);
 
 //	ft_printf("start \n");
-//	print_room(get.data.start);
+//	print_room_dll_l(get.data.start);
 
 
 //	ft_printf("end \n");
-//	print_room(get.data.end);
+//	print_room_dll_l(get.data.end);
 //
 //	dll_func(get.data.tunnel, &print_tunnel);
 

@@ -14,7 +14,7 @@
     changer le fd dans les functions
 \*------------------------------------*/
 
-#include "../includes/all_includes.h"
+#include "../all_includes.h"
 
 int manage_comment(t_str_split split)
 {

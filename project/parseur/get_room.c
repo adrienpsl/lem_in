@@ -14,7 +14,7 @@
     changer le fd dans les functions
 \*------------------------------------*/
 
-#include "../includes/all_includes.h"
+#include "../all_includes.h"
 
 t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 {

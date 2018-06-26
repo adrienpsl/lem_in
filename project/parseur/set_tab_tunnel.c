@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/all_includes.h"
+#include "../all_includes.h"
 
 int same_name_room(t_dll_l link, void *ptr)
 {
@@ -34,8 +34,7 @@ void set_tunnel(t_room room, t_dll_l to_this_link)
 {
 	t_dll_l link;
 
-	link = new_dll_l_ptr((void*)0, 0);
-	link->content = to_this_link->content;
+	link = new_dll_l_ptr(to_this_link->content);
 	dll_add(link, room->l_tube);
 }
 
@@ -55,7 +54,7 @@ void set_tab_tunnel(t_getter get)
 		set_tunnel(room_link_2->content, room_link_1);
 		set_tunnel(room_link_1->content, room_link_2);
 		connection_link = connection_link->next;
-//		dll_func(get->data.room, &print_room);
+//		dll_func(get->data.room, &print_room_dll_l);
 //		ft_printf("========================\n");
 	}
 }

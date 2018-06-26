@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "all_includes.h"
+#include "../all_includes.h"
 
 #ifndef GETTER_H
 # define GETTER_H

@@ -13,12 +13,13 @@
 #ifndef LEM_IN_FUNCTION_H
 # define LEM_IN_FUNCTION_H
 
-# include "all_includes.h"
+# include "../all_includes.h"
 
 /*
 **    debug
 */
 void     print_tunnel(t_dll_l room_link);
+void     print_room(t_room room);
 
 
 /*

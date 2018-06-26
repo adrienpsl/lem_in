@@ -14,7 +14,7 @@
     changer le fd dans les functions
 \*------------------------------------*/
 
-#include "../includes/all_includes.h"
+#include "../all_includes.h"
 
 // la fonction prends la premiere room et la recherche
 

@@ -20,12 +20,10 @@
 **    change type ========================================================
 */
 typedef t_get_data_00 t_data_00;
-typedef t_dll t_path;
 
 /*
 **    struct ========================================================
 */
-
 
 typedef struct		s_lem_ptr_00
 {
@@ -72,6 +70,15 @@ typedef struct		s_room_00
 	t_dll l_tube;
 } 					t_room_00;
 typedef t_room_00 *t_room;
+
+typedef struct		s_path_00
+{
+	int size;
+	struct		s_path_00 *prev;
+	t_room 		room;
+} 					t_path_00;
+typedef t_path_00 *t_path;
+
 
 
 t_dll_l new_tunnel_link(char *room_1, char *room_2);

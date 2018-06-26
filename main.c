@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "project/includes/function.h"
 
-
 t_lem new_lem()
 {
 	t_lem lem;
@@ -15,30 +14,75 @@ t_lem new_lem()
 // je creer la premiere liste chainee, celle du depart
 // je parcours les connection de
 
-//void for_all(t_path path, t_dll all_path)
+//t_dll_l last_room(t_path path)
 //{
-//	// je parcours les link de la liste
+//	return (path->top);
 //}
+//
+/*
+**    genere un nouveau path et le set avec les ancienne val du old path,
+*/
+//
+//t_path get_path(t_path currrent_path, t_dll all_path)
+//{
+//	t_path new_path;
+//	t_dll_l path_link;
+//
+//	new_path = new_dll();
+//	new_path->length = currrent_path->length;
+//	new_path->top = currrent_path->top;
+//	new_path->end = currrent_path->end;
+//	path_link = new_dll_l_ptr(new_path);
+//	dll_add(path_link, all_path);
+//	return (new_path);
+//}
+
+// pour toute la liste de la room actuelle je fais un nouvaux chemin - 1
+// le link a changer, le truc a
+// j'ajoute a la liste les nouveau chemin
+//void split_path(t_path current_p, t_dll all_path)
+//{
+//	dll_func(current_p, &print_room_dll_l);
+//	//
+////	if ()
+////	    ;
+//}
+
+t_path new_path(int size, t_path prev_path, t_room room, t_dll all_path)
+{
+	t_path path;
+	t_dll_l path_link;
+
+	path = ft_malloc_protect(sizeof(t_path_00));
+	path->size = size;
+	path->prev = prev_path;
+	path->room = room;
+	path_link = new_dll_l_ptr(path);
+	dll_add(path_link, all_path);
+	return (path);
+}
 
 int main()
 {
+//	t_dll_l link;
+
 	t_lem lem;
-	t_path first;
-	t_dll_l path_link;
 	t_data_00 *data;
-
-
-	first = new_dll();
-	path_link = new_dll_l_ptr();
-	path_link->content = first;
 
 	lem = new_lem();
 	lem->data = lem_read_line(NULL);
 	data = &lem->data;
-	
 
-	print_room(data->start);
+	t_path start;
+//	t_dll_l link_ptr;
+	t_dll all_path;
 
+	all_path = new_dll();
+	start = new_path(0, NULL, data->start->content, all_path);
+	print_room(start->room);
+
+
+	//	split_path(start, all_path);
 
 	return 0;
 }

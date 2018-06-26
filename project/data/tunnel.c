@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/all_includes.h"
+#include "../all_includes.h"
 
 t_dll_l new_tunnel_link(char *room_1, char *room_2)
 {
