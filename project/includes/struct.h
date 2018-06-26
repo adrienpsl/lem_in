@@ -20,6 +20,7 @@
 **    change type ========================================================
 */
 typedef t_get_data_00 t_data_00;
+typedef t_data_00 *t_data;
 
 /*
 **    struct ========================================================
@@ -30,27 +31,6 @@ typedef struct		s_lem_ptr_00
 	void	*ptr;
 } 					t_lem_ptr_00;
 typedef t_lem_ptr_00 *t_lem_ptr;
-
-
-typedef struct		s_algo_00
-{
-	t_dll	all_path;
-
-} 					t_algo_00;
-typedef t_algo_00 *t_algo;
-
-
-
-/*
-**    lem
-*/
-typedef struct		s_lem
-{
-	t_data_00 data;
-	t_algo_00 algo00;
-}					t_lem_00;
-typedef t_lem_00 *t_lem;
-
 
 typedef struct		s_tunnel_00
 {
@@ -80,12 +60,32 @@ typedef struct		s_path_00
 typedef t_path_00 *t_path;
 
 
+typedef struct		s_algo_00
+{
+	t_dll	all_path;
+	t_path 	working_path;
+	t_room end;
+} 					t_algo_00;
+typedef t_algo_00 *t_algo;
+
+/*
+**    lem
+*/
+typedef struct		s_lem
+{
+	t_data_00 data;
+	t_algo_00 algo;
+}					t_lem_00;
+typedef t_lem_00 *t_lem;
+
 
 t_dll_l new_tunnel_link(char *room_1, char *room_2);
 void     destroy_tunnel(void *ptr_tunnel);
 
 void     destroy_room(void* room_ptr);
 t_dll_l new_room_link(char *x, char *y, char *name);
+
+
 
 
 

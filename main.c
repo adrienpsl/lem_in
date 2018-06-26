@@ -7,7 +7,7 @@ t_lem new_lem()
 
 	lem = ft_malloc_protect(sizeof(t_lem_00));
 	ft_bzero(lem, sizeof(t_lem_00));
-	lem->algo00.all_path = new_dll();
+	lem->algo.all_path = new_dll();
 	return (lem);
 }
 
@@ -75,6 +75,9 @@ void     print_path_list(t_path path)
 		path = path->prev;
 	}
 }
+
+
+
 void get_new_path(t_path curent_path, t_dll all_path)
 {
 	t_path N_path;
@@ -85,9 +88,33 @@ void get_new_path(t_path curent_path, t_dll all_path)
 	l_tunnel = curent_path->room->l_tube;
 	room = ((t_room)l_tunnel->top->content);
 	size = curent_path->size + 1;
+
 	N_path = new_path(size, curent_path, room, all_path);
 	print_path_list(N_path);
 	//	print_room(N_path->room);
+}
+
+// je dois parcourir la dll
+//void tt()
+//{
+//	while (tube)
+//	{
+//
+//	}
+//}
+
+void set_algo(t_lem lem)
+{
+	lem->algo.all_path = new_dll();
+	lem->algo.end = lem->data.end;
+}
+
+void set_first_room(t_lem lem)
+{
+	t_path start;
+
+	start = new_path(0, NULL, lem->data.start->content, lem->algo.all_path);
+
 }
 
 int main()
@@ -95,21 +122,20 @@ int main()
 	//	t_dll_l link;
 
 	t_lem lem;
-	t_data_00 *data;
+//	t_data_00 *data;
 
 	lem = new_lem();
 	lem->data = lem_read_line(NULL);
-	data = &lem->data;
 
-	t_path start;
-	//	t_dll_l link_ptr;
-	t_dll all_path;
+	set_algo(lem);
+	set_first_room(lem);
 
-	all_path = new_dll();
-	start = new_path(0, NULL, data->start->content, all_path);
-//	print_room(start->room);
-	get_new_path(start, all_path);
 
+
+//	all_path = new_dll();
+//	start = new_path(0, NULL, data->start->content, all_path);
+//	get_new_path(start, all_path);
+//
 	// pour chaque - 1 new room j'ajoute un chemin
 
 	//	split_path(start, all_path);
