@@ -49,7 +49,7 @@ void check_err_room(t_get_data data)
 		ft_error("start et end sont les memes");
 }
 
-void get_coord_room(t_getter get)
+void  get_coord_room(t_getter get)
 {
 	static t_get_utils utils;
 	static t_dll_l room_link;

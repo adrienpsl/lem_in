@@ -13,9 +13,14 @@
 #ifndef LEM_IN_STRUCT_H
 # define LEM_IN_STRUCT_H
 
-# include "all_includes.h"
+#include "getter.h"
 #include "../libft/include/dll_header.h"
 
+/*
+**    change type ========================================================
+*/
+typedef t_get_data_00 t_data_00;
+typedef t_dll t_path;
 
 /*
 **    struct ========================================================
@@ -29,20 +34,25 @@ typedef struct		s_lem_ptr_00
 typedef t_lem_ptr_00 *t_lem_ptr;
 
 
+typedef struct		s_algo_00
+{
+	t_dll	all_path;
+
+} 					t_algo_00;
+typedef t_algo_00 *t_algo;
+
+
 
 /*
 **    lem
 */
 typedef struct		s_lem
 {
-	t_dll room;
-	t_dll tunnel;
-	t_dll_l start;
-	t_dll_l end;
-	int x;
-	int y;
-	int nb_fourmis;
-}					*t_lem;
+	t_data_00 data;
+	t_algo_00 algo00;
+}					t_lem_00;
+typedef t_lem_00 *t_lem;
+
 
 typedef struct		s_tunnel_00
 {

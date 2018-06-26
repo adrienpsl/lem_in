@@ -31,7 +31,7 @@ void get_nb_foumis(t_getter get)
 }
 
 // premiere fonction get sur gnl les data
-void lem_read_line(t_lem lem)
+t_get_data_00 lem_read_line()
 {
 	t_getter_00 get;
 
@@ -40,7 +40,8 @@ void lem_read_line(t_lem lem)
 	get.data.tunnel = new_dll();
 
 	get.utils.fd = open_file(
-	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
+//	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
+	 "/Users/steeve/Desktop/adrien/lem_in-master/project/test/test_2");
 	get_nb_foumis(&get);
 
 	get_coord_room(&get);
@@ -59,13 +60,14 @@ void lem_read_line(t_lem lem)
 //	ft_printf("end \n");
 //	print_room(get.data.end);
 //
-	dll_func(get.data.tunnel, &print_tunnel);
+//	dll_func(get.data.tunnel, &print_tunnel);
 
 //	ft_printf("%d %d %d \n", get.data.x, get.data.x, get.data.room->length);
 
 	// nb de salle,
 	// le ration entre les sallw
-	destroy_room_list(get.data.room);
-	destroy_dll_func(&get.data.tunnel, &destroy_tunnel);
-	free_str(&get.utils.line);
+//	destroy_room_list(get.data.room);
+//	destroy_dll_func(&get.data.tunnel, &destroy_tunnel);
+//	free_str(&get.utils.line);
+	return (get.data);
 }

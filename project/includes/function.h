@@ -24,7 +24,7 @@ void     print_tunnel(t_dll_l room_link);
 /*
 **   PARSEUR  ========================================================
 */
-void lem_read_line(struct s_lem *lem);
+t_get_data_00 lem_read_line( );
 void	get_coord_room(t_getter get);
 void 	get_tunnel(t_getter get);
 void	set_tab_tunnel(t_getter get);
