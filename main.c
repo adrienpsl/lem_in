@@ -62,9 +62,37 @@ t_path new_path(int size, t_path prev_path, t_room room, t_dll all_path)
 	return (path);
 }
 
+void     print_path(t_path path)
+{
+    print_room(path->room);
+}
+
+void     print_path_list(t_path path)
+{
+	while (path)
+	{
+	    print_path(path);
+		path = path->prev;
+	}
+}
+void get_new_path(t_path curent_path, t_dll all_path)
+{
+	t_path N_path;
+	t_dll l_tunnel;
+	t_room room;
+	int size;
+
+	l_tunnel = curent_path->room->l_tube;
+	room = ((t_room)l_tunnel->top->content);
+	size = curent_path->size + 1;
+	N_path = new_path(size, curent_path, room, all_path);
+	print_path_list(N_path);
+	//	print_room(N_path->room);
+}
+
 int main()
 {
-//	t_dll_l link;
+	//	t_dll_l link;
 
 	t_lem lem;
 	t_data_00 *data;
@@ -74,13 +102,15 @@ int main()
 	data = &lem->data;
 
 	t_path start;
-//	t_dll_l link_ptr;
+	//	t_dll_l link_ptr;
 	t_dll all_path;
 
 	all_path = new_dll();
 	start = new_path(0, NULL, data->start->content, all_path);
-	print_room(start->room);
+//	print_room(start->room);
+	get_new_path(start, all_path);
 
+	// pour chaque - 1 new room j'ajoute un chemin
 
 	//	split_path(start, all_path);
 
