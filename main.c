@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "project/includes/function.h"
 
+void add_working_path(t_dll working_path, t_path room);
+
+
 t_lem new_lem()
 {
 	t_lem lem;
@@ -62,6 +65,7 @@ t_path new_path(int size, t_path prev_path, t_room room, t_dll all_path)
 	return (path);
 }
 
+
 void     print_path(t_path path)
 {
     print_room(path->room);
@@ -78,19 +82,24 @@ void     print_path_list(t_path path)
 
 
 
-void get_new_path(t_path curent_path, t_dll all_path)
+void get_new_path(t_path curent_path, t_dll all_path, t_dll working_path)
 {
-	t_path N_path;
-	t_dll l_tunnel;
+	t_dll_l tunnel_link;
+	t_path path;
 	t_room room;
 	int size;
 
-	l_tunnel = curent_path->room->l_tube;
-	room = ((t_room)l_tunnel->top->content);
+	tunnel_link = curent_path->room->l_tube->top;
 	size = curent_path->size + 1;
 
-	N_path = new_path(size, curent_path, room, all_path);
-	print_path_list(N_path);
+	while (tunnel_link)
+	{
+	    room = tunnel_link->content;
+	    path = new_path(size, curent_path, room, all_path);
+	    path->prev = curent_path;
+	    add_working_path(working_path, path);
+	    tunnel_link = tunnel_link->next;
+	}
 	//	print_room(N_path->room);
 }
 
@@ -106,14 +115,19 @@ void get_new_path(t_path curent_path, t_dll all_path)
 void set_algo(t_lem lem)
 {
 	lem->algo.all_path = new_dll();
-	lem->algo.end = lem->data.end;
+	lem->algo.end = lem->data.end->content;
+	lem->algo.working_path = new_dll();
 }
 
 void set_first_room(t_lem lem)
 {
 	t_path start;
+	t_algo algo;
 
 	start = new_path(0, NULL, lem->data.start->content, lem->algo.all_path);
+	algo = &lem->algo;
+	add_working_path(lem->algo.working_path, start);
+	get_new_path(start, algo->all_path, algo->working_path);
 
 }
 
@@ -129,7 +143,6 @@ int main()
 
 	set_algo(lem);
 	set_first_room(lem);
-
 
 
 //	all_path = new_dll();

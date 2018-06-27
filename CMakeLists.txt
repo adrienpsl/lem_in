@@ -42,7 +42,7 @@ file(GLOB sources6 "${LIBFT}/test/*.c")
 #*------------------------------------*\
 #    --  PROJET FILE  --
 #*------------------------------------*/
-file(GLOB sources00 "${REPO}/src/*.c")
+file(GLOB sources00 "${REPO}/*.c")
 file(GLOB sources01 "${REPO}/**/*.c")
 file(GLOB sources02 "${REPO}/**/**/*.c")
 file(GLOB sources03 "${REPO}/**/**/**/*.c")

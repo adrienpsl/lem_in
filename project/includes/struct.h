@@ -26,12 +26,6 @@ typedef t_data_00 *t_data;
 **    struct ========================================================
 */
 
-typedef struct		s_lem_ptr_00
-{
-	void	*ptr;
-} 					t_lem_ptr_00;
-typedef t_lem_ptr_00 *t_lem_ptr;
-
 typedef struct		s_tunnel_00
 {
 	char *room_1;
@@ -63,7 +57,7 @@ typedef t_path_00 *t_path;
 typedef struct		s_algo_00
 {
 	t_dll	all_path;
-	t_path 	working_path;
+	t_dll 	working_path;
 	t_room end;
 } 					t_algo_00;
 typedef t_algo_00 *t_algo;
