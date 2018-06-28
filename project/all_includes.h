@@ -13,6 +13,7 @@
 # include "includes/struct.h"
 # include "includes/getter.h"
 # include "includes/function.h"
+# include "includes/struct_min.h"
 
 /*
 **    debug

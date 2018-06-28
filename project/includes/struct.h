@@ -15,6 +15,7 @@
 
 #include "getter.h"
 #include "../libft/include/dll_header.h"
+#include "struct_min.h"
 
 /*
 **    change type ========================================================
@@ -23,47 +24,19 @@ typedef t_get_data_00 t_data_00;
 typedef t_data_00 *t_data;
 
 /*
-**    struct ========================================================
+**    algo ========================================================
 */
-
-typedef struct		s_tunnel_00
-{
-	char *room_1;
-	char *room_2;
-} 					t_tunnel_00;
-typedef t_tunnel_00 *t_tunnel;
-
-#define PATH 1
-#define TAKEN 2
-typedef struct		s_room_00
-{
-	int x;
-	int y;
-	char *name;
-	int state;
-	t_dll l_tube;
-} 					t_room_00;
-typedef t_room_00 *t_room;
-
-typedef struct		s_path_00
-{
-	int size;
-	struct		s_path_00 *prev;
-	t_room 		room;
-} 					t_path_00;
-typedef t_path_00 *t_path;
-
-
 typedef struct		s_algo_00
 {
-	t_dll	all_path;
 	t_dll 	working_path;
+	t_tab_room map;
+	size_t y_map;
 	t_room end;
 } 					t_algo_00;
 typedef t_algo_00 *t_algo;
 
 /*
-**    lem
+**    lem ========================================================
 */
 typedef struct		s_lem
 {
@@ -71,6 +44,15 @@ typedef struct		s_lem
 	t_algo_00 algo;
 }					t_lem_00;
 typedef t_lem_00 *t_lem;
+
+
+
+
+
+
+
+
+
 
 
 t_dll_l new_tunnel_link(char *room_1, char *room_2);

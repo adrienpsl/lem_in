@@ -29,9 +29,9 @@ void     free_lem(t_lem lem)
 	algo = &lem->algo;
 	data = &lem->data;
 
-	destroy_dll_func(&algo->working_path, &dll_l_notfree_content);
-	destroy_dll(&algo->all_path);
-	destroy_dll_func(&data->room, &destroy_room);
-	destroy_dll_func(&data->tunnel, &destroy_tunnel);
+//	destroy_dll_func(&algo->working_path, &dll_l_notfree_content);
+//	destroy_dll(&algo->all_path);
+//	destroy_dll_func(&data->room, &destroy_room);
+//	destroy_dll_func(&data->tunnel, &destroy_tunnel);
 	free(lem);
 }

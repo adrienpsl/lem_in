@@ -1,0 +1,13 @@
+1 --> fair et print la map comme minh :)
+2 --> une fois que j'ai toute les room :
+        je fais un tab de la taille de toute mes rooms
+            il me faut la structure de cette taille
+
+    je construit le tab
+        une chaine de mes structs,
+
+
+ranger la map:
+    je les mets du plus petit au plus grand
+    je fais un algo de trie
+    

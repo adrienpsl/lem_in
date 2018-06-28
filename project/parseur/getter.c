@@ -51,6 +51,7 @@ t_get_data_00 lem_read_line()
 
 //	dll_func(get.data.room, &print_room_dll_l);
 
+
 //	ft_printf("start \n");
 //	print_room_dll_l(get.data.start);
 

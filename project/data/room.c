@@ -27,7 +27,6 @@ t_dll_l new_room_link(char *name, char *x, char *y)
 	if (is_int(y, &room.y) == FALSE)
 		return (NULL);
 	room.name = ft_strdup(name);
-	room.l_tube = new_dll();
 	room_link = new_dll_l(&room, sizeof(t_room_00));
 	return (room_link);
 }
@@ -38,7 +37,6 @@ void destroy_room(void *room_ptr)
 
 	room = room_ptr;
 	free_str(&room->name);
-	destroy_dll_func(&room->l_tube, &dll_nothing);
 	free(room);
 }
 

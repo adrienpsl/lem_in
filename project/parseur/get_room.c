@@ -54,6 +54,7 @@ void  get_coord_room(t_getter get)
 	static t_get_utils utils;
 	static t_dll_l room_link;
 	t_str_split split;
+	static int i = 0;
 
 	split = NULL;
 	utils = &get->utils;

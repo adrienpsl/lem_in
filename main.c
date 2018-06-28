@@ -1,130 +1,110 @@
 #include <stdio.h>
 #include "project/includes/function.h"
 
-t_dll_l add_working_path(t_dll working_path, t_path room);
+/* je get l'index de la connetion*/
 
-/*
-**    ajoute au cache tout les nouveaux embranchement
-*/
-void get_new_path(t_path curent_path, t_dll all_path, t_dll working_path)
+int same_name(t_dll_l current_link, void *ptr)
+{
+	t_room room;
+
+	room = current_link->content;
+	if (ft_strcmp(room->name, ptr) == 0)
+		return (TRUE);
+	return (FALSE);
+}
+
+void print_name(int a)
+{
+	int i;
+
+	i = 'A';
+	printf("[[ ");
+	while (i < a+ 'A')
+	{
+	    printf("%c ", i);
+		++i;
+	}
+	printf("]]\n");
+}
+
+
+void     print_map(t_algo algo)
+{
+	size_t i;
+	t_tab_room current_tab;
+	size_t line;
+	int letter;
+
+	i = 0;
+	line = 0;
+	letter = 'B';
+
+	current_tab = algo->map;
+
+	print_name(algo->y_map);
+	printf("\nA  ");
+	while (i < algo->y_map * algo->y_map)
+	{
+		printf("%c ", (current_tab + i)->link ? 'X' : '.');
+		++i;
+		++line;
+		if (line == algo->y_map)
+		{
+			printf(" \n%c  ", letter);
+			letter++;
+			line = 0;
+		}
+	}
+	printf("\n");
+}
+
+void set_tunnel(t_data data, t_algo algo)
 {
 	t_dll_l tunnel_link;
-	t_path path;
-	t_room room;
-	int size;
+	t_tunnel tunnel;
+	size_t x;
+	size_t y;
+	int a;
+	(void) algo;
 
-	tunnel_link = curent_path->room->l_tube->top;
-	size = curent_path->size + 1;
-
+	tunnel_link = data->tunnel->top;
+	//
 	while (tunnel_link)
 	{
-		room = tunnel_link->content;
-		if (room->state == 0)
-		{
-			path = new_path(size, curent_path, room, all_path);
-			room->state = TAKEN;
-			path->prev = curent_path;
-			add_working_path(working_path, path);
-		}
+		tunnel = tunnel_link->content;
+		dll_index_link_func(data->room, same_name, tunnel->room_2, &x);
+		dll_index_link_func(data->room, same_name, tunnel->room_1, &y);
+		a = (y * data->room->length) + x;
+		(algo->map + a)->link = 1;
+		print_map(algo);
 		tunnel_link = tunnel_link->next;
 	}
-	//	print_room(N_path->room);
-}
-
-void delete_path_link(t_dll_l link, t_algo algo)
-{
-	size_t index;
-
-	dll_index_link(link, algo->working_path, &index);
-	link = dll_drop_index(algo->working_path, index);
-	destroy_dll_l_func(&link, dll_l_notfree_content);
-}
-
-/*	je parcourds le cache
- * 	a chaque pachemin,
- * 			si embranchement -> je lance get_path
- * 			si rien, je delete le cache
- * */
-void update_cache(t_algo algo)
-{
-	t_dll_l cache_link;
-	t_dll_l link_tmp;
-	int count;
-
-	cache_link = algo->working_path->top;
-	count = algo->working_path->length;
-	while (count)
-	{
-		get_new_path(cache_link->content, algo->all_path, algo->working_path);
-		cache_link = cache_link->next;
-		delete_path_link();
-		--count;
-	}
-}
-
-
-void generate_first_path(t_algo algo, t_data data)
-{
-	t_dll_l last_link;
-	size_t index;
-
-	t_path start_room;
-	t_dll_l tmp_start_room;
-
-
-	start_room = new_path(0, NULL, data->start->content, algo->all_path);
-	start_room->room->state = TAKEN;
-
-	tmp_start_room = add_working_path(algo->working_path, start_room);
-	get_new_path(start_room, algo->all_path, algo->working_path);
-
-	// clean le old cache, je ne detruit pas room quand je fais ca
-	dll_index_link(last_link, algo->working_path, &index);
-	last_link = dll_drop_index(algo->working_path, index);
-	destroy_dll_l_func(&last_link, dll_l_notfree_content);
-	dll_func(algo->working_path, &print_path_dll);
-
-}
-
-
-void set_algo(t_algo algo, t_data data)
-{
-
-	algo->all_path = new_dll();
-	algo->working_path = new_dll();
-	algo->end = data->end->content;
-
-	ft_printf("---------------------------------- \n");
-	update_cache(algo);
-	update_cache(algo);
-	dll_func(algo->working_path, &print_path_dll);
-
-	get_new_path(start_room, algo->all_path, algo->working_path);
-	start_room->room->state = TAKEN;
-
 }
 
 int main()
 {
-	//	t_dll_l link;
-
 	t_lem lem;
-	//	t_data_00 *data;
+	t_algo algo;
+	t_data data;
+	size_t all_map;
 
 	lem = new_lem();
 	lem->data = lem_read_line(NULL);
+	algo = &lem->algo;
+	data = &lem->data;
 
-	set_algo(lem);
-	set_first_room(lem);
-	free_lem(lem);
+	// A - B
+	// une fois que la tab est generer j'ai plus rien a faire :).
+	// mon objet map : je dois renomer les map, dans le meme ordre que la liste chainee, le x et le y sont donner par une fonction qui cherche chacune des
+	// liaison : x et y.
+	// c'est un carre donc dans un sens ou dans l'autre ca fait la meme chose.
 
-	//	all_path = new_dll();
-	//	start = new_path(0, NULL, data->start->content, all_path);
-	//	get_new_path(start, all_path);
-	//
-	// pour chaque - 1 new room j'ajoute un chemin
-
-	//	split_path(start, all_path);
+	algo->y_map = data->room->length;
+	all_map =  sizeof(t_tab_room_00) * algo->y_map * algo->y_map;
+	algo->map = ft_malloc_protect(all_map);
+	ft_memset(algo->map, 0, all_map);
+	set_tunnel(data, algo);
+	print_map(algo);
 
 	return 0;
 }

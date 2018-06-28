@@ -17,7 +17,6 @@ void     print_room(t_room room)
 	//		ft_printf("%d ", room->x);
 	//		ft_printf("%d \n", room->y);
 	ft_printf("---- \n");
-	dll_func_lim(room->l_tube,room->l_tube->length, &print_tunnel_room);
 	ft_printf(" \n");
 }
 
@@ -27,10 +26,9 @@ void     print_room_dll_l(t_dll_l room_link)
 
 		room = room_link->content;
 		ft_printf("*%s* \n", room->name);
-//		ft_printf("%d ", room->x);
-//		ft_printf("%d \n", room->y);
+		ft_printf("%d ", room->x);
+		ft_printf("%d \n", room->y);
 		ft_printf("---- \n");
-		dll_func_lim(room->l_tube,room->l_tube->length, &print_tunnel_room);
 		ft_printf(" \n");
 }
 
@@ -47,13 +45,6 @@ void     print_tunnel(t_dll_l room_link)
 
 // print les nouvelle salle au tour2
 
-void     print_path_dll(t_dll_l link)
-{
-    t_path path;
-
-	path = ((t_dll_l)link)->content;
-	print_path(path);
-}
 
 
 // print les chemin

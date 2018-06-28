@@ -15,7 +15,6 @@
 #ifndef GETTER_H
 # define GETTER_H
 
-
 /*
 **    data
 */
@@ -30,6 +29,7 @@ typedef struct		s_get_data_00
 	int nb_fourmis;
 } 					t_get_data_00;
 typedef t_get_data_00 *t_get_data;
+
 
 /*
 **    utils

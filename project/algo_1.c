@@ -13,11 +13,3 @@
 #include "all_includes.h"
 
 
-t_dll_l add_working_path(t_dll working_path, t_path path)
-{
-	t_dll_l room_ptr_link;
-
-	room_ptr_link = new_dll_l_ptr(path);
-	dll_add(room_ptr_link, working_path);
-	return (room_ptr_link);
-}
