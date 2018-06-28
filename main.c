@@ -31,6 +31,15 @@ void get_new_path(t_path curent_path, t_dll all_path, t_dll working_path)
 	//	print_room(N_path->room);
 }
 
+void delete_path_link(t_dll_l link, t_algo algo)
+{
+	size_t index;
+
+	dll_index_link(link, algo->working_path, &index);
+	link = dll_drop_index(algo->working_path, index);
+	destroy_dll_l_func(&link, dll_l_notfree_content);
+}
+
 /*	je parcourds le cache
  * 	a chaque pachemin,
  * 			si embranchement -> je lance get_path
@@ -39,22 +48,16 @@ void get_new_path(t_path curent_path, t_dll all_path, t_dll working_path)
 void update_cache(t_algo algo)
 {
 	t_dll_l cache_link;
-	t_dll_l last_link;
-	size_t index;
+	t_dll_l link_tmp;
 	int count;
 
 	cache_link = algo->working_path->top;
 	count = algo->working_path->length;
 	while (count)
 	{
-
 		get_new_path(cache_link->content, algo->all_path, algo->working_path);
-
-		last_link = cache_link;
 		cache_link = cache_link->next;
-		dll_index_link(last_link, algo->working_path, &index);
-		last_link = dll_drop_index(algo->working_path, index);
-		destroy_dll_l_func(&last_link, dll_l_notfree_content);
+		delete_path_link();
 		--count;
 	}
 }
