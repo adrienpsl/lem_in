@@ -10,14 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "all_includes.h"
+#include "../all_includes.h"
 
-
-t_dll_l add_working_path(t_dll working_path, t_path room)
+t_lem new_lem()
 {
-	t_dll_l room_ptr_link;
+	t_lem lem;
 
-	room_ptr_link = new_dll_l_ptr(room);
-	dll_add(room_ptr_link, working_path);
-	return (room_ptr_link);
+	lem = ft_malloc_protect(sizeof(t_lem_00));
+	ft_bzero(lem, sizeof(t_lem_00));
+	return (lem);
+}
+
+void     free_lem(t_lem lem)
+{
+    t_algo algo;
+	t_data data;
+
+	algo = &lem->algo;
+	data = &lem->data;
+
+	destroy_dll_func(&algo->working_path, &dll_l_notfree_content);
+//	destroy_dll_func(&algo->all_path, &dll_l_notfree_content);
+	destroy_dll(&algo->all_path);
+	destroy_dll_func(&data->room, &destroy_room);
+	destroy_dll_func(&data->tunnel, &destroy_tunnel);
+	free(lem);
 }
