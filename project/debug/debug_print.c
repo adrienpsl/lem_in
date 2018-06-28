@@ -32,15 +32,17 @@ void     print_room_dll_l(t_dll_l room_link)
 		ft_printf(" \n");
 }
 
-void     print_tunnel(t_dll_l room_link)
+void     print_tunnel_dll(t_dll_l room_link)
 {
 	t_tunnel tunnel;
 
 	tunnel = room_link->content;
 
-	ft_printf("%s", tunnel->room_1);
-	ft_printf("-");
-	ft_printf("%s \n", tunnel->room_2);
+	ft_printf("%s", tunnel->c_room_1);
+	ft_printf(" - ");
+	ft_printf("%s ", tunnel->c_room_2);
+	printf("%d - %d\n", tunnel->room_1, tunnel->room_2);
+
 }
 
 // print les nouvelle salle au tour2

@@ -20,6 +20,7 @@ t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 {
 	t_dll_l room_link;
 	t_room room;
+	static int i = 0;
 
 	room_link = new_room_link(*split->start,
 							  *(split->start + 1),
@@ -35,6 +36,7 @@ t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 	{
 		room = room_link->content;
 		get_size_map(data, room->x, room->y);
+		room->nb = i++;
 	}
 	return (room_link);
 }
@@ -54,7 +56,6 @@ void  get_coord_room(t_getter get)
 	static t_get_utils utils;
 	static t_dll_l room_link;
 	t_str_split split;
-	static int i = 0;
 
 	split = NULL;
 	utils = &get->utils;

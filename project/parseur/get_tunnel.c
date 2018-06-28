@@ -33,14 +33,17 @@ int find_room(t_dll_l link, void *ptr_str)
 t_dll_l get_tunnel_link(t_str_split split, t_get_data data)
 {
 	t_dll_l tunne_link;
+	t_room room_1;
+	t_room room_2;
 	t_dll list_room;
 
 	list_room = data->room;
-	if (dll_find(list_room, find_room, *split->start) != NULL &&
-		dll_find(list_room, find_room, *(split->start + 1)) != NULL)
-	{
-		tunne_link = new_tunnel_link(*split->start, *(split->start + 1));
-	}
+
+	room_1 = (t_room )(dll_find(list_room, find_room, *split->start))->content;
+	room_2 = (t_room )(dll_find(list_room, find_room, *(split->start + 1)))->content;
+	if (room_1  && room_2)
+		tunne_link = new_tunnel_link(*split->start, *(split->start + 1), room_1->nb
+		 , room_2->nb);
 	else
 		tunne_link = NULL;
 

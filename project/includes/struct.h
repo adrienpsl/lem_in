@@ -55,7 +55,7 @@ typedef t_lem_00 *t_lem;
 
 
 
-t_dll_l new_tunnel_link(char *room_1, char *room_2);
+t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2, int room_1, int room_2);
 void     destroy_tunnel(void *ptr_tunnel);
 
 void     destroy_room(void* room_ptr);

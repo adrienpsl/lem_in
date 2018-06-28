@@ -12,13 +12,15 @@
 
 #include "../all_includes.h"
 
-t_dll_l new_tunnel_link(char *room_1, char *room_2)
+t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2, int room_1, int room_2)
 {
 	t_tunnel_00 tunnel;
 	t_dll_l tunnel_link = NULL;
 
-	tunnel.room_1 = ft_strdup(room_1);
-	tunnel.room_2 = ft_strdup(room_2);
+	tunnel.c_room_1 = ft_strdup(c_room_1);
+	tunnel.c_room_2 = ft_strdup(c_room_2);
+	tunnel.room_1 = room_1;
+	tunnel.room_2 = room_2;
 	tunnel_link = new_dll_l(&tunnel, sizeof(t_tunnel_00));
 	return (tunnel_link);
 }
@@ -28,7 +30,7 @@ void destroy_tunnel(void *ptr_tunnel)
 	static t_tunnel tunnel;
 
 	tunnel = ptr_tunnel;
-	free_str(&tunnel->room_1);
-	free_str(&tunnel->room_2);
+	free_str(&tunnel->c_room_1);
+	free_str(&tunnel->c_room_2);
 	free(tunnel);
 }

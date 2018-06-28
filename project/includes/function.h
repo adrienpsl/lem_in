@@ -18,7 +18,7 @@
 /*
 **    debug
 */
-void     print_tunnel(t_dll_l room_link);
+void     print_tunnel_dll(t_dll_l room_link);
 void     print_room(t_room room);
 
 

@@ -41,8 +41,8 @@ void set_tab_tunnel(t_getter get)
 	while (connection_link)
 	{
 	    tunnel = connection_link->content;
-		room_link_1 = get_room_link(get->data.room, tunnel->room_1);
-		room_link_2 = get_room_link(get->data.room, tunnel->room_2);
+		room_link_1 = get_room_link(get->data.room, tunnel->c_room_1);
+		room_link_2 = get_room_link(get->data.room, tunnel->c_room_2);
 		connection_link = connection_link->next;
 //		dll_func(get->data.room, &print_room_dll_l);
 //		ft_printf("========================\n");

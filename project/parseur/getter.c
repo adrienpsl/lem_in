@@ -59,7 +59,7 @@ t_get_data_00 lem_read_line()
 //	ft_printf("end \n");
 //	print_room_dll_l(get.data.end);
 //
-//	dll_func(get.data.tunnel, &print_tunnel);
+	dll_func(get.data.tunnel, &print_tunnel_dll);
 
 //	ft_printf("%d %d %d \n", get.data.x, get.data.x, get.data.room->length);
 

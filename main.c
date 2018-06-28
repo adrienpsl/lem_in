@@ -72,8 +72,8 @@ void set_tunnel(t_data data, t_algo algo)
 	while (tunnel_link)
 	{
 		tunnel = tunnel_link->content;
-		dll_index_link_func(data->room, same_name, tunnel->room_2, &x);
-		dll_index_link_func(data->room, same_name, tunnel->room_1, &y);
+		dll_index_link_func(data->room, same_name, tunnel->c_room_2, &x);
+		dll_index_link_func(data->room, same_name, tunnel->c_room_1, &y);
 		a = (y * data->room->length) + x;
 		(algo->map + a)->link = 1;
 		print_map(algo);
