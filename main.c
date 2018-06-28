@@ -41,52 +41,64 @@ void update_cache(t_algo algo)
 	t_dll_l cache_link;
 	t_dll_l last_link;
 	size_t index;
+	int count;
 
 	cache_link = algo->working_path->top;
-	//	while (cache_link)
-	//	{
+	count = algo->working_path->length;
+	while (count)
+	{
 
-	get_new_path(cache_link->content, algo->all_path, algo->working_path);
+		get_new_path(cache_link->content, algo->all_path, algo->working_path);
 
-	last_link = cache_link;
-	dll_index_link(last_link, algo->working_path, &index);
-	last_link = dll_drop_index(algo->working_path, index);
-	destroy_dll_l_func(&last_link, dll_l_notfree_content);
-	cache_link = cache_link->next;
-
-	//	}
+		last_link = cache_link;
+		cache_link = cache_link->next;
+		dll_index_link(last_link, algo->working_path, &index);
+		last_link = dll_drop_index(algo->working_path, index);
+		destroy_dll_l_func(&last_link, dll_l_notfree_content);
+		--count;
+	}
 }
 
-void set_algo(t_lem lem)
-{
-	lem->algo.all_path = new_dll();
-	lem->algo.end = lem->data.end->content;
-	lem->algo.working_path = new_dll();
-}
 
-void set_first_room(t_lem lem)
+void generate_first_path(t_algo algo, t_data data)
 {
-	t_path start;
-	t_algo algo;
 	t_dll_l last_link;
 	size_t index;
 
-	start = new_path(0, NULL, lem->data.start->content, lem->algo.all_path);
-	algo = &lem->algo;
-	last_link = add_working_path(lem->algo.working_path, start);
+	t_path start_room;
+	t_dll_l tmp_start_room;
 
-	// mise a jour du cash
-	get_new_path(start, algo->all_path, algo->working_path);
-	start->room->state = TAKEN;
+
+	start_room = new_path(0, NULL, data->start->content, algo->all_path);
+	start_room->room->state = TAKEN;
+
+	tmp_start_room = add_working_path(algo->working_path, start_room);
+	get_new_path(start_room, algo->all_path, algo->working_path);
 
 	// clean le old cache, je ne detruit pas room quand je fais ca
 	dll_index_link(last_link, algo->working_path, &index);
 	last_link = dll_drop_index(algo->working_path, index);
 	destroy_dll_l_func(&last_link, dll_l_notfree_content);
 	dll_func(algo->working_path, &print_path_dll);
+
+}
+
+
+void set_algo(t_algo algo, t_data data)
+{
+
+	algo->all_path = new_dll();
+	algo->working_path = new_dll();
+	algo->end = data->end->content;
+
 	ft_printf("---------------------------------- \n");
 	update_cache(algo);
+	update_cache(algo);
 	dll_func(algo->working_path, &print_path_dll);
+
+	get_new_path(start_room, algo->all_path, algo->working_path);
+	start_room->room->state = TAKEN;
+
 }
 
 int main()
