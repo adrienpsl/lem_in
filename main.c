@@ -3,8 +3,6 @@
 
 t_dll_l add_working_path(t_dll working_path, t_path room);
 
-
-
 /*
 **    ajoute au cache tout les nouveaux embranchement
 */
@@ -20,15 +18,18 @@ void get_new_path(t_path curent_path, t_dll all_path, t_dll working_path)
 
 	while (tunnel_link)
 	{
-	    room = tunnel_link->content;
-	    path = new_path(size, curent_path, room, all_path);
-	    path->prev = curent_path;
-	    add_working_path(working_path, path);
-	    tunnel_link = tunnel_link->next;
+		room = tunnel_link->content;
+		if (room->state == 0)
+		{
+			path = new_path(size, curent_path, room, all_path);
+			room->state = TAKEN;
+			path->prev = curent_path;
+			add_working_path(working_path, path);
+		}
+		tunnel_link = tunnel_link->next;
 	}
 	//	print_room(N_path->room);
 }
-
 
 /*	je parcourds le cache
  * 	a chaque pachemin,
@@ -38,12 +39,22 @@ void get_new_path(t_path curent_path, t_dll all_path, t_dll working_path)
 void update_cache(t_algo algo)
 {
 	t_dll_l cache_link;
+	t_dll_l last_link;
+	size_t index;
 
 	cache_link = algo->working_path->top;
-	while (cache_link)
-	{
-	    ;
-	}
+	//	while (cache_link)
+	//	{
+
+	get_new_path(cache_link->content, algo->all_path, algo->working_path);
+
+	last_link = cache_link;
+	dll_index_link(last_link, algo->working_path, &index);
+	last_link = dll_drop_index(algo->working_path, index);
+	destroy_dll_l_func(&last_link, dll_l_notfree_content);
+	cache_link = cache_link->next;
+
+	//	}
 }
 
 void set_algo(t_lem lem)
@@ -66,13 +77,16 @@ void set_first_room(t_lem lem)
 
 	// mise a jour du cash
 	get_new_path(start, algo->all_path, algo->working_path);
+	start->room->state = TAKEN;
 
 	// clean le old cache, je ne detruit pas room quand je fais ca
 	dll_index_link(last_link, algo->working_path, &index);
 	last_link = dll_drop_index(algo->working_path, index);
-	destroy_dll_l(&last_link);
-	//	destroy_dll_l_func(&last_link, &destroy_room);
-
+	destroy_dll_l_func(&last_link, dll_l_notfree_content);
+	dll_func(algo->working_path, &print_path_dll);
+	ft_printf("---------------------------------- \n");
+	update_cache(algo);
+	dll_func(algo->working_path, &print_path_dll);
 }
 
 int main()
@@ -80,7 +94,7 @@ int main()
 	//	t_dll_l link;
 
 	t_lem lem;
-//	t_data_00 *data;
+	//	t_data_00 *data;
 
 	lem = new_lem();
 	lem->data = lem_read_line(NULL);
@@ -89,10 +103,10 @@ int main()
 	set_first_room(lem);
 	free_lem(lem);
 
-//	all_path = new_dll();
-//	start = new_path(0, NULL, data->start->content, all_path);
-//	get_new_path(start, all_path);
-//
+	//	all_path = new_dll();
+	//	start = new_path(0, NULL, data->start->content, all_path);
+	//	get_new_path(start, all_path);
+	//
 	// pour chaque - 1 new room j'ajoute un chemin
 
 	//	split_path(start, all_path);

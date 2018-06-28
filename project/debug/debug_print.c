@@ -44,3 +44,17 @@ void     print_tunnel(t_dll_l room_link)
 	ft_printf("-");
 	ft_printf("%s \n", tunnel->room_2);
 }
+
+// print les nouvelle salle au tour2
+
+void     print_path_dll(t_dll_l link)
+{
+    t_path path;
+
+	path = ((t_dll_l)link)->content;
+	print_path(path);
+}
+
+
+// print les chemin
+// print les salles

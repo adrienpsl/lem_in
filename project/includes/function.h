@@ -30,9 +30,11 @@ void     print_room(t_room room);
 **    path
 */
 t_path new_path(int size, t_path prev_path, t_room room, t_dll all_path);
-void     print_path_list(t_path path);
-void     print_path(t_path path);
 void	destroy_path(t_path path);
+void     print_path_list(t_path path);
+void     print_path_dll(t_dll_l link);
+void     print_path(t_path path);
+
 
 /*
 **    lem
