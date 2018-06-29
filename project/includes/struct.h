@@ -28,9 +28,8 @@ typedef t_data_00 *t_data;
 */
 typedef struct		s_map_00
 {
-	t_tab_room base;
-	t_tab_room work;
-	t_tab_room line;
+	char *base;
+	char *work;
 	size_t size;
 	size_t y;
 } 					t_map_00;

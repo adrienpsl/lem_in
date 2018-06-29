@@ -12,11 +12,20 @@
 
 #include "../all_includes.h"
 
-//void set_line_all_1(t_map map)
-//{
-//	ft_memset(map->line, )
-//}
+void print_path(t_path path)
+{
+	while (path)
+	{
+		printf("%c - ", path->room + 'A');
+		path = path->prev;
+	}
+	printf(" \n");
+}
 
+void     print_path_dll(t_dll_l link)
+{
+	print_path(link->content);
+}
 
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
 {
@@ -50,54 +59,42 @@ char is_full(int *tab, int index)
 	return (tab[index]);
 }
 
-void set_taken(int x, int y, t_tab_room tab_room, int map_y)
+int room_is_taken(t_path path, int name)
 {
-	t_tab_room tmp;
-	int a;
-
-	a = x * map_y;
-	tmp = tab_room + a;
-	tmp[y].taken = 1;
-
-	a = y * map_y;
-	tmp = tab_room + a;
-	tmp[x].taken = 1;
+	while (path)
+	{
+		if (name == path->room)
+			return (FALSE);
+		path = path->prev;
+	}
+	return (TRUE);
 }
-
-
-
 
 void binarie_line(t_map map, t_cache cache, t_path current_path)
 {
-	t_tab_room map_line;
+	char *map_line;
 	t_dll_l path_link;
-	t_tab_room current;
 	char c;
 	size_t i;
 
 	map_line = map->work + (current_path->room * map->y);
 	i = 0;
-	print_line(map_line, map->y, current_path->room);
+	//	print_line(map_line, map->y, current_path->room);
 	while (i < map->y)
 	{
-		current = &map_line[i];
 		c = i + 'A';
-		if (is_full(cache->is_full, i) == FALSE && map_line[i].link)
+		if (is_full(cache->is_full, i) == FALSE && map_line[i] &&
+			room_is_taken(current_path, i))
 		{
-//			print_map_taken(map->work, map->y);
-			if (map_line[i].path == 0 && map_line[i].taken == 0)
-			{
-				set_taken(i, , map->work, map->y);
-				set_full(cache->is_full, i);
-				path_link = new_path_link(i, current_path, cache->all_path, 0);
-				add_ptr_dll(path_link, cache->new_path);
-				debug_print_tab_nb(cache->is_full, map->y);
-			}
-//			print_map_taken(map->work, map->y);
+			//			map_line[i] = 0;
+			//			set_full(cache->is_full, i);
+			path_link = new_path_link(i, current_path, cache->all_path, 0);
+			add_ptr_dll(path_link, cache->new_path);
+//			debug_print_tab_nb(cache->is_full, map->y);
 		}
 		++i;
 	}
-//	print_map_taken(map->work, map->y);
+	//	print_map(map->work, map->y);
 }
 
 

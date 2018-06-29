@@ -30,32 +30,30 @@ void set_tunnel(t_data data, t_map map)
 		dll_index_link_func(data->room, same_name, tunnel->c_room_1, &y);
 		// si x est plus grand, je prend y
 		a = (y * data->room->length) + x;
-		(map->base + a)->link = 1;
+		map->base[a] = 1;
 		a = (x * data->room->length) + y;
-		(map->base + a)->link = 1;
+		map->base[a] = 1;
 		tunnel_link = tunnel_link->next;
 	}
 }
 
 void generate_map(t_map map)
 {
-	map->size = sizeof(t_tab_room_00) * map->y * map->y;
+	map->size = sizeof(char) * map->y * map->y;
 	map->base = ft_malloc_protect(map->size);
 	map->work = ft_malloc_protect(map->size);
-	map->line = ft_malloc_protect(sizeof(t_tab_room_00) * map->y);
-	ft_bzero(map->base, map->size * 2 + sizeof(t_tab_room_00) * map->y);
+	ft_bzero(map->base, map->size * 2 + sizeof(char) * map->y);
 }
 
 void print(t_cache cache)
 {
-//	printf("new \n");
-//	dll_func(cache->new_path, print_cache_list);
+	//	printf("new \n");
+	//	dll_func(cache->new_path, print_cache_list);
 
 	printf("work \n");
 	dll_func(cache->working_path, print_cache_list);
-//	printf("**************************************************** \n");
+	//	printf("**************************************************** \n");
 }
-
 
 void tes(t_cache cache, t_map map)
 {
@@ -65,12 +63,14 @@ void tes(t_cache cache, t_map map)
 	while (current_work)
 	{
 		binarie_line(map, cache, current_work->content);
-//		print(cache);
+		//		print(cache);
 		current_work = current_work->next;
 	}
 	clean_woking(cache);
 }
 
+// stoker tout les chemins qui passent par i et les ranger
+// pour les comparer ensuite et voir les plus rapides :)
 
 int main()
 {
@@ -88,33 +88,46 @@ int main()
 	cache = &algo->cache;
 	lem->data = lem_read_line();
 	init_cache(cache, data);
-
-	// A - B
-	// une fois que la tab est generer j'ai plus rien a faire :).
-	// mon objet map : je dois renomer les map, dans le meme ordre que la liste chainee, le x et le y sont donner par une fonction qui cherche chacune des
-	// liaison : x et y.
-	// c'est un carre donc dans un sens ou dans l'autre ca fait la meme chose.
-
+	//
+	//	// A - B
+	//	// une fois que la tab est generer j'ai plus rien a faire :).
+	//	// mon objet map : je dois renomer les map, dans le meme ordre que la liste chainee, le x et le y sont donner par une fonction qui cherche chacune des
+	//	// liaison : x et y.
+	//	// c'est un carre donc dans un sens ou dans l'autre ca fait la meme chose.
+	//
 	map->y = data->room->length;
 	generate_map(map);
 	set_tunnel(data, map);
 	ft_memcpy(map->work, map->base, map->size);
 
 	cache->current_room = data->start_nb;
-
+	//
 	path_l = new_path_link(cache->current_room, NULL, cache->all_path, 0);
 	binarie_line(map, cache, path_l->content);
 	clean_woking(cache);
 	print(cache);
 
+	tes(cache, map);
+	print(cache);
 
 	tes(cache, map);
 	print(cache);
 
-
-
 	tes(cache, map);
 	print(cache);
+
+	dll_func(cache->working_path, print_path_dll);
+
+	tes(cache, map);
+//	print(cache);
+
+
+	dll_func(cache->working_path, print_path_dll);
+
+	//	print_path(cache->working_path->top->content);
+
+	// print path
+
 
 
 	//	cache->working_path =
@@ -122,7 +135,7 @@ int main()
 
 
 
-//	print_map(map->work, map->y);
+	//		print_map(map->work, map->y);
 	//	printf("%lu \n", sizeof(t_tab_room_00));
 	return EXIT_SUCCESS;
 }

@@ -8,19 +8,6 @@
 #define PATH 1
 #define TAKEN 2
 
-/*
-**    tab_room
-*/
-typedef struct		s_tab_room_00
-{
-	char empty:1;
-	char link:1;
-	char taken:1;
-	char path:1;
-} 					t_tab_room_00;
-typedef t_tab_room_00 *t_tab_room;
-
-
 typedef struct		s_tunnel_00
 {
 	char *c_room_1;
