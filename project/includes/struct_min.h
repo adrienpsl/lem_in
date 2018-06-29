@@ -13,8 +13,9 @@
 */
 typedef struct		s_tab_room_00
 {
-	char taken:1;
+	char empty:1;
 	char link:1;
+	char taken:1;
 	char path:1;
 } 					t_tab_room_00;
 typedef t_tab_room_00 *t_tab_room;

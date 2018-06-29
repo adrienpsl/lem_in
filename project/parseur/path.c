@@ -48,6 +48,8 @@ void binarie_line(t_map map, t_cache cache, t_path current_path)
 {
 	t_tab_room map_line;
 	t_dll_l path_link;
+	t_tab_room current;
+	char c;
 	size_t i;
 
 	map_line = map->work + (current_path->room * map->y);
@@ -55,7 +57,9 @@ void binarie_line(t_map map, t_cache cache, t_path current_path)
 	print_line(map_line, map->y, current_path->room);
 	while (i < map->y)
 	{
-		if (map_line[i].link == TRUE)
+		current = &map_line[i];
+		c = current->link;
+		if (map_line[i].link)
 		{
 			if (map_line[i].path == 0 && map_line[i].taken == 0)
 			{

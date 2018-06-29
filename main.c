@@ -91,7 +91,6 @@ int main()
 	ft_memcpy(map->work, map->base, map->size);
 
 	cache->current_room = data->start_nb;
-	cache->current_room = 3;
 
 	path_l = new_path_link(cache->current_room, NULL, cache->all_path, 0);
 	binarie_line(map, cache, path_l->content);

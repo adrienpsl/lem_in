@@ -52,8 +52,10 @@ void     print_cache_list(t_dll_l path_link)
 
 	path = path_link->content;
 
-	printf("%d ", path->room);
-	printf("%d", path->size);
+	printf("%c <-- ",path->prev->room + 'A');
+	printf("%d - ", path->size);
+	printf("%c\n", path->room + 'A');
+
 }
 
 

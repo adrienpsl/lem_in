@@ -20,7 +20,7 @@ t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 {
 	t_dll_l room_link;
 	t_room room;
-	static int i = 1;
+	static int i = 0;
 
 	room_link = new_room_link(*split->start, *(split->start + 1),
 							  *(split->start + 2));
