@@ -66,7 +66,6 @@ void set_tunnel(t_data data, t_algo algo)
 	size_t y;
 	int a;
 	(void) algo;
-	static int i = 0;
 
 	tunnel_link = data->tunnel->top;
 	//
@@ -77,6 +76,8 @@ void set_tunnel(t_data data, t_algo algo)
 		dll_index_link_func(data->room, same_name, tunnel->c_room_1, &y);
 		// si x est plus grand, je prend y
 		a = (y * data->room->length) + x;
+		(algo->map + a)->link = 1;
+		a = (x * data->room->length) + y;
 		(algo->map + a)->link = 1;
 		print_map(algo);
 		tunnel_link = tunnel_link->next;
