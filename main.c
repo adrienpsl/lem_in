@@ -19,7 +19,7 @@ void set_tunnel(t_data data, t_map map)
 	t_tunnel tunnel;
 	size_t x;
 	size_t y;
-	int a;
+	size_t a;
 
 	tunnel_link = data->tunnel->top;
 	//
@@ -46,6 +46,13 @@ void generate_map(t_map map)
 	ft_bzero(map->base, map->size * 2 + sizeof(t_tab_room_00) * map->y);
 }
 
+void init_cache(t_cache cache, t_data data)
+{
+	cache->all_path = new_dll();
+	cache->new_path = new_dll();
+	cache->room = data->room;
+	cache->working_path = new_dll();
+}
 
 /*
 **    va set la peremiere salle comme path et initialisser les donnees
@@ -53,7 +60,6 @@ void generate_map(t_map map)
 */
 void set_up()
 {
-
 }
 
 int main()
@@ -63,15 +69,15 @@ int main()
 	t_data data;
 	t_cache cache;
 	t_map map;
+	t_dll_l path_l;
 
 	lem = new_lem();
 	algo = &lem->algo;
 	data = &lem->data;
 	map = &algo->map;
 	cache = &algo->cache;
-	lem->data = lem_read_line(NULL);
-	algo->cache.room = data->room;
-
+	lem->data = lem_read_line();
+	init_cache(cache, data);
 
 	// A - B
 	// une fois que la tab est generer j'ai plus rien a faire :).
@@ -85,11 +91,19 @@ int main()
 	ft_memcpy(map->work, map->base, map->size);
 
 	cache->current_room = data->start_nb;
+	cache->current_room = 3;
+
+	path_l = new_path_link(cache->current_room, NULL, cache->all_path, 0);
+	binarie_line(map, cache, path_l->content);
+	dll_func(cache->new_path, print_cache_list);
+
+
+	//	cache->working_path =
 
 
 
 
-//	print_map(map->work, map->y);
-//	printf("%lu \n", sizeof(t_tab_room_00));
+		print_map(map->work, map->y);
+	//	printf("%lu \n", sizeof(t_tab_room_00));
 	return EXIT_SUCCESS;
 }

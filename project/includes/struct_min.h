@@ -41,7 +41,7 @@ typedef t_room_00 *t_room;
 typedef struct		s_path_00
 {
 	int		size;
-	t_room room;
+	int 	room;
 	struct s_path_00 *prev;
 } 					t_path_00;
 typedef t_path_00 *t_path;

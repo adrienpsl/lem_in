@@ -21,7 +21,8 @@
 void     print_tunnel_dll(t_dll_l room_link);
 void     print_room(t_room room);
 void     print_map(t_tab_room tab_room, size_t size_line);
-
+void     print_cache_list(t_dll_l path_link);
+void     print_line(t_tab_room tab_room, size_t size_line, int cur_line);
 
 /*
 **    OBJ ========================================================
@@ -30,7 +31,14 @@ void     print_map(t_tab_room tab_room, size_t size_line);
 /*
 **    path
 */
+//t_path new_path(int room, t_path prev);
+t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 
+
+/*
+**    ALGO ========================================================
+*/
+void binarie_line(t_map map, t_cache cache, t_path current_path);
 
 /*
 **    lem

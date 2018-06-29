@@ -45,6 +45,22 @@ void     print_tunnel_dll(t_dll_l room_link)
 
 }
 
+
+void     print_cache_list(t_dll_l path_link)
+{
+	t_path path;
+
+	path = path_link->content;
+
+	printf("%d ", path->room);
+	printf("%d", path->size);
+}
+
+
+/*
+**    print map
+*/
+
 void print_name(int a)
 {
 	int i;
@@ -58,7 +74,6 @@ void print_name(int a)
 	}
 	printf("]]\n");
 }
-
 
 void     print_map(t_tab_room tab_room, size_t size_line)
 {
@@ -85,6 +100,23 @@ void     print_map(t_tab_room tab_room, size_t size_line)
 			letter++;
 			line = 0;
 		}
+	}
+	printf("\n");
+}
+
+
+void     print_line(t_tab_room tab_room, size_t size_line, int cur_line)
+{
+	size_t i;
+
+	i = 0;
+
+	print_name(size_line);
+	printf("\n%c  ", 'A' + cur_line);
+	while (i < size_line)
+	{
+		printf("%c ", (tab_room + i)->link ? 'X' : '.');
+		++i;
 	}
 	printf("\n");
 }

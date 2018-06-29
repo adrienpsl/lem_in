@@ -39,6 +39,7 @@ typedef t_map_00 *t_map;
 typedef struct		s_cache_00
 {
 	t_dll 	working_path;
+	t_dll 	all_path;
 	t_dll	new_path;
 	int		current_room;
 	t_dll room;
