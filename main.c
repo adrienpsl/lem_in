@@ -65,7 +65,7 @@ void tes(t_cache cache, t_map map)
 	while (current_work)
 	{
 		binarie_line(map, cache, current_work->content);
-		print(cache);
+//		print(cache);
 		current_work = current_work->next;
 	}
 	clean_woking(cache);
