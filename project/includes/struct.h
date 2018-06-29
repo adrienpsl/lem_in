@@ -26,11 +26,30 @@ typedef t_data_00 *t_data;
 /*
 **    algo ========================================================
 */
-typedef struct		s_algo_00
+typedef struct		s_map_00
+{
+	t_tab_room base;
+	t_tab_room work;
+	t_tab_room line;
+	size_t size;
+	size_t y;
+} 					t_map_00;
+typedef t_map_00 *t_map;
+
+typedef struct		s_cache_00
 {
 	t_dll 	working_path;
-	t_tab_room map;
-	size_t y_map;
+	t_dll	new_path;
+	int		current_room;
+	t_dll room;
+} 					t_cache_00;
+typedef t_cache_00 *t_cache;
+
+
+typedef struct		s_algo_00
+{
+	t_cache_00 cache;
+	t_map_00 map;
 	t_room end;
 } 					t_algo_00;
 typedef t_algo_00 *t_algo;
@@ -55,7 +74,7 @@ typedef t_lem_00 *t_lem;
 
 
 
-t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2, int room_1, int room_2);
+t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
 void     destroy_tunnel(void *ptr_tunnel);
 
 void     destroy_room(void* room_ptr);

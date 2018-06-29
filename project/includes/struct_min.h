@@ -38,4 +38,14 @@ typedef struct		s_room_00
 } 					t_room_00;
 typedef t_room_00 *t_room;
 
+typedef struct		s_path_00
+{
+	int		size;
+	t_room room;
+	struct s_path_00 *prev;
+} 					t_path_00;
+typedef t_path_00 *t_path;
+
+
+
 #endif //LEM_IN_STRUCT_MIN_H

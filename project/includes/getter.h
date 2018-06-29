@@ -24,6 +24,8 @@ typedef struct		s_get_data_00
 	t_dll tunnel;
 	t_dll_l start;
 	t_dll_l end;
+	int start_nb;
+	int end_nb;
 	int x;
 	int y;
 	int nb_fourmis;

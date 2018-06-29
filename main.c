@@ -13,59 +13,13 @@ int same_name(t_dll_l current_link, void *ptr)
 	return (FALSE);
 }
 
-void print_name(int a)
-{
-	int i;
-
-	i = 'A';
-	printf("[[ ");
-	while (i < a+ 'A')
-	{
-	    printf("%c ", i);
-		++i;
-	}
-	printf("]]\n");
-}
-
-
-void     print_map(t_algo algo)
-{
-	size_t i;
-	t_tab_room current_tab;
-	size_t line;
-	int letter;
-
-	i = 0;
-	line = 0;
-	letter = 'B';
-
-	current_tab = algo->map;
-
-	print_name(algo->y_map);
-	printf("\nA  ");
-	while (i < algo->y_map * algo->y_map)
-	{
-		printf("%c ", (current_tab + i)->link ? 'X' : '.');
-		++i;
-		++line;
-		if (line == algo->y_map)
-		{
-			printf(" \n%c  ", letter);
-			letter++;
-			line = 0;
-		}
-	}
-	printf("\n");
-}
-
-void set_tunnel(t_data data, t_algo algo)
+void set_tunnel(t_data data, t_map map)
 {
 	t_dll_l tunnel_link;
 	t_tunnel tunnel;
 	size_t x;
 	size_t y;
 	int a;
-	(void) algo;
 
 	tunnel_link = data->tunnel->top;
 	//
@@ -76,12 +30,30 @@ void set_tunnel(t_data data, t_algo algo)
 		dll_index_link_func(data->room, same_name, tunnel->c_room_1, &y);
 		// si x est plus grand, je prend y
 		a = (y * data->room->length) + x;
-		(algo->map + a)->link = 1;
+		(map->base + a)->link = 1;
 		a = (x * data->room->length) + y;
-		(algo->map + a)->link = 1;
-		print_map(algo);
+		(map->base + a)->link = 1;
 		tunnel_link = tunnel_link->next;
 	}
+}
+
+void generate_map(t_map map)
+{
+	map->size = sizeof(t_tab_room_00) * map->y * map->y;
+	map->base = ft_malloc_protect(map->size);
+	map->work = ft_malloc_protect(map->size);
+	map->line = ft_malloc_protect(sizeof(t_tab_room_00) * map->y);
+	ft_bzero(map->base, map->size * 2 + sizeof(t_tab_room_00) * map->y);
+}
+
+
+/*
+**    va set la peremiere salle comme path et initialisser les donnees
+**    correctement pour lancer l'algo
+*/
+void set_up()
+{
+
 }
 
 int main()
@@ -89,12 +61,17 @@ int main()
 	t_lem lem;
 	t_algo algo;
 	t_data data;
-	size_t all_map;
+	t_cache cache;
+	t_map map;
 
 	lem = new_lem();
-	lem->data = lem_read_line(NULL);
 	algo = &lem->algo;
 	data = &lem->data;
+	map = &algo->map;
+	cache = &algo->cache;
+	lem->data = lem_read_line(NULL);
+	algo->cache.room = data->room;
+
 
 	// A - B
 	// une fois que la tab est generer j'ai plus rien a faire :).
@@ -102,12 +79,17 @@ int main()
 	// liaison : x et y.
 	// c'est un carre donc dans un sens ou dans l'autre ca fait la meme chose.
 
-	algo->y_map = data->room->length;
-	all_map =  sizeof(t_tab_room_00) * algo->y_map * algo->y_map;
-	algo->map = ft_malloc_protect(all_map);
-	ft_memset(algo->map, 0, all_map);
-	set_tunnel(data, algo);
-	print_map(algo);
+	map->y = data->room->length;
+	generate_map(map);
+	set_tunnel(data, map);
+	ft_memcpy(map->work, map->base, map->size);
 
-	return 0;
+	cache->current_room = data->start_nb;
+
+
+
+
+//	print_map(map->work, map->y);
+//	printf("%lu \n", sizeof(t_tab_room_00));
+	return EXIT_SUCCESS;
 }

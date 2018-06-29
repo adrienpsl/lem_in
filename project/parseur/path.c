@@ -12,23 +12,36 @@
 
 #include "../all_includes.h"
 
-t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2)
-{
-	t_tunnel_00 tunnel;
-	t_dll_l tunnel_link = NULL;
+//void set_line_all_1(t_map map)
+//{
+//	ft_memset(map->line, )
+//}
 
-	tunnel.c_room_1 = ft_strdup(c_room_1);
-	tunnel.c_room_2 = ft_strdup(c_room_2);
-	tunnel_link = new_dll_l(&tunnel, sizeof(t_tunnel_00));
-	return (tunnel_link);
+// filtre binaire pour la ligne de la map
+/*
+ * le nb de la room donnee == sa place dans le tab
+ * */
+void binarie_line(t_map map,/* t_cache cache,*/ int current_room)
+{
+	t_tab_room map_line;
+	size_t i;
+
+	map_line = map->work + current_room;
+	i = 0;
+	while (i < map->y)
+	{
+		if (map_line[i].link == TRUE)
+		{
+			if (map_line[i].path == 0 && map_line[i].taken == FALSE)
+				// j'ajoute a new path un ptr sur cette room
+				(void)1; // je genere un path pour chaque lien valide
+		}
+	}
 }
 
-void destroy_tunnel(void *ptr_tunnel)
-{
-	static t_tunnel tunnel;
 
-	tunnel = ptr_tunnel;
-	free_str(&tunnel->c_room_1);
-	free_str(&tunnel->c_room_2);
-	free(tunnel);
-}
+
+// filtre binaire pour tout les el de la map, convertie en path
+
+// donner le path a tous les elements de la map
+

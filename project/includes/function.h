@@ -20,6 +20,7 @@
 */
 void     print_tunnel_dll(t_dll_l room_link);
 void     print_room(t_room room);
+void     print_map(t_tab_room tab_room, size_t size_line);
 
 
 /*

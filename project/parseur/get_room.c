@@ -20,15 +20,20 @@ t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 {
 	t_dll_l room_link;
 	t_room room;
-	static int i = 0;
+	static int i = 1;
 
-	room_link = new_room_link(*split->start,
-							  *(split->start + 1),
+	room_link = new_room_link(*split->start, *(split->start + 1),
 							  *(split->start + 2));
 	if (utils->type_salle == L_START)
+	{
 		data->start = room_link;
+		data->start_nb = i;
+	}
 	if (utils->type_salle == L_END)
+	{
 		data->end = room_link;
+		data->end_nb = i;
+	}
 	utils->type_salle = 0;
 	if (room_link && dll_find(data->room, is_right_room, room_link) != NULL)
 		destroy_dll_l(&room_link);

@@ -40,14 +40,51 @@ void     print_tunnel_dll(t_dll_l room_link)
 
 	ft_printf("%s", tunnel->c_room_1);
 	ft_printf(" - ");
-	ft_printf("%s ", tunnel->c_room_2);
-	printf("%d - %d\n", tunnel->room_1, tunnel->room_2);
+	ft_printf("%s \n", tunnel->c_room_2);
+//	printf("%d - %d\n", tunnel->room_1, tunnel->room_2);
 
 }
 
-// print les nouvelle salle au tour2
+void print_name(int a)
+{
+	int i;
+
+	i = 'A';
+	printf("[[ ");
+	while (i < a+ 'A')
+	{
+		printf("%c ", i);
+		++i;
+	}
+	printf("]]\n");
+}
 
 
+void     print_map(t_tab_room tab_room, size_t size_line)
+{
+	size_t i;
+	size_t line;
+	int letter;
+	size_t lim;
 
-// print les chemin
-// print les salles
+	i = 0;
+	line = 0;
+	letter = 'B';
+	lim = size_line * size_line;
+
+	print_name(size_line);
+	printf("\nA  ");
+	while (i < lim)
+	{
+		printf("%c ", (tab_room + i)->link ? 'X' : '.');
+		++i;
+		++line;
+		if (line == size_line)
+		{
+			printf(" \n%c  ", letter);
+			letter++;
+			line = 0;
+		}
+	}
+	printf("\n");
+}
