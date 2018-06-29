@@ -46,21 +46,31 @@ void generate_map(t_map map)
 	ft_bzero(map->base, map->size * 2 + sizeof(t_tab_room_00) * map->y);
 }
 
-void init_cache(t_cache cache, t_data data)
+void print(t_cache cache)
 {
-	cache->all_path = new_dll();
-	cache->new_path = new_dll();
-	cache->room = data->room;
-	cache->working_path = new_dll();
+//	printf("new \n");
+//	dll_func(cache->new_path, print_cache_list);
+
+	printf("work \n");
+	dll_func(cache->working_path, print_cache_list);
+//	printf("**************************************************** \n");
 }
 
-/*
-**    va set la peremiere salle comme path et initialisser les donnees
-**    correctement pour lancer l'algo
-*/
-void set_up()
+
+void tes(t_cache cache, t_map map)
 {
+	t_dll_l current_work;
+
+	current_work = cache->working_path->top;
+	while (current_work)
+	{
+		binarie_line(map, cache, current_work->content);
+		print(cache);
+		current_work = current_work->next;
+	}
+	clean_woking(cache);
 }
+
 
 int main()
 {
@@ -94,7 +104,17 @@ int main()
 
 	path_l = new_path_link(cache->current_room, NULL, cache->all_path, 0);
 	binarie_line(map, cache, path_l->content);
-	dll_func(cache->new_path, print_cache_list);
+	clean_woking(cache);
+	print(cache);
+
+
+	tes(cache, map);
+	print(cache);
+
+
+
+	tes(cache, map);
+	print(cache);
 
 
 	//	cache->working_path =
@@ -102,7 +122,7 @@ int main()
 
 
 
-		print_map(map->work, map->y);
+//	print_map(map->work, map->y);
 	//	printf("%lu \n", sizeof(t_tab_room_00));
 	return EXIT_SUCCESS;
 }

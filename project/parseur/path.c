@@ -40,10 +40,33 @@ void add_ptr_dll(t_dll_l link, t_dll list)
 	dll_add(ptr_link, list);
 }
 
-// filtre binaire pour la ligne de la map
-/*
- * le nb de la room donnee == sa place dans le tab
- * */
+void set_full(int *tab, int index)
+{
+	tab[index] = 1;
+}
+
+char is_full(int *tab, int index)
+{
+	return (tab[index]);
+}
+
+void set_taken(int x, int y, t_tab_room tab_room, int map_y)
+{
+	t_tab_room tmp;
+	int a;
+
+	a = x * map_y;
+	tmp = tab_room + a;
+	tmp[y].taken = 1;
+
+	a = y * map_y;
+	tmp = tab_room + a;
+	tmp[x].taken = 1;
+}
+
+
+
+
 void binarie_line(t_map map, t_cache cache, t_path current_path)
 {
 	t_tab_room map_line;
@@ -54,21 +77,27 @@ void binarie_line(t_map map, t_cache cache, t_path current_path)
 
 	map_line = map->work + (current_path->room * map->y);
 	i = 0;
-	print_line(map_line, map->y, current_path->room);
+//	print_line(map_line, map->y, current_path->room);
 	while (i < map->y)
 	{
 		current = &map_line[i];
 		c = current->link;
-		if (map_line[i].link)
+		if (is_full(cache->is_full, i) == FALSE && map_line[i].link)
 		{
+//			print_map_taken(map->work, map->y);
 			if (map_line[i].path == 0 && map_line[i].taken == 0)
 			{
+				set_taken(i, i, map->work, map->y);
+				set_full(cache->is_full, current_path->room);
 				path_link = new_path_link(i, current_path, cache->all_path, 0);
 				add_ptr_dll(path_link, cache->new_path);
+				debug_print_tab_nb(cache->is_full, map->y);
 			}
+//			print_map_taken(map->work, map->y);
 		}
 		++i;
 	}
+//	print_map_taken(map->work, map->y);
 }
 
 

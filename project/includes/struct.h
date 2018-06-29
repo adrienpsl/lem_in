@@ -42,6 +42,7 @@ typedef struct		s_cache_00
 	t_dll 	all_path;
 	t_dll	new_path;
 	int		current_room;
+	int	*is_full;
 	t_dll room;
 } 					t_cache_00;
 typedef t_cache_00 *t_cache;

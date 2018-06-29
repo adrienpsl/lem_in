@@ -23,6 +23,7 @@ void     print_room(t_room room);
 void     print_map(t_tab_room tab_room, size_t size_line);
 void     print_cache_list(t_dll_l path_link);
 void     print_line(t_tab_room tab_room, size_t size_line, int cur_line);
+void     print_map_taken(t_tab_room tab_room, size_t size_line);
 
 /*
 **    OBJ ========================================================
@@ -39,6 +40,13 @@ t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 **    ALGO ========================================================
 */
 void binarie_line(t_map map, t_cache cache, t_path current_path);
+
+/*
+**    cache
+*/
+void init_cache(t_cache cache, t_data data);
+void clean_woking(t_cache cache);
+
 
 /*
 **    lem
