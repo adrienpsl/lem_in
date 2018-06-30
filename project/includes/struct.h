@@ -55,6 +55,7 @@ typedef t_cache_00 *t_cache;
 typedef struct s_algo_00
 {
 	t_cache_00 cache;
+	t_dll all_path;
 	t_map_00 map;
 	t_room end;
 } t_algo_00;
