@@ -102,34 +102,20 @@ void print_map(char *tab_room, size_t size_line)
 	printf("\n");
 }
 
-//void print_map_taken(char *tab_room, size_t size_line)
-//{
-//	size_t i;
-//	size_t line;
-//	int letter;
-//	size_t lim;
-//
-//	i = 0;
-//	line = 0;
-//	letter = 'B';
-//	lim = size_line * size_line;
-//
-//	print_name(size_line);
-//	printf("\nA  ");
-//	while (i < lim)
-//	{
-//		printf("%c ", (tab_room + i)->taken ? 'X' : '.');
-//		++i;
-//		++line;
-//		if (line == size_line)
-//		{
-//			printf(" \n%c  ", letter);
-//			letter++;
-//			line = 0;
-//		}
-//	}
-//	printf("\n");
-//}
+void print_path(t_path path)
+{
+	while (path)
+	{
+		printf("%c - ", path->room + 'A');
+		path = path->prev;
+	}
+	printf(" \n");
+}
+
+void     print_path_dll(t_dll_l link)
+{
+	print_path(link->content);
+}
 
 void print_line(char *tab_room, size_t size_line, int cur_line)
 {

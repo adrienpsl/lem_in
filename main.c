@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "project/includes/function.h"
 
-
-
 void print(t_cache cache)
 {
 	//	printf("new \n");
@@ -12,8 +10,6 @@ void print(t_cache cache)
 	dll_func(cache->working_path, print_cache_list);
 	//	printf("**************************************************** \n");
 }
-
-
 
 int is_not_this_room(t_dll_l link, void *name_end_room)
 {
@@ -54,29 +50,57 @@ void set_first_link(t_cache cache, t_map map)
 	int res;
 
 	path_l = new_path_link(cache->current_room, NULL, cache->all_path, 0);
-	binarie_line(map, cache, path_l->content, &res);
+	split_path(map, cache, path_l->content, &res);
 	clean_woking(cache);
 }
+
+
+// une liste avec == mettre touts les path dans une liste chainer qui leurs
+//  dans le bon ordre
+
+t_dll     get_dll_by_path(t_path path)
+{
+    t_dll path_list;
+    t_dll_l link;
+
+    path_list = new_dll();
+    while (path)
+    {
+        link = new_dll_l(path, sizeof(t_path_00));
+        dll_push(link, path_list);
+        path = path->prev;
+    }
+    return (path_list);
+}
+
+
+//void     copy_all_path_order(t_dll)
+//{
+//
+//}
 
 int main()
 {
 	setbuf(stdout, NULL);
 	t_lem lem;
 	t_algo algo;
-	t_data data;
 	t_cache cache;
 	t_map map;
-
+	t_dll list;
+	
+	(void)list;
 	lem = new_lem();
 	algo = &lem->algo;
-	data = &lem->data;
 	map = &algo->map;
 	cache = &algo->cache;
 
 	set_first_link(cache, map);
 
 	get_all_path(cache, map);
-	dll_func(cache->good_path, print_path_dll);
+	dll_func(cache->close_path, print_path_dll);
+	t_path  path;
+	path = cache->close_path->top->content;
+	list = get_dll_by_path(path);
 
 	return EXIT_SUCCESS;
 }

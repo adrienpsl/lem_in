@@ -20,7 +20,7 @@ size_t fill_path(t_cache cache, t_map map)
 	current_work = cache->working_path->top;
 	while (current_work)
 	{
-		binarie_line(map, cache, current_work->content, &res);
+		split_path(map, cache, current_work->content, &res);
 		current_work = current_work->next;
 		if (res == 0)
 			dll_drop_link(cache->working_path, current_work->prev);

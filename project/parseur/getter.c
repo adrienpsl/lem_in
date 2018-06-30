@@ -41,32 +41,10 @@ t_get_data_00 lem_read_line()
 
 	get.utils.fd = open_file(
 	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
-	get_nb_foumis(&get);
 
+	get_nb_foumis(&get);
 	get_coord_room(&get);
 	check_err_room(&get.data);
-
 	get_tunnel(&get);
-	set_tab_tunnel(&get);
-
-//	dll_func(get.data.room, &print_room_dll_l);
-
-
-//	ft_printf("start \n");
-//	print_room_dll_l(get.data.start);
-
-
-//	ft_printf("end \n");
-//	print_room_dll_l(get.data.end);
-//
-//	dll_func(get.data.tunnel, &print_tunnel_dll);
-
-//	ft_printf("%d %d %d \n", get.data.x, get.data.x, get.data.room->length);
-
-	// nb de salle,
-	// le ration entre les sallw
-//	destroy_room_list(get.data.room);
-//	destroy_dll_func(&get.data.tunnel, &destroy_tunnel);
-//	free_str(&get.utils.line);
 	return (get.data);
 }

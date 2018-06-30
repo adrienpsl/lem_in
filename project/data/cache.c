@@ -18,12 +18,16 @@ void init_cache(t_cache cache, t_data data)
 	cache->new_path = new_dll();
 	cache->working_path = new_dll();
 	cache->close_path = new_dll();
-	cache->good_path = new_dll();
 	cache->room = data->room;
 	cache->is_full = ft_malloc_protect(sizeof(int) * cache->room->length);
 	ft_bzero(cache->is_full, sizeof(int) * cache->room->length);
 	cache->name_end = data->end_nb;
 }
+
+//void destroy(t_cache cache)
+//{
+//
+//}
 
 int is_close_path(t_dll_l link, void *name_end_room)
 {

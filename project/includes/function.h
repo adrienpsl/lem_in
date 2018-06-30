@@ -42,7 +42,7 @@ void     get_all_path(t_cache cache, t_map map);
 /*
 **    ALGO ========================================================
 */
-void binarie_line(t_map map, t_cache cache, t_path current_path, int *res);
+void split_path(t_map map, t_cache cache, t_path current_path, int *res);
 
 /*
 **    cache

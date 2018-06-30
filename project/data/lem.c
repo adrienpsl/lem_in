@@ -28,8 +28,6 @@ t_lem new_lem()
 	set_tunnel(&lem->data, &algo->map);
 	ft_memcpy(algo->map.work, algo->map.base, algo->map.size);
 	algo->cache.current_room = lem->data.start_nb;
-
-
 	return (lem);
 }
 
