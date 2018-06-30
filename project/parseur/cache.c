@@ -25,17 +25,6 @@ void init_cache(t_cache cache, t_data data)
 	cache->name_end = data->end_nb;
 }
 
-/*
-**    va set la peremiere salle comme path et initialisser les donnees
-**    correctement pour lancer l'algo
-*/
-void set_up()
-{
-}
-
-// je regarde si dans mes liste j'ai un path qui est arriver a destination
-// si oui je le set
-
 int is_close_path(t_dll_l link, void *name_end_room)
 {
 	t_path path;
@@ -62,6 +51,5 @@ void clean_woking(t_cache cache)
 	drop_closed_path(cache->new_path, cache->close_path, cache->name_end);
 	dll_func(cache->close_path, print_path_dll);
 	cache->working_path = cache->new_path;
-	// scan pour savoir si des chemin meme a l'arriver
 	cache->new_path = new_dll();
 }

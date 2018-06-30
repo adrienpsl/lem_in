@@ -36,6 +36,7 @@ void     print_path_dll(t_dll_l link);
 //t_path new_path(int room, t_path prev);
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 void print_path(t_path path);
+void     get_all_path(t_cache cache, t_map map);
 
 
 /*
@@ -49,6 +50,11 @@ void binarie_line(t_map map, t_cache cache, t_path current_path, int *res);
 void init_cache(t_cache cache, t_data data);
 void clean_woking(t_cache cache);
 
+/*
+**    map
+*/
+void generate_map(t_map map, int y);
+void destroy_map(t_map map);
 
 /*
 **    lem
@@ -63,6 +69,7 @@ t_get_data_00 lem_read_line( );
 void	get_coord_room(t_getter get);
 void 	get_tunnel(t_getter get);
 void	set_tab_tunnel(t_getter get);
+void set_tunnel(t_data data, t_map map);
 
 /*
 **    paseur utils

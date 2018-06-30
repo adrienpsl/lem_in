@@ -12,6 +12,35 @@
 
 #include "../all_includes.h"
 
+int same_name(t_dll_l current_link, void *ptr)
+{
+	t_room room;
+
+	room = current_link->content;
+	if (ft_strcmp(room->name, ptr) == 0)
+		return (TRUE);
+	return (FALSE);
+}
+
+void set_tunnel(t_data data, t_map map)
+{
+	t_dll_l tunnel_link;
+	t_tunnel tunnel;
+	size_t x;
+	size_t y;
+
+	tunnel_link = data->tunnel->top;
+	while (tunnel_link)
+	{
+		tunnel = tunnel_link->content;
+		dll_index_link_func(data->room, same_name, tunnel->c_room_2, &x);
+		dll_index_link_func(data->room, same_name, tunnel->c_room_1, &y);
+		map->base[(y * data->room->length) + x] = 1;
+		map->base[(x * data->room->length) + y] = 1;
+		tunnel_link = tunnel_link->next;
+	}
+}
+
 t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2)
 {
 	t_tunnel_00 tunnel;

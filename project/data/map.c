@@ -12,38 +12,18 @@
 
 #include "../all_includes.h"
 
-
-t_lem new_lem()
+void generate_map(t_map map, int y)
 {
-	t_lem lem;
-	t_algo algo;
+	map->y = y;
+	map->size = sizeof(char) * map->y * map->y;
+	map->base = ft_malloc_protect(map->size);
+	map->work = ft_malloc_protect(map->size);
+	ft_bzero(map->base, map->size * 2 + sizeof(char) * map->y);
 
-	lem = ft_malloc_protect(sizeof(t_lem_00));
-	algo = &lem->algo;
-	ft_bzero(lem, sizeof(t_lem_00));
-	lem->data = lem_read_line();
-	init_cache(&lem->algo.cache, &lem->data);
-	(void)1;
-	generate_map(&algo->map,  lem->data.room->length);
-	set_tunnel(&lem->data, &algo->map);
-	ft_memcpy(algo->map.work, algo->map.base, algo->map.size);
-	algo->cache.current_room = lem->data.start_nb;
-
-
-	return (lem);
 }
 
-void     free_lem(t_lem lem)
+void destroy_map(t_map map)
 {
-    t_algo algo;
-	t_data data;
-
-	algo = &lem->algo;
-	data = &lem->data;
-
-//	destroy_dll_func(&algo->working_path, &dll_l_notfree_content);
-//	destroy_dll(&algo->all_path);
-//	destroy_dll_func(&data->room, &destroy_room);
-//	destroy_dll_func(&data->tunnel, &destroy_tunnel);
-	free(lem);
+	free(map->base);
+	free(map->work);
 }
