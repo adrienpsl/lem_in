@@ -58,10 +58,11 @@ void set_first_link(t_cache cache, t_map map)
 // une liste avec == mettre touts les path dans une liste chainer qui leurs
 //  dans le bon ordre
 
-t_dll     get_dll_by_path(t_path path)
+t_dll_l     get_dll_by_path(t_path path)
 {
     t_dll path_list;
     t_dll_l link;
+    t_dll_l link_path_list;
 
     path_list = new_dll();
     while (path)
@@ -70,14 +71,36 @@ t_dll     get_dll_by_path(t_path path)
         dll_push(link, path_list);
         path = path->prev;
     }
-    return (path_list);
+	link_path_list = new_dll_l_ptr(path_list);
+    return (link_path_list);
 }
 
 
-//void     copy_all_path_order(t_dll)
-//{
-//
-//}
+t_dll     copy_all_path_order(t_dll_l close_path_link)
+{
+	t_dll dll_path;
+	t_dll_l link_path_list;
+
+
+	dll_path = new_dll();
+	while (close_path_link)
+	{
+	    link_path_list = get_dll_by_path(close_path_link->content);
+	    dll_push(link_path_list, dll_path);
+	    close_path_link = close_path_link->next;
+	}
+	return (dll_path);
+}
+
+// pour chaque truc dans la liste check que j'ai bien le bon chemin
+
+void     print_dll_path(t_dll_l dll_path_link)
+{
+    t_dll list;
+
+    list = dll_path_link->content;
+	dll_func(list, print_path_dll);
+}
 
 int main()
 {
@@ -98,9 +121,8 @@ int main()
 
 	get_all_path(cache, map);
 	dll_func(cache->close_path, print_path_dll);
-	t_path  path;
-	path = cache->close_path->top->content;
-	list = get_dll_by_path(path);
+	list = copy_all_path_order(cache->close_path->top);
+	dll_func(list, print_dll_path);
 
 	return EXIT_SUCCESS;
 }

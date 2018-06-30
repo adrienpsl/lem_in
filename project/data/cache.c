@@ -53,7 +53,6 @@ void clean_woking(t_cache cache)
 {
 	destroy_dll_func(&cache->working_path, dll_l_notfree_content);
 	drop_closed_path(cache->new_path, cache->close_path, cache->name_end);
-	dll_func(cache->close_path, print_path_dll);
 	cache->working_path = cache->new_path;
 	cache->new_path = new_dll();
 }
