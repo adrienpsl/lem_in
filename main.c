@@ -55,8 +55,7 @@ void print(t_cache cache)
 	//	printf("**************************************************** \n");
 }
 
-// si res est fuck
-
+// je pars de la fin et j
 size_t tes(t_cache cache, t_map map)
 {
 	t_dll_l current_work;
@@ -67,18 +66,46 @@ size_t tes(t_cache cache, t_map map)
 	{
 		binarie_line(map, cache, current_work->content, &res);
 		current_work = current_work->next;
-		if (res == 0)
-			dll_drop_link(cache->working_path, current_work->prev);
+//		if (res == 0)
+//			dll_drop_link(cache->working_path, current_work->prev);
 	}
 	clean_woking(cache);
 	return (cache->working_path->length);
 }
+
+int is_not_this_room(t_dll_l link, void *name_end_room)
+{
+	t_path path;
+
+	path = link->content;
+	if (path->room == *(int *) name_end_room)
+		return (FALSE);
+	return (TRUE);
+}
+
+void keep_good_path(t_dll closed_path, t_dll good_path)
+{
+	t_path cur_room;
+	t_dll_l current_path_link;
+	t_dll_l tmp_link;
+
+	current_path_link = dll_drop_link(closed_path, closed_path->top);
+	cur_room = current_path_link->content;
+
+	while (dll_find_and_drop(closed_path, is_not_this_room, &cur_room->room,
+							 &tmp_link))
+	{
+		dll_add(tmp_link, good_path);
+	}
+}
+
 
 // stoker tout les chemins qui passent par i et les ranger
 // pour les comparer ensuite et voir les plus rapides :)
 
 int main()
 {
+	setbuf(stdout, NULL);
 	t_lem lem;
 	t_algo algo;
 	t_data data;
@@ -94,13 +121,7 @@ int main()
 	cache = &algo->cache;
 	lem->data = lem_read_line();
 	init_cache(cache, data);
-	//
-	//	// A - B
-	//	// une fois que la tab est generer j'ai plus rien a faire :).
-	//	// mon objet map : je dois renomer les map, dans le meme ordre que la liste chainee, le x et le y sont donner par une fonction qui cherche chacune des
-	//	// liaison : x et y.
-	//	// c'est un carre donc dans un sens ou dans l'autre ca fait la meme chose.
-	//
+
 	map->y = data->room->length;
 	generate_map(map);
 	set_tunnel(data, map);
@@ -111,27 +132,20 @@ int main()
 	path_l = new_path_link(cache->current_room, NULL, cache->all_path, 0);
 	binarie_line(map, cache, path_l->content, &res);
 	clean_woking(cache);
+
 	print(cache);
-
-	//	tes(cache, map);
-	//	print(cache);
-	//
-	//	tes(cache, map);
-	//	print(cache);
-	//
-	//	tes(cache, map);
-	//	print(cache);
-	//
-	//	dll_func(cache->working_path, print_path_dll);
-	//
-	//	tes(cache, map);
-	//
-	//	dll_func(cache->working_path, print_path_dll);
-
-	//	print_path(cache->working_path->top->content);
 	while (tes(cache, map))
 	{}
-	print(cache);
+
+
+	dll_func(cache->new_path, print_path_dll);
+
+
+//	keep_good_path(cache->close_path, cache->good_path);
+//
+//	dll_func(cache->close_path, print_path_dll);
+
+//	print(cache);
 
 	// print path
 
