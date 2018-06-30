@@ -40,6 +40,8 @@ typedef struct		s_cache_00
 	t_dll 	working_path;
 	t_dll 	all_path;
 	t_dll	new_path;
+	int name_end;
+	t_dll close_path;
 	int		current_room;
 	int	*is_full;
 	t_dll room;

@@ -41,7 +41,7 @@ void print_path(t_path path);
 /*
 **    ALGO ========================================================
 */
-void binarie_line(t_map map, t_cache cache, t_path current_path);
+void binarie_line(t_map map, t_cache cache, t_path current_path, int *res);
 
 /*
 **    cache

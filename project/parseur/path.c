@@ -70,27 +70,25 @@ int room_is_taken(t_path path, int name)
 	return (TRUE);
 }
 
-void binarie_line(t_map map, t_cache cache, t_path current_path)
+
+void binarie_line(t_map map, t_cache cache, t_path current_path, int *res)
 {
 	char *map_line;
 	t_dll_l path_link;
-	char c;
 	size_t i;
 
 	map_line = map->work + (current_path->room * map->y);
 	i = 0;
+	*res = 0;
 	//	print_line(map_line, map->y, current_path->room);
 	while (i < map->y)
 	{
-		c = i + 'A';
-		if (is_full(cache->is_full, i) == FALSE && map_line[i] &&
+		*res = 1;
+		if (map_line[i] &&
 			room_is_taken(current_path, i))
 		{
-			//			map_line[i] = 0;
-			//			set_full(cache->is_full, i);
 			path_link = new_path_link(i, current_path, cache->all_path, 0);
 			add_ptr_dll(path_link, cache->new_path);
-//			debug_print_tab_nb(cache->is_full, map->y);
 		}
 		++i;
 	}

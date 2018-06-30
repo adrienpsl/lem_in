@@ -55,18 +55,23 @@ void print(t_cache cache)
 	//	printf("**************************************************** \n");
 }
 
-void tes(t_cache cache, t_map map)
+// si res est fuck
+
+size_t tes(t_cache cache, t_map map)
 {
 	t_dll_l current_work;
+	int res;
 
 	current_work = cache->working_path->top;
 	while (current_work)
 	{
-		binarie_line(map, cache, current_work->content);
-		//		print(cache);
+		binarie_line(map, cache, current_work->content, &res);
 		current_work = current_work->next;
+		if (res == 0)
+			dll_drop_link(cache->working_path, current_work->prev);
 	}
 	clean_woking(cache);
+	return (cache->working_path->length);
 }
 
 // stoker tout les chemins qui passent par i et les ranger
@@ -80,6 +85,7 @@ int main()
 	t_cache cache;
 	t_map map;
 	t_dll_l path_l;
+	int res;
 
 	lem = new_lem();
 	algo = &lem->algo;
@@ -103,28 +109,29 @@ int main()
 	cache->current_room = data->start_nb;
 	//
 	path_l = new_path_link(cache->current_room, NULL, cache->all_path, 0);
-	binarie_line(map, cache, path_l->content);
+	binarie_line(map, cache, path_l->content, &res);
 	clean_woking(cache);
 	print(cache);
 
-	tes(cache, map);
-	print(cache);
-
-	tes(cache, map);
-	print(cache);
-
-	tes(cache, map);
-	print(cache);
-
-	dll_func(cache->working_path, print_path_dll);
-
-	tes(cache, map);
-//	print(cache);
-
-
-	dll_func(cache->working_path, print_path_dll);
+	//	tes(cache, map);
+	//	print(cache);
+	//
+	//	tes(cache, map);
+	//	print(cache);
+	//
+	//	tes(cache, map);
+	//	print(cache);
+	//
+	//	dll_func(cache->working_path, print_path_dll);
+	//
+	//	tes(cache, map);
+	//
+	//	dll_func(cache->working_path, print_path_dll);
 
 	//	print_path(cache->working_path->top->content);
+	while (tes(cache, map))
+	{}
+	print(cache);
 
 	// print path
 
