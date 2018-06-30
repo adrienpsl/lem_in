@@ -10,4 +10,101 @@
 ranger la map:
     je les mets du plus petit au plus grand
     je fais un algo de trie
-    
+
+
+
+/Users/adpusel/Dropbox/42/projects/lem_in/cmake-build-debug/Lem-in
+work
+A <-- 0 - B
+A <-- 0 - D
+
+B - A -
+D - A -
+
+C - B - A -
+E - B - A -
+E - D - A -
+G - D - A -
+
+F - C - B - A -
+D - E - B - A -
+F - E - B - A -
+H - E - B - A -
+B - E - D - A -
+F - E - D - A -
+H - E - D - A -
+H - G - D - A -
+
+E - F - C - B - A -
+I - F - C - B - A -
+G - D - E - B - A -
+C - F - E - B - A -
+I - F - E - B - A -
+G - H - E - B - A -
+I - H - E - B - A -
+C - B - E - D - A -
+C - F - E - D - A -
+I - F - E - D - A -
+G - H - E - D - A -
+I - H - E - D - A -
+E - H - G - D - A -
+I - H - G - D - A -
+
+D - E - F - C - B - A -
+H - E - F - C - B - A -
+H - I - F - C - B - A -
+H - G - D - E - B - A -
+H - I - F - E - B - A -
+D - G - H - E - B - A -
+F - I - H - E - B - A -
+F - C - B - E - D - A -
+B - C - F - E - D - A -
+H - I - F - E - D - A -
+F - I - H - E - D - A -
+B - E - H - G - D - A -
+F - E - H - G - D - A -
+F - I - H - G - D - A -
+
+G - D - E - F - C - B - A -
+G - H - E - F - C - B - A -
+I - H - E - F - C - B - A -
+E - H - I - F - C - B - A -
+G - H - I - F - C - B - A -
+I - H - G - D - E - B - A -
+G - H - I - F - E - B - A -
+C - F - I - H - E - B - A -
+I - F - C - B - E - D - A -
+G - H - I - F - E - D - A -
+C - F - I - H - E - D - A -
+C - B - E - H - G - D - A -
+C - F - E - H - G - D - A -
+I - F - E - H - G - D - A -
+C - F - I - H - G - D - A -
+E - F - I - H - G - D - A -
+
+H - G - D - E - F - C - B - A -
+D - G - H - E - F - C - B - A -
+D - E - H - I - F - C - B - A -
+D - G - H - I - F - C - B - A -
+F - I - H - G - D - E - B - A -
+D - G - H - I - F - E - B - A -
+H - I - F - C - B - E - D - A -
+B - C - F - I - H - E - D - A -
+F - C - B - E - H - G - D - A -
+B - C - F - E - H - G - D - A -
+B - C - F - I - H - G - D - A -
+B - E - F - I - H - G - D - A -
+
+I - H - G - D - E - F - C - B - A -
+G - D - E - H - I - F - C - B - A -
+E - D - G - H - I - F - C - B - A -
+C - F - I - H - G - D - E - B - A -
+G - H - I - F - C - B - E - D - A -
+I - F - C - B - E - H - G - D - A -
+E - B - C - F - I - H - G - D - A -
+C - B - E - F - I - H - G - D - A -
+
+
+
+
+Process finished with exit code 0

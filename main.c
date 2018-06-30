@@ -66,9 +66,10 @@ size_t tes(t_cache cache, t_map map)
 	{
 		binarie_line(map, cache, current_work->content, &res);
 		current_work = current_work->next;
-//		if (res == 0)
-//			dll_drop_link(cache->working_path, current_work->prev);
+		if (res == 0)
+			dll_drop_link(cache->working_path, current_work->prev);
 	}
+//	dll_func(cache->working_path, print_path_dll);
 	clean_woking(cache);
 	return (cache->working_path->length);
 }
@@ -138,14 +139,16 @@ int main()
 	{}
 
 
-	dll_func(cache->new_path, print_path_dll);
-
-
-//	keep_good_path(cache->close_path, cache->good_path);
-//
 //	dll_func(cache->close_path, print_path_dll);
 
-//	print(cache);
+
+	keep_good_path(cache->close_path, cache->good_path);
+//
+//	dll_func(cache->close_path, print_path_dll);
+	dll_func(cache->good_path, print_path_dll);
+
+
+	//	print(cache);
 
 	// print path
 
