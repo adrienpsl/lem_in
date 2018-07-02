@@ -12,6 +12,18 @@
 
 #include "../all_includes.h"
 
+int option_print_list(t_cache cache, t_dll list, char *explain)
+{
+
+	if (cache->option == TRUE && list->length)
+	{
+		printf("%s \n", explain);
+		printf("--------------------------------------------- \n");
+		dll_func(list, print_path_dll);
+	}
+	return (TRUE);
+}
+
 size_t fill_path(t_cache cache, t_map map)
 {
 	t_dll_l current_work;
@@ -25,12 +37,11 @@ size_t fill_path(t_cache cache, t_map map)
 		if (res == 0)
 			dll_drop_link(cache->working_path, current_work->prev);
 	}
-	//	dll_func(cache->working_path, print_path_dll);
 	clean_woking(cache);
 	return (cache->working_path->length);
 }
 
-void     get_all_path(t_cache cache, t_map map)
+void get_all_path(t_cache cache, t_map map)
 {
 	while (fill_path(cache, map))
 	{}

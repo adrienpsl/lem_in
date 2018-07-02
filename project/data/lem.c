@@ -12,7 +12,6 @@
 
 #include "../all_includes.h"
 
-
 t_lem new_lem()
 {
 	t_lem lem;
@@ -27,6 +26,7 @@ t_lem new_lem()
 	generate_map(&algo->map,  lem->data.room->length);
 	set_tunnel(&lem->data, &algo->map);
 	ft_memcpy(algo->map.work, algo->map.base, algo->map.size);
+	print_map(algo->map.work, algo->map.y);
 	algo->cache.current_room = lem->data.start_nb;
 	return (lem);
 }
@@ -39,9 +39,8 @@ void     free_lem(t_lem lem)
 	algo = &lem->algo;
 	data = &lem->data;
 
-//	destroy_dll_func(&algo->working_path, &dll_l_notfree_content);
-//	destroy_dll(&algo->all_path);
-//	destroy_dll_func(&data->room, &destroy_room);
-//	destroy_dll_func(&data->tunnel, &destroy_tunnel);
+	destroy_map(&lem->algo.map);
+	destroy_dll_func(&data->room, &destroy_room);
+	destroy_dll_func(&data->tunnel, &destroy_tunnel);
 	free(lem);
 }

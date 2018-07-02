@@ -25,6 +25,13 @@ void     print_cache_list(t_dll_l path_link);
 void     print_line(char* tab_room, size_t size_line, int cur_line);
 void     print_map_taken(char* tab_room, size_t size_line);
 void     print_path_dll(t_dll_l link);
+void	print_path_link(t_dll_l link);
+void     print_list_dll_path(t_dll_l dll_path_link);
+
+/*
+**    explication
+*/
+int option_print_list(t_cache cache, t_dll list, char *explain);
 
 /*
 **    OBJ ========================================================
@@ -37,12 +44,17 @@ void     print_path_dll(t_dll_l link);
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 void print_path(t_path path);
 void     get_all_path(t_cache cache, t_map map);
+void free_list_list_path(void *list_ptr);
+void copy_all_path_order(t_dll_l close_path_link, t_dll *dll_path_free,
+ t_dll *dll_path_ptr);
+t_dll_l     get_dll_by_path(t_path path);
 
 
 /*
 **    ALGO ========================================================
 */
 void split_path(t_map map, t_cache cache, t_path current_path, int *res);
+void destroy_cache(t_cache cache);
 
 /*
 **    cache

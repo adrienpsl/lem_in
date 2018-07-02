@@ -19,15 +19,16 @@ void init_cache(t_cache cache, t_data data)
 	cache->working_path = new_dll();
 	cache->close_path = new_dll();
 	cache->room = data->room;
-	cache->is_full = ft_malloc_protect(sizeof(int) * cache->room->length);
-	ft_bzero(cache->is_full, sizeof(int) * cache->room->length);
 	cache->name_end = data->end_nb;
 }
 
-//void destroy(t_cache cache)
-//{
-//
-//}
+void destroy_cache(t_cache cache)
+{
+	destroy_dll_func(&cache->new_path, dll_l_notfree_content);
+	destroy_dll_func(&cache->close_path, dll_l_notfree_content);
+	destroy_dll_func(&cache->working_path, dll_l_notfree_content);
+	destroy_dll(&cache->all_path);
+}
 
 int is_close_path(t_dll_l link, void *name_end_room)
 {
@@ -54,5 +55,9 @@ void clean_woking(t_cache cache)
 	destroy_dll_func(&cache->working_path, dll_l_notfree_content);
 	drop_closed_path(cache->new_path, cache->close_path, cache->name_end);
 	cache->working_path = cache->new_path;
+	option_print_list(cache, cache->working_path,
+					  "path en cours de recherche");
+	option_print_list(cache, cache->close_path,
+					  "path finish");
 	cache->new_path = new_dll();
 }

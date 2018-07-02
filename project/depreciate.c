@@ -10,39 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "all_includes.h"
 
-void print_cache_list(t_dll_l path_link)
+int is_not_this_room(t_dll_l link, void *name_end_room)
 {
 	t_path path;
 
-	path = path_link->content;
-
-	printf("%c <-- ", path->prev->room + 'A');
-	printf("%d - ", path->size);
-	printf("%c\n", path->room + 'A');
-}
-
-void print_path_link(t_dll_l link)
-{
-	t_path  path;
-
 	path = link->content;
-	printf("%c - ", path->room + 'A');
+	path = path->prev;
+	if (path->room == *(int *) name_end_room)
+		return (FALSE);
+	return (TRUE);
 }
 
-void print_path(t_path path)
+void keep_good_path(t_dll closed_path, t_dll good_path)
 {
-	while (path)
+	t_path cur_room;
+	t_dll_l current_path_link;
+	t_dll_l tmp_link;
+	char a;
+	char b;
+
+	// faire une new rev list pour chaque maillon
+	current_path_link = dll_drop_link(closed_path, closed_path->top);
+	cur_room = current_path_link->content;
+	cur_room = cur_room->prev;
+	a = cur_room->room + 'A';
+
+	while (dll_find_and_drop(closed_path, is_not_this_room, &cur_room->room,
+							 &tmp_link))
 	{
-		printf("%c - ", path->room + 'A');
-		path = path->prev;
+		b = ((t_path)tmp_link->content)->prev->room + 'A';
+		dll_add(tmp_link, good_path);
 	}
-	printf(" \n");
 }
-
-void     print_path_dll(t_dll_l link)
-{
-	print_path(link->content);
-}
-

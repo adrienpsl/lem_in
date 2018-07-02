@@ -12,37 +12,3 @@
 
 #include "../all_includes.h"
 
-void print_cache_list(t_dll_l path_link)
-{
-	t_path path;
-
-	path = path_link->content;
-
-	printf("%c <-- ", path->prev->room + 'A');
-	printf("%d - ", path->size);
-	printf("%c\n", path->room + 'A');
-}
-
-void print_path_link(t_dll_l link)
-{
-	t_path  path;
-
-	path = link->content;
-	printf("%c - ", path->room + 'A');
-}
-
-void print_path(t_path path)
-{
-	while (path)
-	{
-		printf("%c - ", path->room + 'A');
-		path = path->prev;
-	}
-	printf(" \n");
-}
-
-void     print_path_dll(t_dll_l link)
-{
-	print_path(link->content);
-}
-
