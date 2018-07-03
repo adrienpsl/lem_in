@@ -44,16 +44,9 @@ t_dll_l get_tunnel_link(t_str_split split, t_data data)
 	}
 	else
 		tunne_link = NULL;
-
-	// check same connection
 	return (tunne_link);
 }
 
-
-// fonction qui gere deuxieme vague
-/*------------------------------------*\
-	je ne verifie ppas si j'ai deux fois le meme tunnel
-\*------------------------------------*/
 void get_tunnel(t_data data, t_get_utils utils)
 {
 	static t_dll_l tunnel_link;

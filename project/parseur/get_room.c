@@ -16,7 +16,7 @@
 
 #include "../all_includes.h"
 
-t_dll_l get_room(t_str_split split, t_data data, t_get_utils utils)
+t_dll_l create_room_link(t_str_split split, t_data data, t_get_utils utils)
 {
 	t_dll_l room_link;
 	t_room room;
@@ -46,16 +46,6 @@ t_dll_l get_room(t_str_split split, t_data data, t_get_utils utils)
 	return (room_link);
 }
 
-void check_err_room(t_get_utils utils)
-{
-	if (utils->start == NULL)
-		ft_error("pas de start");
-	if (utils->end == NULL)
-		ft_error("pas de end");
-	if (utils->start == utils->end)
-		ft_error("start et end sont les memes");
-}
-
 void  get_coord_room(t_data data, t_get_utils utils)
 {
 	static t_dll_l room_link;
@@ -69,7 +59,7 @@ void  get_coord_room(t_data data, t_get_utils utils)
 			utils->type_salle = manage_comment(split);
 		else if (split->all == 3)
 		{
-			room_link = get_room(split, data, utils);
+			room_link = create_room_link(split, data, utils);
 			if (room_link == NULL)
 				ft_error("err dans un link");
 			else
@@ -80,4 +70,20 @@ void  get_coord_room(t_data data, t_get_utils utils)
 		destroy_str_split(&split);
 	}
 	destroy_str_split(&split);
+}
+
+void check_err_room(t_get_utils utils)
+{
+	if (utils->start == NULL)
+		ft_error("pas de start");
+	if (utils->end == NULL)
+		ft_error("pas de end");
+	if (utils->start == utils->end)
+		ft_error("start et end sont les memes");
+}
+
+void get_room(t_data data, t_get_utils utils)
+{
+	get_coord_room(data, utils);
+	check_err_room(utils);
 }

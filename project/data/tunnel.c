@@ -39,7 +39,7 @@ void get_max_path(t_data data, t_map map_ptr)
 		    end++;
 	}
 	i = 0;
-	map = map_ptr->map + (data->end_room * data->y);
+	map = map_ptr->map + (data->end_room *  map_ptr->y);
 	start = 0;
 	while (i < map_ptr->y)
 	{

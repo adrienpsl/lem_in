@@ -39,14 +39,6 @@ void free_list_list_path(void *list_ptr)
 	destroy_dll_func(&list, dll_l_notfree_content);
 }
 
-void     print_list_dll_path(t_dll_l dll_path_link)
-{
-	t_dll list;
-
-	list = dll_path_link->content;
-	dll_func_where(list, print_path_link);
-}
-
 t_dll copy_all_path_order(t_dll_l close_path_link)
 {
 	t_dll dll_path;

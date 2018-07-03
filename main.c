@@ -1,21 +1,6 @@
 #include <stdio.h>
 #include "project/includes/function.h"
 
-void set_first_link(t_cache cache, t_map map)
-{
-	t_dll_l path_l;
-	int res;
-
-	path_l = new_path_link(cache->start_room, NULL, cache->all_path, 0);
-	split_path(map, cache, path_l->content, &res);
-	clean_woking(cache);
-}
-
-
-// je prends le premier de ma liste et je le met dans une list chaine,
-// je j'ai un tab cache qui fait la moitier de la liste chaine,
-
-
 int same_where_path(t_dll_l list_1_link, void *list_2_ptr)
 {
 	t_path path_1;
@@ -41,22 +26,39 @@ void test_1(t_dll_l first_link, t_dll list)
 
 	cur_link = first_link->next;
 
-//	print_list_dll_path(first_link);
-	printf("=======\n");
+	//	print_list_dll_path(first_link);
+	//	printf("=======\n");
 	while (cur_link)
 	{
-//		printf("%d \n", same_where_path(first_link, cur_link));
+		//		printf("%d \n", same_where_path(first_link, cur_link));
 		if (same_where_path(first_link, cur_link))
 		{
 			tmp_link = cur_link;
-//			print_list_dll_path(cur_link);
-			printf("------ \n");
+			//			print_list_dll_path(cur_link);
+			//			printf("------ \n");
 			cur_link = cur_link->next;
 			dll_delete_link(list, tmp_link);
 			continue;
 		}
 		cur_link = cur_link->next;
 	}
+}
+
+char *tests(t_dll room, t_dll path_lst)
+{
+	// je peux generer la map directement sans refaire de liste chainer
+	char *map;
+	t_path path;
+
+	map = ft_0_new_memory(sizeof(char) * room->length * (path_lst->length - 2));
+	path = path_lst->top->content;
+	path = path->prev;
+	while (path)
+	{
+	    map[0];
+	}
+
+	return (map);
 }
 
 int main()
@@ -75,24 +77,31 @@ int main()
 	map = &algo->map;
 	cache = &algo->cache;
 
-	// je construit les data
 	//	cache->option = TRUE;
-	set_first_link(cache, map);
-
-	// je range et garde les chemin qui matchs
 	get_all_path(cache, map);
-	list = copy_all_path_order(cache->close_path->top);
+
+	/*------------------------------------*\
+	    je print les paths et je relechis a comment leurs generer une map
+
+	\*------------------------------------*/
+	dll_func(cache->close_path, print_path_dll);
+	// je copy chaque liste dans sont propre paht
+
+
+
+
+	//	list = copy_all_path_order(cache->close_path->top);
 
 	// je fait le trie dans les chemin
-	printf("Inversion des path listes et transfere en liste chaine \n ---- \n");
-	dll_func(list, print_list_dll_path);
+	//	printf("Inversion des path listes et transfere en liste chaine \n ---- \n");
+	//	dll_func(list, print_list_dll_path);
 
-	test_1(list->top, list);
-	test_1(list->top->next, list);
-	dll_func(list, print_list_dll_path);
+	//	test_1(list->top, list);
+	//	test_1(list->top->next, list);
+	//	dll_func(list, print_list_dll_path);
 
 	printf("%d \n", lem->data->lim);
-	destroy_dll_func(&list, free_list_list_path);
+	//	destroy_dll_func(&list, free_list_list_path);
 	destroy_cache(&algo->cache);
 	free_lem(lem);
 	return EXIT_SUCCESS;

@@ -28,11 +28,17 @@ typedef t_room_00 *t_room;
 
 typedef struct		s_path_00
 {
-	int		size;
 	int 	room;
+	int		size;
 	struct s_path_00 *prev;
 } 					t_path_00;
 typedef t_path_00 *t_path;
+
+typedef struct		s_solver_path_00
+{
+
+} 					t_solver_path_00;
+typedef t_solver_path_00 *t_solver_path;
 
 
 

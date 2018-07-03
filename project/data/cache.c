@@ -18,7 +18,6 @@ void init_cache(t_cache cache, t_data data)
 	cache->new_path = new_dll();
 	cache->working_path = new_dll();
 	cache->close_path = new_dll();
-//	cache->room = data->room;
 	cache->end_room = data->end_room;
 }
 

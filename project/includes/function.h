@@ -76,18 +76,17 @@ void     free_lem(t_lem lem);
 /*
 **   PARSEUR  ========================================================
 */
-void lem_read_data(t_data data);
-void	get_coord_room(t_data data, t_get_utils utils);
+void	lem_read_data(t_data data);
 void 	get_tunnel(t_data data, t_get_utils utils);
-void	set_tab_tunnel(t_data data, t_get_utils utils);
-void set_tunnel(t_data data, t_map map);
+void	get_room(t_data data, t_get_utils utils);
+void	set_tunnel(t_data data, t_map map);
 
 /*
 **    paseur utils
 */
 int		manage_comment(t_str_split split);
 int		is_right_room(t_dll_l link, void *ptr_new_room);
-void check_err_room(t_get_utils utils);
+void	check_err_room(t_get_utils utils);
 void	get_size_map(t_data data, int x, int y);
 
 

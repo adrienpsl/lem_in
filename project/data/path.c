@@ -22,7 +22,6 @@ t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
 	path.size = size;
 	link = new_dll_l(&path, sizeof(t_path_00));
 	dll_add(link, all_path);
-
 	return (link);
 }
 
@@ -61,7 +60,8 @@ void split_path(t_map map, t_cache cache, t_path current_path, int *res)
 		if (map_line[i] &&
 			has_taken_this_room(current_path, i))
 		{
-			path_link = new_path_link(i, current_path, cache->all_path, 0);
+			path_link = new_path_link(i, current_path, cache->all_path,
+									  current_path->size + 1);
 			add_ptr_dll(path_link, cache->new_path);
 		}
 		++i;

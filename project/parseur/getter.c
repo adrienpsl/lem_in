@@ -30,6 +30,8 @@ void get_nb_foumis(t_getter get)
 	free_str(&get->utils.line);
 }
 
+
+
 // premiere fonction get sur gnl les data
 void lem_read_data(t_data data)
 {
@@ -42,7 +44,6 @@ void lem_read_data(t_data data)
 	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
 
 	get_nb_foumis(&get);
-	get_coord_room(get.data, &get.utils);
-	check_err_room(&get.utils);
+	get_room(get.data, &get.utils);
 	get_tunnel(get.data, &get.utils);
 }

@@ -12,37 +12,48 @@
 
 #include "../all_includes.h"
 
-void print_cache_list(t_dll_l path_link)
+void set_first_link(t_cache cache, t_map map)
 {
-	t_path path;
+	t_dll_l path_l;
+	int res;
 
-	path = path_link->content;
-
-	printf("%c <-- ", path->prev->room + 'A');
-	printf("%d - ", path->size);
-	printf("%c\n", path->room + 'A');
+	path_l = new_path_link(cache->start_room, NULL, cache->all_path, 0);
+	split_path(map, cache, path_l->content, &res);
+	clean_woking(cache);
 }
 
-void print_path_link(t_dll_l link)
+int option_print_list(t_cache cache, t_dll list, char *explain)
 {
-	t_path  path;
 
-	path = link->content;
-	printf("%c - ", path->room + 'A');
-}
-
-void print_path(t_path path)
-{
-	while (path)
+	if (cache->option == TRUE && list->length)
 	{
-		printf("%c - ", path->room + 'A');
-		path = path->prev;
+		printf("%s \n", explain);
+		printf("--------------------------------------------- \n");
+		dll_func(list, print_path_dll);
 	}
-	printf(" \n");
+	return (TRUE);
 }
 
-void     print_path_dll(t_dll_l link)
+size_t fill_path(t_cache cache, t_map map)
 {
-	print_path(link->content);
+	t_dll_l current_work;
+	int res;
+
+	current_work = cache->working_path->top;
+	while (current_work)
+	{
+		split_path(map, cache, current_work->content, &res);
+		current_work = current_work->next;
+		if (res == 0)
+			dll_drop_link(cache->working_path, current_work->prev);
+	}
+	clean_woking(cache);
+	return (cache->working_path->length);
 }
 
+void get_all_path(t_cache cache, t_map map)
+{
+	set_first_link(cache, map);
+	while (fill_path(cache, map))
+	{}
+}
