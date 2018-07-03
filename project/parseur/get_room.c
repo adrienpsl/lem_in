@@ -16,7 +16,7 @@
 
 #include "../all_includes.h"
 
-t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
+t_dll_l get_room(t_str_split split, t_data data, t_get_utils utils)
 {
 	t_dll_l room_link;
 	t_room room;
@@ -26,13 +26,13 @@ t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 							  *(split->start + 2));
 	if (utils->type_salle == L_START)
 	{
-		data->start = room_link;
-		data->start_nb = i;
+		utils->start = room_link;
+		data->start_room = i;
 	}
 	if (utils->type_salle == L_END)
 	{
-		data->end = room_link;
-		data->end_nb = i;
+		utils->end = room_link;
+		data->end_room = i;
 	}
 	utils->type_salle = 0;
 	if (room_link && dll_find(data->room, is_right_room, room_link) != NULL)
@@ -46,24 +46,22 @@ t_dll_l get_room(t_str_split split, t_get_data data, t_get_utils utils)
 	return (room_link);
 }
 
-void check_err_room(t_get_data data)
+void check_err_room(t_get_utils utils)
 {
-	if (data->start == NULL)
+	if (utils->start == NULL)
 		ft_error("pas de start");
-	if (data->end == NULL)
+	if (utils->end == NULL)
 		ft_error("pas de end");
-	if (data->start == data->end)
+	if (utils->start == utils->end)
 		ft_error("start et end sont les memes");
 }
 
-void  get_coord_room(t_getter get)
+void  get_coord_room(t_data data, t_get_utils utils)
 {
-	static t_get_utils utils;
 	static t_dll_l room_link;
 	t_str_split split;
 
 	split = NULL;
-	utils = &get->utils;
 	while (ask_gnl(utils->fd, &utils->line))
 	{
 		split = new_str_split(utils->line, ' ');
@@ -71,11 +69,11 @@ void  get_coord_room(t_getter get)
 			utils->type_salle = manage_comment(split);
 		else if (split->all == 3)
 		{
-			room_link = get_room(split, &get->data, &get->utils);
+			room_link = get_room(split, data, utils);
 			if (room_link == NULL)
 				ft_error("err dans un link");
 			else
-				dll_add(room_link, get->data.room);
+				dll_add(room_link, data->room);
 		}
 		else
 			break;

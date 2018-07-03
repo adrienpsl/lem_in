@@ -44,3 +44,47 @@ void keep_good_path(t_dll closed_path, t_dll good_path)
 		dll_add(tmp_link, good_path);
 	}
 }
+
+void print_tab(t_vt tab_ptr)
+{
+	size_t i;
+	void **tab;
+	t_path path;
+
+	tab = tab_ptr->tab;
+	i = 0;
+	while (i < tab_ptr->size)
+	{
+		path = tab[i];
+		print_path(path);
+		++i;
+	}
+}
+
+
+t_vt build_tab(t_dll list_ptr)
+{
+	t_vt tab_ptr;
+	void **tab;
+	t_dll list;
+	t_dll_l link_list_ptr;
+	size_t i;
+
+	t_path path;
+
+	tab_ptr = new_void_tab(list_ptr->length);
+	tab = tab_ptr->tab;
+	i = 0;
+	link_list_ptr = list_ptr->top;
+	while (link_list_ptr)
+	{
+		list = link_list_ptr->content;
+		path = list->top->next->content;
+		tab[i] = path;
+
+		i++;
+		link_list_ptr = link_list_ptr->next;
+	}
+	print_tab(tab_ptr);
+	return (tab_ptr);
+}

@@ -16,7 +16,7 @@
 # include "../all_includes.h"
 
 /*
-**    debug
+**    debugs
 */
 void     print_tunnel_dll(t_dll_l room_link);
 void     print_room(t_room room);
@@ -45,8 +45,7 @@ t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 void print_path(t_path path);
 void     get_all_path(t_cache cache, t_map map);
 void free_list_list_path(void *list_ptr);
-void copy_all_path_order(t_dll_l close_path_link, t_dll *dll_path_free,
- t_dll *dll_path_ptr);
+t_dll copy_all_path_order(t_dll_l close_path_link);
 t_dll_l     get_dll_by_path(t_path path);
 
 
@@ -77,10 +76,10 @@ void     free_lem(t_lem lem);
 /*
 **   PARSEUR  ========================================================
 */
-t_get_data_00 lem_read_line( );
-void	get_coord_room(t_getter get);
-void 	get_tunnel(t_getter get);
-void	set_tab_tunnel(t_getter get);
+void lem_read_data(t_data data);
+void	get_coord_room(t_data data, t_get_utils utils);
+void 	get_tunnel(t_data data, t_get_utils utils);
+void	set_tab_tunnel(t_data data, t_get_utils utils);
 void set_tunnel(t_data data, t_map map);
 
 /*
@@ -88,8 +87,8 @@ void set_tunnel(t_data data, t_map map);
 */
 int		manage_comment(t_str_split split);
 int		is_right_room(t_dll_l link, void *ptr_new_room);
-void	check_err_room(t_get_data data);
-void	get_size_map(t_get_data data, int x, int y);
+void check_err_room(t_get_utils utils);
+void	get_size_map(t_data data, int x, int y);
 
 
 /*

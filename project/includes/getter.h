@@ -18,19 +18,18 @@
 /*
 **    data
 */
-typedef struct		s_get_data_00
+typedef struct		s_data_00
 {
 	t_dll room;
 	t_dll tunnel;
-	t_dll_l start;
-	t_dll_l end;
-	int start_nb;
-	int end_nb;
+	int start_room;
+	int end_room;
 	int x;
 	int y;
 	int nb_fourmis;
-} 					t_get_data_00;
-typedef t_get_data_00 *t_get_data;
+	int lim;
+} 					t_data_00;
+typedef t_data_00 *t_data;
 
 
 /*
@@ -38,9 +37,11 @@ typedef t_get_data_00 *t_get_data;
 */
 typedef struct		s_get_utils_00
 {
+	t_dll_l start;
+	t_dll_l end;
+	char *line;
 	int fd;
 	int type_salle;
-	char *line;
 
 } 					t_get_utils_00;
 typedef t_get_utils_00 *t_get_utils;
@@ -51,7 +52,7 @@ typedef t_get_utils_00 *t_get_utils;
 */
 typedef struct		s_getter_00
 {
-	t_get_data_00 data;
+	t_data data;
 	t_get_utils_00 utils;
 } 					t_getter_00;
 typedef t_getter_00 *t_getter;

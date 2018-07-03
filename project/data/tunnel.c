@@ -22,6 +22,34 @@ int same_name(t_dll_l current_link, void *ptr)
 	return (FALSE);
 }
 
+void get_max_path(t_data data, t_map map_ptr)
+{
+	char *map;
+	int end;
+	int start;
+	size_t i;
+
+	i = 0;
+	map = map_ptr->map + (data->start_room * map_ptr->y);
+	end = 0;
+	while (i < map_ptr->y)
+	{
+		++i;
+		if (map[i] == 1)
+		    end++;
+	}
+	i = 0;
+	map = map_ptr->map + (data->end_room * data->y);
+	start = 0;
+	while (i < map_ptr->y)
+	{
+		++i;
+		if (map[i] == 1)
+			start++;
+	}
+	data->lim = start > end ? end : start;
+}
+
 void set_tunnel(t_data data, t_map map)
 {
 	t_dll_l tunnel_link;
@@ -35,10 +63,11 @@ void set_tunnel(t_data data, t_map map)
 		tunnel = tunnel_link->content;
 		dll_index_link_func(data->room, same_name, tunnel->c_room_2, &x);
 		dll_index_link_func(data->room, same_name, tunnel->c_room_1, &y);
-		map->base[(y * data->room->length) + x] = 1;
-		map->base[(x * data->room->length) + y] = 1;
+		map->map[(y * data->room->length) + x] = 1;
+		map->map[(x * data->room->length) + y] = 1;
 		tunnel_link = tunnel_link->next;
 	}
+	get_max_path(data, map);
 }
 
 t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2)

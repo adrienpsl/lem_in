@@ -16,13 +16,10 @@ void generate_map(t_map map, int y)
 {
 	map->y = y;
 	map->size = sizeof(char) * y * y;
-	map->base = ft_malloc_protect(map->size);
-	map->work = ft_malloc_protect(map->size);
-	ft_bzero(map->base, map->size);
+	map->map = ft_0_new_memory(map->size);
 }
 
 void destroy_map(t_map map)
 {
-	free(map->base);
-	free(map->work);
+	free(map->map);
 }

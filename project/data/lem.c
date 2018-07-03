@@ -12,35 +12,46 @@
 
 #include "../all_includes.h"
 
+void set_up_algo(t_algo algo, t_data data)
+{
+	t_map map;
+
+	init_cache(&algo->cache, data);
+	map = &algo->map;
+	generate_map(map,  data->room->length);
+	set_tunnel(data, map);
+
+	//	print_map(algo->map.work, algo->map.y);
+	algo->cache.start_room = data->start_room;
+
+}
+
+t_data set_data()
+{
+	t_data data;
+
+	data = ft_0_new_memory(sizeof(t_data_00));
+	data->room = new_dll();
+	data->tunnel = new_dll();
+	return (data);
+}
+
 t_lem new_lem()
 {
 	t_lem lem;
-	t_algo algo;
 
-	lem = ft_malloc_protect(sizeof(t_lem_00));
-	algo = &lem->algo;
-	ft_bzero(lem, sizeof(t_lem_00));
-	lem->data = lem_read_line();
-	init_cache(&lem->algo.cache, &lem->data);
-	(void)1;
-	generate_map(&algo->map,  lem->data.room->length);
-	set_tunnel(&lem->data, &algo->map);
-	ft_memcpy(algo->map.work, algo->map.base, algo->map.size);
-	print_map(algo->map.work, algo->map.y);
-	algo->cache.current_room = lem->data.start_nb;
+	lem = ft_0_new_memory(sizeof(t_lem_00));
+	lem->data = set_data();
+	lem_read_data(lem->data);
+	set_up_algo(&lem->algo, lem->data);
+
 	return (lem);
 }
 
 void     free_lem(t_lem lem)
 {
-    t_algo algo;
-	t_data data;
-
-	algo = &lem->algo;
-	data = &lem->data;
-
 	destroy_map(&lem->algo.map);
-	destroy_dll_func(&data->room, &destroy_room);
-	destroy_dll_func(&data->tunnel, &destroy_tunnel);
+	destroy_dll_func(&lem->data->room, &destroy_room);
+	destroy_dll_func(&lem->data->tunnel, &destroy_tunnel);
 	free(lem);
 }

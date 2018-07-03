@@ -56,7 +56,7 @@ int is_right_room(t_dll_l link, void *ptr_new_room)
 	return (FALSE);
 }
 
-void get_size_map(t_get_data data, int x, int y)
+void get_size_map(t_data data, int x, int y)
 {
 	if (x > data->x)
 		data->x = x;

@@ -18,8 +18,8 @@ void init_cache(t_cache cache, t_data data)
 	cache->new_path = new_dll();
 	cache->working_path = new_dll();
 	cache->close_path = new_dll();
-	cache->room = data->room;
-	cache->name_end = data->end_nb;
+//	cache->room = data->room;
+	cache->end_room = data->end_room;
 }
 
 void destroy_cache(t_cache cache)
@@ -53,7 +53,7 @@ void drop_closed_path(t_dll working_path, t_dll closed_path, int name_end)
 void clean_woking(t_cache cache)
 {
 	destroy_dll_func(&cache->working_path, dll_l_notfree_content);
-	drop_closed_path(cache->new_path, cache->close_path, cache->name_end);
+	drop_closed_path(cache->new_path, cache->close_path, cache->end_room);
 	cache->working_path = cache->new_path;
 	option_print_list(cache, cache->working_path,
 					  "path en cours de recherche");

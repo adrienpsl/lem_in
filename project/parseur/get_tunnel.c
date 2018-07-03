@@ -30,7 +30,7 @@ int find_room(t_dll_l link, void *ptr_str)
 	return (FALSE);
 }
 
-t_dll_l get_tunnel_link(t_str_split split, t_get_data data)
+t_dll_l get_tunnel_link(t_str_split split, t_data data)
 {
 	t_dll_l tunne_link;
 	t_dll list_room;
@@ -54,14 +54,12 @@ t_dll_l get_tunnel_link(t_str_split split, t_get_data data)
 /*------------------------------------*\
 	je ne verifie ppas si j'ai deux fois le meme tunnel
 \*------------------------------------*/
-void get_tunnel(t_getter get)
+void get_tunnel(t_data data, t_get_utils utils)
 {
-	static t_get_utils utils;
 	static t_dll_l tunnel_link;
 	t_str_split split;
 	static int signal = 1;
 
-	utils = &get->utils;
 	while (signal || ask_gnl(utils->fd, &utils->line))
 	{
 		split = new_str_split(utils->line, '-');
@@ -69,11 +67,11 @@ void get_tunnel(t_getter get)
 			utils->type_salle = manage_comment(split);
 		else if (split->all == 2)
 		{
-			tunnel_link = get_tunnel_link(split, &get->data);
+			tunnel_link = get_tunnel_link(split, data);
 			if (tunnel_link == NULL)
 				ft_error("err dans un tunnel");
 			else
-				dll_add(tunnel_link, get->data.tunnel);
+				dll_add(tunnel_link, data->tunnel);
 		}
 		else
 			break;

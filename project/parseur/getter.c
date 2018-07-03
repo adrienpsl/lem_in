@@ -26,25 +26,23 @@ void get_nb_foumis(t_getter get)
 	ask_gnl(get->utils.fd, &get->utils.line);
 	if (is_int(get->utils.line, &result) == FAIL || result <= 0)
 		ft_error("Il n'y a pas de fourmis OU le nb n'est pas Valable");
-	get->data.nb_fourmis = result;
+	get->data->nb_fourmis = result;
 	free_str(&get->utils.line);
 }
 
 // premiere fonction get sur gnl les data
-t_get_data_00 lem_read_line()
+void lem_read_data(t_data data)
 {
 	t_getter_00 get;
 
 	ft_memset(&get, 0, sizeof(t_getter_00));
-	get.data.room = new_dll();
-	get.data.tunnel = new_dll();
+	get.data = data;
 
 	get.utils.fd = open_file(
 	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
 
 	get_nb_foumis(&get);
-	get_coord_room(&get);
-	check_err_room(&get.data);
-	get_tunnel(&get);
-	return (get.data);
+	get_coord_room(get.data, &get.utils);
+	check_err_room(&get.utils);
+	get_tunnel(get.data, &get.utils);
 }

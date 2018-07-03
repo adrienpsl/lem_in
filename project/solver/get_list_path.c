@@ -12,18 +12,20 @@
 
 #include "../all_includes.h"
 
-t_dll_l get_dll_by_path(t_path path)
+t_dll_l     get_dll_by_path(t_path path)
 {
 	t_dll path_list;
 	t_dll_l link;
 	t_dll_l link_path_list;
 
 	path_list = new_dll();
+	path = path->prev;
 	while (path)
 	{
-		link = new_dll_l(path, sizeof(t_path_00));
+		link = new_dll_l_ptr(path);
 		dll_push(link, path_list);
 		path = path->prev;
+		path_list->where = path_list->top->next;
 	}
 	link_path_list = new_dll_l_ptr(path_list);
 	return (link_path_list);
@@ -34,31 +36,29 @@ void free_list_list_path(void *list_ptr)
 	t_dll list;
 
 	list = list_ptr;
-	destroy_dll(&list);
+	destroy_dll_func(&list, dll_l_notfree_content);
 }
 
-void print_list_dll_path(t_dll_l dll_path_link)
+void     print_list_dll_path(t_dll_l dll_path_link)
 {
 	t_dll list;
 
 	list = dll_path_link->content;
-	dll_func(list, print_path_link);
+	dll_func_where(list, print_path_link);
 }
 
-void copy_all_path_order(t_dll_l close_path_link, t_dll *dll_path_free,
- t_dll *dll_path_ptr)
+t_dll copy_all_path_order(t_dll_l close_path_link)
 {
+	t_dll dll_path;
 	t_dll_l link_path_list;
-	t_dll_l link_ptr;
 
-	*dll_path_free = new_dll();
-	*dll_path_ptr = new_dll();
+
+	dll_path = new_dll();
 	while (close_path_link)
 	{
 		link_path_list = get_dll_by_path(close_path_link->content);
-		link_ptr = new_dll_l_ptr(link_path_list->content);
-		dll_push(link_path_list, *dll_path_free);
-		dll_push(link_ptr, dll_path_ptr);
+		dll_add(link_path_list, dll_path);
 		close_path_link = close_path_link->next;
 	}
+	return (dll_path);
 }

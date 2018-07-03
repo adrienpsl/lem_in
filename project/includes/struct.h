@@ -20,17 +20,13 @@
 /*
 **    change type ========================================================
 */
-typedef t_get_data_00 t_data_00;
-
-typedef t_data_00 *t_data;
 
 /*
 **    algo ========================================================
 */
 typedef struct s_map_00
 {
-	char *base;
-	char *work;
+	char *map;
 	size_t size;
 	size_t y;
 } t_map_00;
@@ -39,14 +35,13 @@ typedef t_map_00 *t_map;
 
 typedef struct s_cache_00
 {
-	int option;
 	t_dll working_path;
 	t_dll all_path;
 	t_dll new_path;
-	int name_end;
 	t_dll close_path;
-	int current_room;
-	t_dll room;
+	int option;
+	int end_room;
+	int start_room;
 } t_cache_00;
 
 typedef t_cache_00 *t_cache;
@@ -66,7 +61,7 @@ typedef t_algo_00 *t_algo;
 */
 typedef struct s_lem
 {
-	t_data_00 data;
+	t_data data;
 	t_algo_00 algo;
 } t_lem_00;
 
