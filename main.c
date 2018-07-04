@@ -49,13 +49,17 @@ char *tests(t_dll room, t_dll path_lst)
 	// je peux generer la map directement sans refaire de liste chainer
 	char *map;
 	t_path path;
+	int x;
+	int y;
 
-	map = ft_0_new_memory(sizeof(char) * room->length * (path_lst->length - 2));
+	x = room->length;
+	y = path_lst->length - 2;
+	map = ft_0_new_memory(sizeof(char) * x * y);
 	path = path_lst->top->content;
 	path = path->prev;
 	while (path)
 	{
-	    map[0];
+		map[0];
 	}
 
 	return (map);
