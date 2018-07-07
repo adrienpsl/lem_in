@@ -94,21 +94,46 @@ int cmp_line(char *cur_line, char *line, size_t lim)
 	return (FALSE);
 }
 
+int check_all_case(char *tab_path_check, char *cur_line, t_map map)
+{
+	size_t i;
+
+	i = 0;
+	while (i < map->line)
+	{
+		if (tab_path_check[i] == 1)
+		{
+			if (cmp_line(map->map + (i * map->line), cur_line, map->line))
+				return (TRUE);
+		}
+		i++;
+	}
+	return (FALSE);
+}
+
+/*------------------------------------*\
+    je compare avec dans le path
+\*------------------------------------*/
 void scan(size_t cur_line_nb, t_dll list_out, t_map map)
 {
 	size_t i;
 	char *cur_lin_str;
 	char *line_str;
+	char *tab_taken_path;
 	// un tab du nb de chemin
 
+	tab_taken_path = ft_0_new_memory(map->line);
 	(void) list_out;
 	i = 0;
 	cur_lin_str = map->map + (cur_line_nb * map->col);
 	line_str = map->map;
+	tab_taken_path[cur_line_nb] = 1;
 	printf(" \n");
 	print_line(cur_lin_str, map->line, 1);
 	while (i < map->col)
 	{
+		// je compare la ligne du tab avec toute les autres ligne valide
+		// if check autre ligne == ok // set dans le tab la bonne case.
 		if (cmp_line(line_str + (i * map->line), cur_lin_str, map->line) ==
 			FALSE)
 		{
