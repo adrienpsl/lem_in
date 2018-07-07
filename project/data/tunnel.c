@@ -30,7 +30,7 @@ void get_max_path(t_data data, t_map map_ptr)
 	size_t i;
 
 	i = 0;
-	map = map_ptr->map + (data->start_room * map_ptr->col);
+	map = map_ptr->start + (data->start_room * map_ptr->col);
 	end = 0;
 	while (i < map_ptr->col)
 	{
@@ -39,7 +39,7 @@ void get_max_path(t_data data, t_map map_ptr)
 		    end++;
 	}
 	i = 0;
-	map = map_ptr->map + (data->end_room *  map_ptr->col);
+	map = map_ptr->start + (data->end_room *  map_ptr->col);
 	start = 0;
 	while (i < map_ptr->col)
 	{
@@ -63,8 +63,8 @@ void set_tunnel(t_data data, t_map map)
 		tunnel = tunnel_link->content;
 		dll_index_link_func(data->room, same_name, tunnel->c_room_2, &x);
 		dll_index_link_func(data->room, same_name, tunnel->c_room_1, &y);
-		map->map[(y * data->room->length) + x] = 1;
-		map->map[(x * data->room->length) + y] = 1;
+		map->start[(y * data->room->length) + x] = 1;
+		map->start[(x * data->room->length) + y] = 1;
 		tunnel_link = tunnel_link->next;
 	}
 	get_max_path(data, map);

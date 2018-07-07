@@ -26,7 +26,7 @@
 */
 typedef struct s_map_00
 {
-	char *map;
+	char *start;
 	size_t size;
 	size_t col;
 	size_t line;

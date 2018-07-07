@@ -64,7 +64,7 @@ void init_cache(t_cache cache, t_data data);
 void clean_woking(t_cache cache);
 
 /*
-**    map
+**    start
 */
 void generate_map(t_map map, int y);
 void destroy_map(t_map map);

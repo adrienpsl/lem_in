@@ -16,10 +16,10 @@ void generate_map(t_map map, int y)
 {
 	map->col = y;
 	map->size = sizeof(char) * y * y;
-	map->map = ft_0_new_memory(map->size);
+	map->start = ft_0_new_memory(map->size);
 }
 
 void destroy_map(t_map map)
 {
-	free(map->map);
+	free(map->start);
 }

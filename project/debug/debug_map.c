@@ -13,7 +13,7 @@
 #include "../all_includes.h"
 
 /*
-**    print map
+**    print start
 */
 
 void print_name(int a)

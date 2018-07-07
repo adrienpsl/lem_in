@@ -51,7 +51,7 @@ void split_path(t_map map, t_cache cache, t_path current_path, int *res)
 	t_dll_l path_link;
 	size_t i;
 
-	map_line = map->map + (current_path->room * map->col);
+	map_line = map->start + (current_path->room * map->col);
 	i = 0;
 	*res = 0;
 	while (i < map->col)
