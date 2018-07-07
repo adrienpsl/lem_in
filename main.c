@@ -44,24 +44,42 @@ void test_1(t_dll_l first_link, t_dll list)
 	}
 }
 
+void add_all_path(char *map, t_dll_l path_link, size_t line)
+{
+	t_path path;
+
+	path = path_link->content;
+	path = path->prev;
+	while (path->prev)
+	{
+		map[path->room + line] = 1;
+		path = path->prev;
+	}
+}
+
+
 char *tests(t_dll room, t_dll path_lst)
 {
-	// je peux generer la map directement sans refaire de liste chainer
 	char *map;
-	t_path path;
+	t_dll_l link;
+	size_t i;
 	int x;
 	int y;
 
+	link = path_lst->top;
 	x = room->length;
-	y = path_lst->length - 2;
+	y = path_lst->length;
+	i = 0;
 	map = ft_0_new_memory(sizeof(char) * x * y);
-	path = path_lst->top->content;
-	path = path->prev;
-	while (path)
+	while (link)
 	{
-		map[0];
+	    add_all_path(map, link, i * x);
+		link = link->next;
+		++i;
 	}
 
+
+	print_path_map(map, room->length, y);
 	return (map);
 }
 
@@ -89,6 +107,7 @@ int main()
 
 	\*------------------------------------*/
 	dll_func(cache->close_path, print_path_dll);
+	tests(lem->data->room, cache->close_path);
 	// je copy chaque liste dans sont propre paht
 
 

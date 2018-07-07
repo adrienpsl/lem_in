@@ -59,6 +59,35 @@ void print_map(char *tab_room, size_t size_line)
 	printf("\n");
 }
 
+void print_path_map(char *tab_room, size_t size_line, size_t col)
+{
+	size_t i;
+	size_t line;
+	size_t lim;
+	size_t counter;
+
+	i = 0;
+	line = 0;
+	lim = size_line * col;
+	counter = 2;
+
+	print_name(size_line);
+	printf("\n1  ");
+	while (i < lim)
+	{
+		printf("%c ", tab_room[i] ? 'X' : '.');
+		++i;
+		++line;
+		if (line == size_line)
+		{
+			printf(" \n%lu  ", counter);
+			line = 0;
+			++counter;
+		}
+	}
+	printf("\n");
+}
+
 void print_line(char *tab_room, size_t size_line, int cur_line)
 {
 	size_t i;
