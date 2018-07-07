@@ -25,7 +25,7 @@ void get_nb_foumis(t_getter get)
 
 	ask_gnl(get->utils.fd, &get->utils.line);
 	if (is_int(get->utils.line, &result) == FAIL || result <= 0)
-		ft_error("Il n'y a pas de fourmis OU le nb n'est pas Valable");
+		ft_error("Il n'col a pas de fourmis OU le nb n'est pas Valable");
 	get->data->nb_fourmis = result;
 	free_str(&get->utils.line);
 }

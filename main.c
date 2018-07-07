@@ -57,30 +57,79 @@ void add_all_path(char *map, t_dll_l path_link, size_t line)
 	}
 }
 
-
-char *tests(t_dll room, t_dll path_lst)
+void tests(t_dll room, t_dll path_lst, t_map map)
 {
-	char *map;
+
 	t_dll_l link;
 	size_t i;
-	int x;
-	int y;
 
 	link = path_lst->top;
-	x = room->length;
-	y = path_lst->length;
+	map->line = room->length;
+	map->col = path_lst->length;
 	i = 0;
-	map = ft_0_new_memory(sizeof(char) * x * y);
+	map->map = ft_0_new_memory(sizeof(char) * map->line * map->col);
 	while (link)
 	{
-	    add_all_path(map, link, i * x);
+		add_all_path(map->map, link, i * map->line);
 		link = link->next;
 		++i;
 	}
+	print_path_map(map->map, room->length, map->col);
+}
 
+/*------------------------------------*\
+    une
+\*------------------------------------*/
+int cmp_line(char *cur_line, char *line, size_t lim)
+{
+	size_t i;
 
-	print_path_map(map, room->length, y);
-	return (map);
+	i = 0;
+	while (i < lim)
+	{
+		if (cur_line[i] && line[i])
+			return (TRUE);
+		++i;
+	}
+	return (FALSE);
+}
+
+void scan(size_t cur_line_nb, t_dll list_out, t_map map)
+{
+	size_t i;
+	char *cur_lin_str;
+	char *line_str;
+	// un tab du nb de chemin
+
+	(void) list_out;
+	i = 0;
+	cur_lin_str = map->map + (cur_line_nb * map->col);
+	line_str = map->map;
+	printf(" \n");
+	print_line(cur_lin_str, map->line, 1);
+	while (i < map->col)
+	{
+		if (cmp_line(line_str + (i * map->line), cur_lin_str, map->line) ==
+			FALSE)
+		{
+			print_line(line_str + (i * map->line), map->line, 1);
+			// je le compare avec tout les tab deja generer,
+		}
+		++i;
+	}
+}
+
+void t_1(t_dll path, t_map map)
+{
+	t_dll list_out = new_dll();
+	//	size_t i;
+	//
+	//	i = 0;
+	(void) path;
+	scan(0, list_out, map);
+	//	while (i < map->line)
+	//	{
+	//	}
 }
 
 int main()
@@ -107,9 +156,11 @@ int main()
 
 	\*------------------------------------*/
 	dll_func(cache->close_path, print_path_dll);
-	tests(lem->data->room, cache->close_path);
-	// je copy chaque liste dans sont propre paht
 
+	t_map_00 map_t1;
+	tests(lem->data->room, cache->close_path, &map_t1);
+	t_1(cache->close_path, &map_t1);
+	// je copy chaque liste dans sont propre paht
 
 
 

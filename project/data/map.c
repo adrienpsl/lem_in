@@ -14,7 +14,7 @@
 
 void generate_map(t_map map, int y)
 {
-	map->y = y;
+	map->col = y;
 	map->size = sizeof(char) * y * y;
 	map->map = ft_0_new_memory(map->size);
 }

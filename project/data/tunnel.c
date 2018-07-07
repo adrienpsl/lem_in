@@ -30,18 +30,18 @@ void get_max_path(t_data data, t_map map_ptr)
 	size_t i;
 
 	i = 0;
-	map = map_ptr->map + (data->start_room * map_ptr->y);
+	map = map_ptr->map + (data->start_room * map_ptr->col);
 	end = 0;
-	while (i < map_ptr->y)
+	while (i < map_ptr->col)
 	{
 		++i;
 		if (map[i] == 1)
 		    end++;
 	}
 	i = 0;
-	map = map_ptr->map + (data->end_room *  map_ptr->y);
+	map = map_ptr->map + (data->end_room *  map_ptr->col);
 	start = 0;
-	while (i < map_ptr->y)
+	while (i < map_ptr->col)
 	{
 		++i;
 		if (map[i] == 1)

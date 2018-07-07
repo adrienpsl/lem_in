@@ -18,15 +18,15 @@ void print_tunnel_room(t_dll_l room_link)
 
 	room = room_link->content;
 	ft_printf("%s ", room->name);
-	//	ft_printf("%d ", room->x);
-	//	ft_printf("%d \n", room->y);
+	//	ft_printf("%d ", room->line);
+	//	ft_printf("%d \n", room->col);
 }
 
 void print_room(t_room room)
 {
 	ft_printf("*%s* \n", room->name);
-	//		ft_printf("%d ", room->x);
-	//		ft_printf("%d \n", room->y);
+	//		ft_printf("%d ", room->line);
+	//		ft_printf("%d \n", room->col);
 	ft_printf("---- \n");
 	ft_printf(" \n");
 }
