@@ -54,6 +54,12 @@ size_t fill_path(t_cache cache, t_map map)
 void get_all_path(t_cache cache, t_map map)
 {
 	set_first_link(cache, map);
+	dll_func(cache->working_path, print_path_link_nb);
 	while (fill_path(cache, map))
-	{}
+	{
+//		dll_func(cache->working_path, print_path_link_nb);
+		if (cache->close_path->length >= 10)
+			break;
+		printf("%lu \n", cache->working_path->length);
+	}
 }

@@ -29,6 +29,8 @@ void	print_path_link(t_dll_l link);
 void     print_list_dll_path(t_dll_l dll_path_link);
 void print_path_map(char *tab_room, size_t size_line, size_t col);
 void print_line_path(char *tab_room, size_t size_line);
+void print_path_link_nb(t_dll_l link);
+
 
 
 /*

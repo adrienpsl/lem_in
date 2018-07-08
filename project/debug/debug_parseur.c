@@ -31,12 +31,19 @@ void print_room(t_room room)
 	ft_printf(" \n");
 }
 
+void     print_all_tunnel(t_dll tunnel_list)
+{
+	t_dll_l link;
+
+	link = tunnel_list->top;
+}
+
 void print_room_dll_l(t_dll_l room_link)
 {
 	t_room room;
 
 	room = room_link->content;
-	ft_printf("*%s* \n", room->name);
+	ft_printf("*%s*", room->name);
 	ft_printf("%d ", room->x);
 	ft_printf("%d \n", room->y);
 	ft_printf("---- \n");

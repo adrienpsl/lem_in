@@ -4,6 +4,10 @@ t_1 ==> parcours tous  les chemins de la list
 
 
 faire un generateur de map lem ?
+demande le nombre de room,
+le nombre de connextion entre les rooms,
+je prends une room et je la branche avec combien de
+room max je peux la brancher.
 
 
 AA--BB-----------|

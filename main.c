@@ -38,6 +38,7 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
 		}
 		i++;
 	}
+//	printf("ok \n");
 	return (FALSE);
 }
 
@@ -74,6 +75,7 @@ void test_un_chemin(size_t cur_line_nb, t_map map, t_best_path path)
 			FALSE)
 		{
 //			print_line(map->start + (col * map->line), map->line, 1);
+			printf("%d \n", path->max_founded);
 			++path->nb_current;
 			path->tab_current[col] = 1;
 		}
@@ -114,8 +116,6 @@ void t_1(t_dll all_path_list, t_map map)
 
 	path->tab_current[i] = 1;
 
-
-
 	while (i < map->line)
 	{
 		test_un_chemin(i, map, path);
@@ -125,6 +125,7 @@ void t_1(t_dll all_path_list, t_map map)
 			tmp = path->tab_current;
 			path->tab_current = path->tab_result;
 			path->tab_result = tmp;
+//			printf("%d \n", path->max_founded);
 		}
 //		printf("---------------------------------------------- \n");
 		ft_bzero(path->tab_current, map->line);
@@ -157,7 +158,7 @@ int main()
 	    je print les paths et je relechis a comment leurs generer une start
 
 	\*------------------------------------*/
-	dll_func(cache->close_path, print_path_dll);
+//	dll_func(cache->close_path, print_path_dll);
 
 	t_map_00 map_t1;
 	generate_path_map(lem->data->room, cache->close_path, &map_t1);

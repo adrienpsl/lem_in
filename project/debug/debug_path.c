@@ -31,6 +31,14 @@ void print_path_link(t_dll_l link)
 	printf("%c - ", path->room + 'A');
 }
 
+void print_path_link_nb(t_dll_l link)
+{
+	t_path path;
+
+	path = link->content;
+	printf("%d - ", path->room);
+}
+
 void print_list_dll_path(t_dll_l dll_path_link)
 {
 	t_dll list;
