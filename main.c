@@ -1,84 +1,8 @@
 #include <stdio.h>
 #include "project/includes/function.h"
 
-int same_where_path(t_dll_l list_1_link, void *list_2_ptr)
-{
-	t_path path_1;
-	t_path path_2;
-	t_dll list;
-
-	list = list_1_link->content;
-	path_1 = list->where->content;
-	list = ((t_dll_l) list_2_ptr)->content;
-	path_2 = list->where->content;
-
-	//	printf("%c - ", path_1->room + 'A');
-	//	printf("%c - ", path_2->room + 'A');
-
-
-	return (path_1->room == path_2->room);
-}
-
-void test_1(t_dll_l first_link, t_dll list)
-{
-	t_dll_l cur_link;
-	t_dll_l tmp_link;
-
-	cur_link = first_link->next;
-
-	//	print_list_dll_path(first_link);
-	//	printf("=======\n");
-	while (cur_link)
-	{
-		//		printf("%d \n", same_where_path(first_link, cur_link));
-		if (same_where_path(first_link, cur_link))
-		{
-			tmp_link = cur_link;
-			//			print_list_dll_path(cur_link);
-			//			printf("------ \n");
-			cur_link = cur_link->next;
-			dll_delete_link(list, tmp_link);
-			continue;
-		}
-		cur_link = cur_link->next;
-	}
-}
-
-void add_all_path(char *map, t_dll_l path_link, size_t line)
-{
-	t_path path;
-
-	path = path_link->content;
-	path = path->prev;
-	while (path->prev)
-	{
-		map[path->room + line] = 1;
-		path = path->prev;
-	}
-}
-
-void tests(t_dll room, t_dll path_lst, t_map map)
-{
-
-	t_dll_l link;
-	size_t i;
-
-	link = path_lst->top;
-	map->line = room->length;
-	map->col = path_lst->length;
-	i = 0;
-	map->start = ft_0_new_memory(sizeof(char) * map->line * map->col);
-	while (link)
-	{
-		add_all_path(map->start, link, i * map->line);
-		link = link->next;
-		++i;
-	}
-	print_path_map(map->start, room->length, map->col);
-}
-
 /*------------------------------------*\
-    une
+    faux si les deux ligne sont vide au meme endroit
 \*------------------------------------*/
 int cmp_line(char *cur_line, char *line, size_t lim)
 {
@@ -93,7 +17,6 @@ int cmp_line(char *cur_line, char *line, size_t lim)
 	}
 	return (FALSE);
 }
-
 
 /*------------------------------------*\
     va passer comparer avec tous les path deja tester et independant pour savoir
@@ -130,33 +53,37 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
  	pour chaque chemin pris en repere, combien de chemin possible reste t il
 
 \*------------------------------------*/
-void test_un_chemin(size_t cur_line_nb, t_map map, char *tab_path_deja_trouve)
+void test_un_chemin(size_t cur_line_nb, t_map map, t_best_path path)
 {
 	size_t col;
-	char *cur_line;
 	char *test_line;
 
+	(void)cur_line_nb;
 	col = 0;
-	cur_line = map->start + (cur_line_nb * map->col);
 
-	printf(" \n");
-	print_line(cur_line, map->line, 1);
+//	printf(" \n");
+//	print_line(map->start + (cur_line_nb * map->col), map->line, 1);
+//	printf(" \n");
+
 
 	while (col < map->col)
 	{
 		test_line = map->start + (col * map->line);
 		// je dois tester tout les autres chemin
-		if (check_all_case(tab_path_deja_trouve, test_line, map) ==
+		if (check_all_case(path->tab_current, test_line, map) ==
 			FALSE)
 		{
-			print_line(map->start + (col * map->line), map->line, 1);
-			tab_path_deja_trouve[col] = 1;
-			// je le compare avec tout les tab deja generer,
+//			print_line(map->start + (col * map->line), map->line, 1);
+			++path->nb_current;
+			path->tab_current[col] = 1;
 		}
 		++col;
 	}
 }
 
+// liste chainer des chemins possibles que s'il y en a plus que le premiers
+// je pars de la fin de la list, et des que il y a plus de chemin je remplace le
+// tab definitif
 /*------------------------------------*\
     parcours tout les chemins trouver dans la liste all_paths
     pour avoir une liste chainer des chemin independants les un des autres
@@ -164,26 +91,47 @@ void test_un_chemin(size_t cur_line_nb, t_map map, char *tab_path_deja_trouve)
     un tab pour mettre le nombre de chemin independants pour chaque chemin
 \*------------------------------------*/
 
+t_best_path new_best_path(size_t size)
+{
+	t_best_path path;
+	path = ft_0_new_memory(sizeof(t_best_path_00));
+	path->tab_current = ft_0_new_memory(sizeof(char) * size);
+	path->tab_result = ft_0_new_memory(sizeof(char) * size);
+	return (path);
+}
+
 void t_1(t_dll all_path_list, t_map map)
 {
 	t_dll list_out = new_dll();
-	char *tab_deja_trouve;
+	char *tmp;
+	t_best_path path;
 	size_t i;
 
 	i = 0;
+	path = new_best_path(map->line);
 	(void) all_path_list;
 	(void) list_out;
 
-	tab_deja_trouve = ft_0_new_memory(map->line);
-	tab_deja_trouve[i] = 1;
-
-	test_un_chemin(i, map, tab_deja_trouve);
-	ft_bzero(tab_deja_trouve, map->line);
+	path->tab_current[i] = 1;
 
 
-	//	while (i < start->line)
-	//	{
-	//	}
+
+	while (i < map->line)
+	{
+		test_un_chemin(i, map, path);
+		if (path->nb_current > path->max_founded)
+		{
+			path->max_founded = path->nb_current;
+			tmp = path->tab_current;
+			path->tab_current = path->tab_result;
+			path->tab_result = tmp;
+		}
+//		printf("---------------------------------------------- \n");
+		ft_bzero(path->tab_current, map->line);
+		++i;
+	}
+	print_line_path(path->tab_result, map->line);
+
 }
 
 int main()
@@ -212,7 +160,7 @@ int main()
 	dll_func(cache->close_path, print_path_dll);
 
 	t_map_00 map_t1;
-	tests(lem->data->room, cache->close_path, &map_t1);
+	generate_path_map(lem->data->room, cache->close_path, &map_t1);
 	t_1(cache->close_path, &map_t1);
 	// je copy chaque liste dans sont propre paht
 

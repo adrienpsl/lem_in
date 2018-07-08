@@ -68,6 +68,20 @@ typedef struct s_lem
 
 typedef t_lem_00 *t_lem;
 
+
+/*
+**    best_path ========================================================
+*/
+typedef struct		s_best_path_00
+{
+	char *tab_current;
+	int nb_current;
+	char *tab_result;
+	int max_founded;
+} 					t_best_path_00;
+typedef t_best_path_00 *t_best_path;
+
+
 t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
 void destroy_tunnel(void *ptr_tunnel);
 

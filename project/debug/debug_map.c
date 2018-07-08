@@ -16,6 +16,7 @@
 **    print start
 */
 
+
 void print_name(int a)
 {
 	int i;
@@ -29,6 +30,24 @@ void print_name(int a)
 	}
 	printf("]]\n");
 }
+
+
+void print_line(char *tab_room, size_t size_line, int cur_line)
+{
+	size_t i;
+
+	i = 0;
+
+	print_name(size_line);
+	printf("\n%c  ", 'A' + cur_line);
+	while (i < size_line)
+	{
+		printf("%c ", tab_room[i] ? 'X' : '.');
+		++i;
+	}
+	printf("\n");
+}
+
 
 void print_map(char *tab_room, size_t size_line)
 {
@@ -55,6 +74,32 @@ void print_map(char *tab_room, size_t size_line)
 			letter++;
 			line = 0;
 		}
+	}
+	printf("\n");
+}
+
+/*
+**    MAP
+*/
+
+void print_line_path(char *tab_room, size_t size_line)
+{
+	size_t i;
+
+	i = 1;
+
+	printf("[[ ");
+	while (i < size_line)
+	{
+		printf("%zu ", i);
+		++i;
+	}
+	printf("]] \n   ");
+	i = 0;
+	while (i < size_line)
+	{
+		printf("%c ", tab_room[i] ? 'X' : '.');
+		++i;
 	}
 	printf("\n");
 }
@@ -88,18 +133,3 @@ void print_path_map(char *tab_room, size_t size_line, size_t col)
 	printf("\n");
 }
 
-void print_line(char *tab_room, size_t size_line, int cur_line)
-{
-	size_t i;
-
-	i = 0;
-
-	print_name(size_line);
-	printf("\n%c  ", 'A' + cur_line);
-	while (i < size_line)
-	{
-		printf("%c ", tab_room[i] ? 'X' : '.');
-		++i;
-	}
-	printf("\n");
-}

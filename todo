@@ -1,3 +1,15 @@
 1 --> je fais un tab des chemin deja pris et je les check avec le tab
 
 t_1 ==> parcours tous  les chemins de la list
+
+
+faire un generateur de map lem ?
+
+
+AA--BB-----------|
+|                |
+a  -  b  -  c    |
+|  \  |     |    |
+d  _  e  -  f    |
+|     |  \S |    |
+g  -  h  -  i_____

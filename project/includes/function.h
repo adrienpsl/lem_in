@@ -28,6 +28,7 @@ void     print_path_dll(t_dll_l link);
 void	print_path_link(t_dll_l link);
 void     print_list_dll_path(t_dll_l dll_path_link);
 void print_path_map(char *tab_room, size_t size_line, size_t col);
+void print_line_path(char *tab_room, size_t size_line);
 
 
 /*
@@ -49,6 +50,7 @@ void     get_all_path(t_cache cache, t_map map);
 void free_list_list_path(void *list_ptr);
 t_dll copy_all_path_order(t_dll_l close_path_link);
 t_dll_l     get_dll_by_path(t_path path);
+void generate_path_map(t_dll room, t_dll path_lst, t_map map);
 
 
 /*

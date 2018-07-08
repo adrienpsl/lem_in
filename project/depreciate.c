@@ -88,3 +88,46 @@ t_vt build_tab(t_dll list_ptr)
 	print_tab(tab_ptr);
 	return (tab_ptr);
 }
+
+int same_where_path(t_dll_l list_1_link, void *list_2_ptr)
+{
+	t_path path_1;
+	t_path path_2;
+	t_dll list;
+
+	list = list_1_link->content;
+	path_1 = list->where->content;
+	list = ((t_dll_l) list_2_ptr)->content;
+	path_2 = list->where->content;
+
+	//	printf("%c - ", path_1->room + 'A');
+	//	printf("%c - ", path_2->room + 'A');
+
+
+	return (path_1->room == path_2->room);
+}
+
+void test_1(t_dll_l first_link, t_dll list)
+{
+	t_dll_l cur_link;
+	t_dll_l tmp_link;
+
+	cur_link = first_link->next;
+
+	//	print_list_dll_path(first_link);
+	//	printf("=======\n");
+	while (cur_link)
+	{
+		//		printf("%d \n", same_where_path(first_link, cur_link));
+		if (same_where_path(first_link, cur_link))
+		{
+			tmp_link = cur_link;
+			//			print_list_dll_path(cur_link);
+			//			printf("------ \n");
+			cur_link = cur_link->next;
+			dll_delete_link(list, tmp_link);
+			continue;
+		}
+		cur_link = cur_link->next;
+	}
+}
