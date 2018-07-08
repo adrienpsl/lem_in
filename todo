@@ -15,5 +15,11 @@ AA--BB-----------|
 a  -  b  -  c    |
 |  \  |     |    |
 d  _  e  -  f    |
-|     |  \S |    |
+|     |  \  |    |
 g  -  h  -  i_____
+
+
+j'ai tout les path,
+le plus court a la prioriter,
+je les avance a chaque fois de un,
+il y a un tab avec toute les room deja

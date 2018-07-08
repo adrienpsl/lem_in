@@ -75,7 +75,7 @@ void test_un_chemin(size_t cur_line_nb, t_map map, t_best_path path)
 			FALSE)
 		{
 //			print_line(map->start + (col * map->line), map->line, 1);
-			printf("%d \n", path->max_founded);
+//			printf("%d \n", path->max_founded);
 			++path->nb_current;
 			path->tab_current[col] = 1;
 		}
