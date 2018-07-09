@@ -19,7 +19,7 @@ d  _  e  -  f    |
 g  -  h  -  i_____
 
 
-j'ai tout les path,
-le plus court a la prioriter,
-je les avance a chaque fois de un,
 il y a un tab avec toute les room deja
+
+j'ai des depart_possible ==> avec un cache et un tab de sortie avec tout les path possible
+

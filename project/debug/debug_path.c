@@ -49,7 +49,7 @@ void print_list_dll_path(t_dll_l dll_path_link)
 
 void print_path(t_path path)
 {
-	path = path->prev;
+//	path = path->prev;
 	while (path->prev)
 	{
 		printf("%c %d -- ", path->room + 'A', path->size);

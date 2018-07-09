@@ -151,7 +151,7 @@ int main()
 	map = &algo->map;
 	cache = &algo->cache;
 
-	//	cache->option = TRUE;
+		cache->option = TRUE;
 	get_all_path(cache, map);
 
 	/*------------------------------------*\

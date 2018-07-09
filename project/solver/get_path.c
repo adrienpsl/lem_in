@@ -20,6 +20,7 @@ void set_first_link(t_cache cache, t_map map)
 	path_l = new_path_link(cache->start_room, NULL, cache->all_path, 0);
 	split_path(map, cache, path_l->content, &res);
 	clean_woking(cache);
+	dll_func(cache->working_path, print_path_dll);
 }
 
 int option_print_list(t_cache cache, t_dll list, char *explain)
@@ -54,12 +55,14 @@ size_t fill_path(t_cache cache, t_map map)
 void get_all_path(t_cache cache, t_map map)
 {
 	set_first_link(cache, map);
-	dll_func(cache->working_path, print_path_link_nb);
+	dll_func(cache->working_path, print_path_dll);
+	//	dll_func(cache->working_path, print_path_link_nb);
 	while (fill_path(cache, map))
 	{
-//		dll_func(cache->working_path, print_path_link_nb);
-		if (cache->close_path->length >= 10)
-			break;
-		printf("%lu \n", cache->working_path->length);
+				dll_func(cache->working_path, print_path_dll);
+		//		if (cache->close_path->length >= 10)
+		//			break;
+		//		printf("%lu \n", cache->working_path->length);
 	}
+	dll_func(cache->close_path, print_path_dll);
 }

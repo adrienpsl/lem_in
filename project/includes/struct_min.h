@@ -34,12 +34,15 @@ typedef struct		s_path_00
 } 					t_path_00;
 typedef t_path_00 *t_path;
 
-typedef struct		s_solver_path_00
+typedef struct s_map_00
 {
+	char *start;
+	size_t size;
+	size_t col;
+	size_t line;
+} t_map_00;
 
-} 					t_solver_path_00;
-typedef t_solver_path_00 *t_solver_path;
-
+typedef t_map_00 *t_map;
 
 
 #endif //LEM_IN_STRUCT_MIN_H

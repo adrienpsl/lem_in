@@ -58,7 +58,10 @@ void set_tunnel(t_data data, t_map map)
 	size_t y;
 
 	tunnel_link = data->tunnel->top;
-	dll_func(data->tunnel, print_tunnel_dll);
+	/*
+	**    orint tunnel
+	*/
+//	dll_func(data->tunnel, print_tunnel_dll);
 	while (tunnel_link)
 	{
 		tunnel = tunnel_link->content;

@@ -16,46 +16,7 @@
 #include "getter.h"
 #include "../libft/include/dll_header.h"
 #include "struct_min.h"
-
-/*
-**    change type ========================================================
-*/
-
-/*
-**    algo ========================================================
-*/
-typedef struct s_map_00
-{
-	char *start;
-	size_t size;
-	size_t col;
-	size_t line;
-} t_map_00;
-
-typedef t_map_00 *t_map;
-
-typedef struct s_cache_00
-{
-	t_dll working_path;
-	t_dll all_path;
-	t_dll new_path;
-	t_dll close_path;
-	int option;
-	int end_room;
-	int start_room;
-} t_cache_00;
-
-typedef t_cache_00 *t_cache;
-
-typedef struct s_algo_00
-{
-	t_cache_00 cache;
-	t_dll all_path;
-	t_map_00 map;
-	t_room end;
-} t_algo_00;
-
-typedef t_algo_00 *t_algo;
+#include "struct_algo.h"
 
 /*
 **    lem ========================================================

@@ -10,40 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#ifndef LEM_IN_STRUCT_ALGO_H
+#define LEM_IN_STRUCT_ALGO_H
 
-void add_all_path(char *map, t_dll_l path_link, size_t line)
+#include "../libft/include/dll_header.h"
+#include "struct.h"
+
+typedef struct		s_cache_algo_00
 {
-	t_path path;
+	t_dll all_path;
+	t_dll close_path;
+	int end_room;
+	int start_room;
 
-	path = path_link->content;
-	path = path->prev;
-	while (path->prev)
-	{
-		map[path->room + line] = 1;
-		path = path->prev;
-	}
-}
+} 					t_cache_algo_00;
+typedef t_cache_algo_00 *t_cache_algo;
 
-/*------------------------------------*\
-    mets dans une map tout les path possibles
-\*------------------------------------*/
-void generate_path_map(t_dll room, t_dll path_lst, t_map map)
+
+typedef struct s_cache_00
 {
+	t_dll working_path;
+	t_dll new_path;
+	t_dll all_path;
+	t_dll close_path;
+	int end_room;
+	int start_room;
+	char *taken_room;
+	int option;
+} t_cache_00;
 
-	t_dll_l link;
-	size_t i;
+typedef t_cache_00 *t_cache;
 
-	link = path_lst->top;
-	map->line = room->length;
-	map->col = path_lst->length;
-	i = 0;
-	map->start = ft_0_new_memory(sizeof(char) * map->line * map->col);
-	while (link)
-	{
-		add_all_path(map->start, link, i * map->line);
-		link = link->next;
-		++i;
-	}
-//	print_path_map(map->start, room->length, map->col);
-}
+typedef struct s_algo_00
+{
+	t_cache_00 cache;
+	t_dll all_path;
+	t_map_00 map;
+	t_room end;
+} t_algo_00;
+
+typedef t_algo_00 *t_algo;
+
+#endif //LEM_IN_STRUCT_ALGO_H
