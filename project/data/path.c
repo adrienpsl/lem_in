@@ -33,7 +33,7 @@ void add_ptr_dll(t_dll_l link, t_dll list)
 	dll_add(ptr_link, list);
 }
 
-int has_taken_this_room(t_path path, int name, t_cache cache)
+int has_taken_this_room(t_path path, int name, t_finder cache)
 {
 	(void) path;
 	(void) name;
@@ -50,7 +50,7 @@ int has_taken_this_room(t_path path, int name, t_cache cache)
 	//	return (TRUE);
 }
 
-void split_path(t_map map, t_cache cache, t_path current_path, int *res)
+void split_path(t_map map, t_finder cache, t_path current_path, int *res)
 {
 	char *map_line;
 	t_dll_l path_link;

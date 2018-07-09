@@ -20,14 +20,21 @@ typedef struct		s_cache_algo_00
 {
 	t_dll all_path;
 	t_dll close_path;
+	t_dll list_cache;
 	int end_room;
 	int start_room;
 
 } 					t_cache_algo_00;
 typedef t_cache_algo_00 *t_cache_algo;
 
+typedef struct		s_cache_finder_00
+{
 
-typedef struct s_cache_00
+} 					t_cache_finder_00;
+typedef t_cache_finder_00 *t_cache_finder;
+
+
+typedef struct s_finder_00
 {
 	t_dll working_path;
 	t_dll new_path;
@@ -36,17 +43,16 @@ typedef struct s_cache_00
 	int end_room;
 	int start_room;
 	char *taken_room;
+	char *tab_result;
 	int option;
-} t_cache_00;
+} t_finder_00;
 
-typedef t_cache_00 *t_cache;
+typedef t_finder_00 *t_finder;
 
 typedef struct s_algo_00
 {
-	t_cache_00 cache;
-	t_dll all_path;
+	t_finder_00 cache;
 	t_map_00 map;
-	t_room end;
 } t_algo_00;
 
 typedef t_algo_00 *t_algo;

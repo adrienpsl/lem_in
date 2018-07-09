@@ -12,7 +12,7 @@
 
 #include "../all_includes.h"
 
-void init_cache(t_cache cache, t_data data)
+void init_cache(t_finder cache, t_data data)
 {
 	cache->all_path = new_dll();
 	cache->new_path = new_dll();
@@ -22,7 +22,7 @@ void init_cache(t_cache cache, t_data data)
 	cache->end_room = data->end_room;
 }
 
-void destroy_cache(t_cache cache)
+void destroy_cache(t_finder cache)
 {
 	destroy_dll_func(&cache->new_path, dll_l_notfree_content);
 	destroy_dll_func(&cache->close_path, dll_l_notfree_content);
@@ -50,7 +50,7 @@ void drop_closed_path(t_dll working_path, t_dll closed_path, int name_end)
 	}
 }
 
-void clean_woking(t_cache cache)
+void clean_woking(t_finder cache)
 {
 	destroy_dll_func(&cache->working_path, dll_l_notfree_content);
 	dll_func(cache->new_path, print_path_dll);

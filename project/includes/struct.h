@@ -42,31 +42,4 @@ typedef struct		s_best_path_00
 } 					t_best_path_00;
 typedef t_best_path_00 *t_best_path;
 
-
-t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
-void destroy_tunnel(void *ptr_tunnel);
-
-void destroy_room(void *room_ptr);
-t_dll_l new_room_link(char *x, char *y, char *name);
-
-/*
-**    construct ================================================================
-*/
-void destroy_lem(t_lem *lem);
-t_lem new_lem();
-
-/*
-**    method ===================================================================
-*/
-
-
-/*
-**    utils ====================================================================
-*/
-
-/*
-**    debug ====================================================================
-*/
-
-
 #endif

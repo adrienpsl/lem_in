@@ -140,7 +140,7 @@ int main()
 	setbuf(stdout, NULL);
 	t_lem lem;
 	t_algo algo;
-	t_cache cache;
+	t_finder cache;
 	t_map map;
 
 	t_dll list;

@@ -12,7 +12,11 @@
 
 #include "../all_includes.h"
 
-void set_first_link(t_cache cache, t_map map)
+
+/*------------------------------------*\
+    va faire un cache pour chaque list
+\*------------------------------------*/
+void preparer_debut(t_finder cache, t_map map)
 {
 	t_dll_l path_l;
 	int res;
@@ -23,7 +27,7 @@ void set_first_link(t_cache cache, t_map map)
 	dll_func(cache->working_path, print_path_dll);
 }
 
-int option_print_list(t_cache cache, t_dll list, char *explain)
+int option_print_list(t_finder cache, t_dll list, char *explain)
 {
 
 	if (cache->option == TRUE && list->length)
@@ -35,7 +39,7 @@ int option_print_list(t_cache cache, t_dll list, char *explain)
 	return (TRUE);
 }
 
-size_t fill_path(t_cache cache, t_map map)
+size_t fill_path(t_finder cache, t_map map)
 {
 	t_dll_l current_work;
 	int res;
@@ -52,9 +56,9 @@ size_t fill_path(t_cache cache, t_map map)
 	return (cache->working_path->length);
 }
 
-void get_all_path(t_cache cache, t_map map)
+void get_all_path(t_finder cache, t_map map)
 {
-	set_first_link(cache, map);
+	preparer_debut(cache, map);
 	dll_func(cache->working_path, print_path_dll);
 	//	dll_func(cache->working_path, print_path_link_nb);
 	while (fill_path(cache, map))
