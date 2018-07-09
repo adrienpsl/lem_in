@@ -106,7 +106,7 @@ void destroy_room_list(t_dll room_list);
 t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
 t_dll_l new_room_link(char *x, char *y, char *name);
 t_lem	new_lem();
-t_finder new_finder(t_data data);
+t_finder new_finder(t_data data, int new_room_start, t_map map);
 
 /*
 **    destroy ========================================================

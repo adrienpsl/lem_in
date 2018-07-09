@@ -39,6 +39,7 @@ void print_line(char *tab_room, size_t size_line, int cur_line)
 	i = 0;
 
 	print_name(size_line);
+	tab_room += size_line * cur_line;
 	printf("%c  ", 'A' + cur_line);
 	while (i < size_line)
 	{

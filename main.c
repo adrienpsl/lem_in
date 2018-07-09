@@ -145,6 +145,7 @@ int main()
 	t_dll list;
 
 	(void) list;
+	(void)map;
 	lem = new_lem();
 	algo = &lem->algo;
 	map = &algo->map;
@@ -152,6 +153,7 @@ int main()
 
 	cache->option = TRUE;
 	t_dll test_list = new_dll();
+	(void)test_list;
 	get_all_path(test_list, map, lem->data);
 
 	/*------------------------------------*\
@@ -160,9 +162,9 @@ int main()
 	\*------------------------------------*/
 	//	dll_func(cache->close_path, print_path_dll);
 
-	t_map_00 map_t1;
-	generate_path_map(lem->data->room, cache->close_path, &map_t1);
-	t_1(cache->close_path, &map_t1);
+//	t_map_00 map_t1;
+//	generate_path_map(lem->data->room, cache->close_path, &map_t1);
+//	t_1(cache->close_path, &map_t1);
 	// je copy chaque liste dans sont propre paht
 
 

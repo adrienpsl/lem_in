@@ -58,8 +58,8 @@ void split_path(t_map map, t_finder cache, t_path current_path, int *res)
 
 	map_line = map->start + (current_path->room * map->col);
 	i = 0;
-
-	print_line(map_line, map->line, i);
+//
+//	print_line(map_line, map->line, i);
 
 	*res = 0;
 	while (i < map->col)
@@ -70,14 +70,16 @@ void split_path(t_map map, t_finder cache, t_path current_path, int *res)
 		{
 			path_link = new_path_link(i, current_path, cache->all_path,
 									  current_path->size + 1);
-			print_path(path_link->content);
+
+//			print_path(path_link->content);
+
 			add_ptr_dll(path_link, cache->new_path);
 			cache->taken_room[i] = 1;
 
-			print_line(map_line + i, map->line, i);
+//			print_line(map_line + i, map->line, i);
 		}
 		++i;
 	}
-	dll_func(cache->new_path, print_path_dll);
-	print_line(cache->taken_room, map->line, 25);
+//	dll_func(cache->new_path, print_path_dll);
+//	print_line(cache->taken_room, map->line, 25);
 }

@@ -12,7 +12,7 @@
 
 #include "../all_includes.h"
 
-t_finder new_finder(t_data data)
+t_finder new_finder(t_data data, int new_room_start, t_map map)
 {
 		t_finder finder;
 
@@ -22,8 +22,8 @@ t_finder new_finder(t_data data)
 		finder->all_path = new_dll();
 		finder->working_path = new_dll();
 		finder->end_room = data->end_room;
-		finder->start_room = data->start_room;
-		finder->taken_room = ft_0_new_memory(sizeof(char) * data->y);
+		finder->start_room = new_room_start;
+		finder->taken_room = ft_0_new_memory(sizeof(char) * map->line);
 		return (finder);
 }
 
