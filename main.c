@@ -38,7 +38,7 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
 		}
 		i++;
 	}
-//	printf("ok \n");
+	//	printf("ok \n");
 	return (FALSE);
 }
 
@@ -59,12 +59,12 @@ void test_un_chemin(size_t cur_line_nb, t_map map, t_best_path path)
 	size_t col;
 	char *test_line;
 
-	(void)cur_line_nb;
+	(void) cur_line_nb;
 	col = 0;
 
-//	printf(" \n");
-//	print_line(map->start + (cur_line_nb * map->col), map->line, 1);
-//	printf(" \n");
+	//	printf(" \n");
+	//	print_line(map->start + (cur_line_nb * map->col), map->line, 1);
+	//	printf(" \n");
 
 
 	while (col < map->col)
@@ -74,8 +74,8 @@ void test_un_chemin(size_t cur_line_nb, t_map map, t_best_path path)
 		if (check_all_case(path->tab_current, test_line, map) ==
 			FALSE)
 		{
-//			print_line(map->start + (col * map->line), map->line, 1);
-//			printf("%d \n", path->max_founded);
+			//			print_line(map->start + (col * map->line), map->line, 1);
+			//			printf("%d \n", path->max_founded);
 			++path->nb_current;
 			path->tab_current[col] = 1;
 		}
@@ -125,14 +125,13 @@ void t_1(t_dll all_path_list, t_map map)
 			tmp = path->tab_current;
 			path->tab_current = path->tab_result;
 			path->tab_result = tmp;
-//			printf("%d \n", path->max_founded);
+			//			printf("%d \n", path->max_founded);
 		}
-//		printf("---------------------------------------------- \n");
+		//		printf("---------------------------------------------- \n");
 		ft_bzero(path->tab_current, map->line);
 		++i;
 	}
 	print_line_path(path->tab_result, map->line);
-
 }
 
 int main()
@@ -140,7 +139,7 @@ int main()
 	setbuf(stdout, NULL);
 	t_lem lem;
 	t_algo algo;
-	t_finder cache;
+	t_cache cache;
 	t_map map;
 
 	t_dll list;
@@ -151,14 +150,15 @@ int main()
 	map = &algo->map;
 	cache = &algo->cache;
 
-		cache->option = TRUE;
-	get_all_path(cache, map);
+	cache->option = TRUE;
+	t_dll test_list = new_dll();
+	get_all_path(test_list, map, lem->data);
 
 	/*------------------------------------*\
 	    je print les paths et je relechis a comment leurs generer une start
 
 	\*------------------------------------*/
-//	dll_func(cache->close_path, print_path_dll);
+	//	dll_func(cache->close_path, print_path_dll);
 
 	t_map_00 map_t1;
 	generate_path_map(lem->data->room, cache->close_path, &map_t1);

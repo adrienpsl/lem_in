@@ -48,7 +48,7 @@ int option_print_list(t_finder cache, t_dll list, char *explain);
 //t_path new_path(int room, t_path prev);
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 void print_path(t_path path);
-void     get_all_path(t_finder cache, t_map map);
+void get_all_path(t_dll list_finder, t_map map, t_data data);
 void free_list_list_path(void *list_ptr);
 t_dll copy_all_path_order(t_dll_l close_path_link);
 t_dll_l     get_dll_by_path(t_path path);
@@ -59,12 +59,12 @@ void generate_path_map(t_dll room, t_dll path_lst, t_map map);
 **    ALGO ========================================================
 */
 void split_path(t_map map, t_finder cache, t_path current_path, int *res);
-void destroy_cache(t_finder cache);
+void destroy_cache(t_cache cache);
 
 /*
 **    cache
 */
-void init_cache(t_finder cache, t_data data);
+void init_cache(t_cache cache, t_data data);
 void clean_woking(t_finder cache);
 
 /*
@@ -105,7 +105,8 @@ void destroy_room_list(t_dll room_list);
 */
 t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
 t_dll_l new_room_link(char *x, char *y, char *name);
-t_lem new_lem();
+t_lem	new_lem();
+t_finder new_finder(t_data data);
 
 /*
 **    destroy ========================================================

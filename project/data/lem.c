@@ -22,8 +22,6 @@ void set_up_algo(t_algo algo, t_data data)
 	set_tunnel(data, map);
 
 //	print_map(map->start, map->line);
-	algo->cache.start_room = data->start_room;
-
 }
 
 t_data set_data()

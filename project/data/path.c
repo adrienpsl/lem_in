@@ -33,11 +33,11 @@ void add_ptr_dll(t_dll_l link, t_dll list)
 	dll_add(ptr_link, list);
 }
 
-int has_taken_this_room(t_path path, int name, t_finder cache)
+int has_taken_this_room(t_path path, int name, t_finder finder)
 {
 	(void) path;
 	(void) name;
-	if (cache->taken_room[name])
+	if (finder->taken_room[name])
 		return (FALSE);
 	return (TRUE);
 

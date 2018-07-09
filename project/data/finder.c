@@ -10,51 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_STRUCT_ALGO_H
-#define LEM_IN_STRUCT_ALGO_H
+#include "../all_includes.h"
 
-#include "../libft/include/dll_header.h"
-#include "struct.h"
-
-typedef struct		s_cache_finder_00
+t_finder new_finder(t_data data)
 {
+		t_finder finder;
 
-} 					t_cache_finder_00;
-typedef t_cache_finder_00 *t_cache_finder;
+		finder = ft_0_new_memory(sizeof(t_finder_00));
+		finder->close_path = new_dll();
+		finder->new_path = new_dll();
+		finder->all_path = new_dll();
+		finder->working_path = new_dll();
+		finder->end_room = data->end_room;
+		finder->start_room = data->start_room;
+		finder->taken_room = ft_0_new_memory(sizeof(char) * data->y);
+		return (finder);
+}
 
 
-typedef struct s_finder_00
-{
-	t_dll working_path;
-	t_dll new_path;
-	t_dll all_path;
-	t_dll close_path;
-	int end_room;
-	int start_room;
-	char *taken_room;
-	char *tab_result;
-	int option;
-} t_finder_00;
-
-typedef t_finder_00 *t_finder;
-
-typedef struct		s_cache_00
-{
-	t_dll all_path;
-	t_dll close_path;
-	t_dll list_cache;
-	int end_room;
-	int start_room;
-	int option;
-} 					t_cache_00;
-typedef t_cache_00 *t_cache;
-
-typedef struct s_algo_00
-{
-	t_cache_00 cache;
-	t_map_00 map;
-} t_algo_00;
-
-typedef t_algo_00 *t_algo;
-
-#endif //LEM_IN_STRUCT_ALGO_H

@@ -12,19 +12,37 @@
 
 #include "../all_includes.h"
 
-
-/*------------------------------------*\
-    va faire un cache pour chaque list
-\*------------------------------------*/
-void preparer_debut(t_finder cache, t_map map)
+void init_finder(t_finder finder, t_map map)
 {
 	t_dll_l path_l;
 	int res;
 
-	path_l = new_path_link(cache->start_room, NULL, cache->all_path, 0);
-	split_path(map, cache, path_l->content, &res);
-	clean_woking(cache);
-	dll_func(cache->working_path, print_path_dll);
+	path_l = new_path_link(finder->start_room, NULL, finder->all_path, 0);
+	split_path(map, finder, path_l->content, &res);
+	clean_woking(finder);
+	dll_func(finder->working_path, print_path_dll);
+}
+
+t_dll_l new_finder_link(t_data data, t_map map)
+{
+	t_finder finder;
+	t_dll_l link;
+
+	finder = new_finder(data);
+	init_finder(finder, map);
+	link = new_dll_l_ptr(finder);
+	return (link);
+}
+
+
+
+/*------------------------------------*\
+    va creer pour chaque connectoion de start, un finder
+\*------------------------------------*/
+void preparer_debut(t_data data, t_map map, t_dll list_finder)
+{
+	(void)list_finder;
+	new_finder_link(data, map);
 }
 
 int option_print_list(t_finder cache, t_dll list, char *explain)
@@ -56,17 +74,24 @@ size_t fill_path(t_finder cache, t_map map)
 	return (cache->working_path->length);
 }
 
-void get_all_path(t_finder cache, t_map map)
+void get_all_path(t_dll list_finder, t_map map, t_data data)
 {
-	preparer_debut(cache, map);
-	dll_func(cache->working_path, print_path_dll);
+
+	(void)list_finder;
+	t_finder finder;
+
+	finder = new_finder(data);
+	preparer_debut(data, map, list_finder);
+
+
+	dll_func(finder->working_path, print_path_dll);
 	//	dll_func(cache->working_path, print_path_link_nb);
-	while (fill_path(cache, map))
+	while (fill_path(finder, map))
 	{
-				dll_func(cache->working_path, print_path_dll);
+				dll_func(finder->working_path, print_path_dll);
 		//		if (cache->close_path->length >= 10)
 		//			break;
 		//		printf("%lu \n", cache->working_path->length);
 	}
-	dll_func(cache->close_path, print_path_dll);
+	dll_func(finder->close_path, print_path_dll);
 }
