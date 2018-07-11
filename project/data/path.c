@@ -14,17 +14,14 @@
 
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
 {
-	t_path_00 path;
-	t_dll_l link;
+	t_path path;
 
-	path.room = room;
-	path.prev = prev;
-	path.size = size;
-	link = new_dll_l(&path, sizeof(t_path_00));
-	dll_add(link, all_path);
-	return (link);
+	path = ft_0_new_memory(sizeof(t_path_00));
+	path->room = room;
+	path->prev = prev;
+	path->size = size;
+	return (dll_ptr_add_create(path, all_path));
 }
-
 
 // ajouter ca dans la lib,
 // refaire belle ma lib
