@@ -10,50 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_STRUCT_ALGO_H
-#define LEM_IN_STRUCT_ALGO_H
+#include "../all_includes.h"
 
-#include "../libft/include/dll_header.h"
-#include "struct.h"
-
-typedef struct		s_cache_finder_00
+int is_close_path(t_dll_l link, void *name_end_room)
 {
+	if (((t_path)link->content)->room
+		==
+		*(int *) name_end_room)
+		return (TRUE);
+	return (FALSE);
+}
 
-} 					t_cache_finder_00;
-typedef t_cache_finder_00 *t_cache_finder;
-
-
-typedef struct s_finder_00
+void drop_tout_path_finient(t_finder finder)
 {
-	t_dll working_path;
-	t_dll new_path;
-	t_dll all_path;
-	t_dll close_path;
-	int end_room;
-	int start_room;
-	char *taken_room;
-	int option;
-} t_finder_00;
+	t_dll_l link_droped;
 
-typedef t_finder_00 *t_finder;
 
-typedef struct		s_cache_00
+	while (dll_find_and_drop(finder->working_path,
+							 is_close_path,
+							 &finder->end_room,
+							 &link_droped))
+	{
+		dll_add(link_droped,
+				finder->close_path);
+	}
+}
+
+int clean_woking(t_finder finder)
 {
-	t_dll all_path;
-	t_dll close_path;
-	t_dll list_cache;
-	int end_room;
-	int start_room;
-	int option;
-} 					t_cache_00;
-typedef t_cache_00 *t_cache;
-
-typedef struct s_algo_00
-{
-	t_cache_00 cache;
-	t_map_00 map;
-} t_algo_00;
-
-typedef t_algo_00 *t_algo;
-
-#endif //LEM_IN_STRUCT_ALGO_H
+	//	dll_func(finder->new_path, print_path_dll);
+	drop_tout_path_finient(finder);
+	destroy_dll_func(&finder->working_path, dll_l_notfree_content);
+	finder->working_path = finder->new_path;
+	option_print_list(finder, finder->working_path,
+					  "path en cours de recherche");
+	option_print_list(finder, finder->close_path,
+					  "path finish");
+	finder->new_path = new_dll();
+	return (FALSE);
+}

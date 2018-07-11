@@ -10,7 +10,7 @@ je prends une room et je la branche avec combien de
 room max je peux la brancher.
 
 
-AA--BB-----------|
+j -- k-----------|
 |                |
 a  -  b  -  c    |
 |  \  |     |    |
@@ -23,3 +23,5 @@ il y a un tab avec toute les room deja
 
 j'ai des depart_possible ==> avec un cache et un tab de sortie avec tout les path possible
 
+
+maintenant que j'ai deja trouver un chemin je peux le garder et effacer les autres puisque c'est ok :)

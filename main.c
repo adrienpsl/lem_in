@@ -154,7 +154,7 @@ int main()
 	cache->option = TRUE;
 	t_dll test_list = new_dll();
 	(void)test_list;
-	get_all_path(test_list, map, lem->data);
+	get_all_path(test_list, map, lem->data, cache);
 
 	/*------------------------------------*\
 	    je print les paths et je relechis a comment leurs generer une start

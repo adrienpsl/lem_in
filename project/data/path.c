@@ -25,6 +25,9 @@ t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
 	return (link);
 }
 
+
+// ajouter ca dans la lib,
+// refaire belle ma lib
 void add_ptr_dll(t_dll_l link, t_dll list)
 {
 	t_dll_l ptr_link;
@@ -50,7 +53,7 @@ int has_taken_this_room(t_path path, int name, t_finder finder)
 	//	return (TRUE);
 }
 
-void split_path(t_map map, t_finder cache, t_path current_path, int *res)
+void split_path(t_map map, t_finder finder, t_path current_path, int *res)
 {
 	char *map_line;
 	t_dll_l path_link;
@@ -58,28 +61,29 @@ void split_path(t_map map, t_finder cache, t_path current_path, int *res)
 
 	map_line = map->start + (current_path->room * map->col);
 	i = 0;
-//
-//	print_line(map_line, map->line, i);
+	//	print_line_first(map_line, map->line, current_path->room);
+	//
+	//	print_line(map_line, map->line, i);
 
 	*res = 0;
 	while (i < map->col)
 	{
 		*res = 1;
 		if (map_line[i] &&
-			has_taken_this_room(current_path, i, cache))
+			has_taken_this_room(current_path, i, finder))
 		{
-			path_link = new_path_link(i, current_path, cache->all_path,
+			path_link = new_path_link(i, current_path, finder->all_path,
 									  current_path->size + 1);
 
-//			print_path(path_link->content);
+			//			print_path(path_link->content);
 
-			add_ptr_dll(path_link, cache->new_path);
-			cache->taken_room[i] = 1;
+			add_ptr_dll(path_link, finder->new_path);
+			if (i != (size_t)finder->end_room)
+				finder->taken_room[i] = 1;
 
-//			print_line(map_line + i, map->line, i);
+			//			print_line(map_line + i, map->line, i);
 		}
 		++i;
 	}
-//	dll_func(cache->new_path, print_path_dll);
-//	print_line(cache->taken_room, map->line, 25);
+	//		print_line(finder->taken_room, map->line, 25);
 }

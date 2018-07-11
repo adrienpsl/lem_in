@@ -30,6 +30,8 @@ void     print_list_dll_path(t_dll_l dll_path_link);
 void print_path_map(char *tab_room, size_t size_line, size_t col);
 void print_line_path(char *tab_room, size_t size_line);
 void print_path_link_nb(t_dll_l link);
+void print_line_first(char *tab_room, size_t size_line, int cur_line);
+void print_finder(t_dll finder);
 
 
 
@@ -48,7 +50,7 @@ int option_print_list(t_finder cache, t_dll list, char *explain);
 //t_path new_path(int room, t_path prev);
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 void print_path(t_path path);
-void get_all_path(t_dll list_finder, t_map map, t_data data);
+void get_all_path(t_dll list_finder, t_map map, t_data data, t_cache cache);
 void free_list_list_path(void *list_ptr);
 t_dll copy_all_path_order(t_dll_l close_path_link);
 t_dll_l     get_dll_by_path(t_path path);
@@ -58,14 +60,14 @@ void generate_path_map(t_dll room, t_dll path_lst, t_map map);
 /*
 **    ALGO ========================================================
 */
-void split_path(t_map map, t_finder cache, t_path current_path, int *res);
+void split_path(t_map map, t_finder finder, t_path current_path, int *res);
 void destroy_cache(t_cache cache);
 
 /*
 **    cache
 */
 void init_cache(t_cache cache, t_data data);
-void clean_woking(t_finder cache);
+int clean_woking(t_finder finder);
 
 /*
 **    start
@@ -96,17 +98,12 @@ void	check_err_room(t_get_utils utils);
 void	get_size_map(t_data data, int x, int y);
 
 /*
-**    exit
-*/
-void destroy_room_list(t_dll room_list);
-
-/*
 **    contruct ========================================================
 */
 t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
 t_dll_l new_room_link(char *x, char *y, char *name);
 t_lem	new_lem();
-t_finder new_finder(t_data data, int new_room_start, t_map map);
+t_finder new_finder(t_data data, int new_room_start, t_map map, t_cache cache);
 
 /*
 **    destroy ========================================================
@@ -114,5 +111,8 @@ t_finder new_finder(t_data data, int new_room_start, t_map map);
 void destroy_tunnel(void *ptr_tunnel);
 void destroy_room(void *room_ptr);
 void destroy_lem(t_lem *lem);
+void destroy_finder(t_finder finder);
+
+void destroy_room_list(t_dll room_list);
 
 #endif
