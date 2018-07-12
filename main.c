@@ -156,6 +156,10 @@ int main()
 	(void)test_list;
 	get_all_path(test_list, map, lem->data, cache);
 
+
+	// find all path
+	// list des path,
+
 	/*------------------------------------*\
 	    je print les paths et je relechis a comment leurs generer une start
 

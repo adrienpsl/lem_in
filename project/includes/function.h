@@ -32,6 +32,7 @@ void print_line_path(char *tab_room, size_t size_line);
 void print_path_link_nb(t_dll_l link);
 void print_line_first(char *tab_room, size_t size_line, int cur_line);
 void print_finder(t_dll finder);
+void print_path_dll_order(t_dll_l link);
 
 
 
@@ -104,6 +105,7 @@ t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
 t_dll_l new_room_link(char *x, char *y, char *name);
 t_lem	new_lem();
 t_finder new_finder(t_data data, int new_room_start, t_map map, t_cache cache);
+t_dll_l new_finder_link(t_data data, t_map map, int new_start_room, t_cache cache);
 
 /*
 **    destroy ========================================================

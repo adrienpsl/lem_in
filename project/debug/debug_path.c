@@ -49,8 +49,9 @@ void print_list_dll_path(t_dll_l dll_path_link)
 
 void print_path(t_path path)
 {
-//	path = path->prev;
-	while (path->prev)
+	//	path = path->prev;
+//	while (path->prev)
+	while (path)
 	{
 		printf("%c %d -- ", path->room + 'A', path->size);
 		path = path->prev;
@@ -63,3 +64,33 @@ void print_path_dll(t_dll_l link)
 	print_path(link->content);
 }
 
+void print_path_dll_order(t_dll_l link)
+{
+	t_path path;
+	size_t i;
+	size_t ii;
+
+	path = link->content;
+	i = 0;
+	while (path)
+	{
+		path = path->prev;
+		i++;
+	}
+	i--;
+	while (i)
+	{
+		ii = 0;
+		path = link->content;
+		while (ii < i)
+		{
+			path = path->prev;
+			++ii;
+		}
+		printf("%c %d -- ", path->room + 'A', path->size);
+		--i;
+	}
+	path = link->content;
+	printf("%c %d -- ", path->room + 'A', path->size);
+	printf(" \n");
+}

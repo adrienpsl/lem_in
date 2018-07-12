@@ -23,44 +23,6 @@ int option_print_list(t_finder cache, t_dll list, char *explain)
 	return (TRUE);
 }
 
-// je met start en cocher, et je get tout les link a prendre.
-int init_finder(t_finder finder, t_map map)
-{
-	t_dll_l path_l;
-	t_path path;
-	int res;
-
-	path_l = new_path_link(finder->start_room, NULL, finder->all_path, 0);
-	path = path_l->content;
-
-	split_path(map, finder, path_l->content, &res);
-	if (clean_woking(finder) == TRUE)
-	{
-		destroy_finder(finder);
-		return (FALSE);
-	}
-//	dll_func(finder->working_path, print_path_dll);
-	return (TRUE);
-}
-
-t_dll_l new_finder_link(t_data data, t_map map, int new_start_room, t_cache cache)
-{
-	t_finder finder;
-	t_dll_l link;
-
-	// je passe le tab des connection pour trouver les chemin possible
-	finder = new_finder(data, new_start_room, map, cache);
-
-	finder->taken_room[data->start_room] = 1;
-//	print_line_first(finder->taken_room, map->line, new_start_room);
-//	print_line(map->start + new_start_room, map->line, new_start_room);
-
-	if (init_finder(finder, map)== FALSE)
-		return (NULL);
-	link = new_dll_l_ptr(finder);
-	return (link);
-}
-
 /*------------------------------------*\
     va creer pour chaque connectoion de start, un finder
 \*------------------------------------*/
@@ -78,14 +40,22 @@ void preparer_debut(t_data data, t_map map, t_dll list_finder, t_cache cache)
 
 	while (i < map->line)
 	{
-		if (connection_start_room[i] == TRUE)
-		{
-			finder_link = new_finder_link(data, map, i, cache);
-			if (finder_link)
-			    dll_add(finder_link, list_finder);
-		}
+//		if (connection_start_room[i] == TRUE)
+//		{
+//			finder_link = new_finder_link(data, map, i, cache);
+//			if (finder_link)
+//			    dll_add(finder_link, list_finder);
+//		}
 		++i;
 	}
+	/*------------------------------------*\
+
+	\*------------------------------------*/
+	(void)finder_link;(void)cache;
+	finder_link = new_finder_link(data, map, 1, cache);
+				if (finder_link)
+				    dll_add(finder_link, list_finder);
+
 }
 
 size_t fill_path(t_finder cache, t_map map)
@@ -113,18 +83,17 @@ void get_all_path(t_dll list_finder, t_map map, t_data data, t_cache cache)
 	(void) finder;
 	//	finder = new_finder(data);
 	preparer_debut(data, map, list_finder, cache);
-	print_finder(list_finder);
+//	print_finder(list_finder);
 
 	// je end le premier finder
 	int res = 1;
 
 	finder = list_finder->top->content;
-	dll_func(finder->working_path, print_path_dll);
 
 	t_dll_l link;
 
-	int rest = 1;
-	while (rest)
+	dll_func(finder->working_path, print_path_dll_order);
+	while (finder->working_path->length)
 	{
 		link = finder->working_path->top;
 		while (link)
@@ -132,9 +101,13 @@ void get_all_path(t_dll list_finder, t_map map, t_data data, t_cache cache)
 			split_path(map, finder, link->content, &res);
 			link = link->next;
 		}
+		
+		dll_func(finder->new_path, print_path_dll_order);
+		printf("********************** \n");
+		
 		clean_woking(finder);
-		rest = finder->working_path->length;
-		dll_func(finder->working_path, print_path_dll);
+		
+		dll_func(finder->working_path, print_path_dll_order);
 	}
 
 	print_finder(list_finder);

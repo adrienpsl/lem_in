@@ -63,6 +63,7 @@ void split_path(t_map map, t_finder finder, t_path current_path, int *res)
 	//	print_line(map_line, map->line, i);
 
 	*res = 0;
+//	print_line_first(finder->taken_room, map->line, current_path->room);
 	while (i < map->col)
 	{
 		*res = 1;
