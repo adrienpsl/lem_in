@@ -157,9 +157,9 @@ void split_path_2(t_map map, t_finder finder, t_path current_path, int *res)
 	char *map_line;
 	t_dll_l path_link;
 	t_path path;
-	(void)path;
+	(void) path;
 	size_t i;
-	
+
 	map_line = map->start + (current_path->room * map->col);
 	i = 0;
 	//	print_line_first(map_line, map->line, current_path->room);
@@ -176,15 +176,13 @@ void split_path_2(t_map map, t_finder finder, t_path current_path, int *res)
 		{
 			path_link = new_path_link(i, current_path, finder->all_path,
 									  current_path->size + 1);
-			dll_add(path_link, finder->new_path);
-			if (i != (size_t) finder->end_room)
-				finder->taken_room[i] = 1;
-
+			dll_add_at_index(path_link, finder->new_path,
+							 finder->new_path->length);
+			//			dll_func(finder->new_path, print_path_dll);
 			//			print_line(map_line + i, map->line, i);
 		}
 		++i;
 	}
-	printf(" \n");
 	//		print_line(finder->taken_room, map->line, 25);
 }
 
@@ -196,6 +194,7 @@ size_t fill_path_2(t_finder finder, t_map map)
 {
 	t_dll_l current_work;
 	int res;
+	int i = 0;
 
 	static t_dll cul_sac = NULL;
 	t_dll_l cul_link;
@@ -203,11 +202,14 @@ size_t fill_path_2(t_finder finder, t_map map)
 	{
 		cul_sac = new_dll();
 	}
-
 	current_work = finder->working_path->top;
 	while (current_work)
 	{
+		i++;
 		split_path_2(map, finder, current_work->content, &res);
+		//		printf("%p \n", current_work);
+		//		dll_func(finder->new_path, print_path_dll);
+
 		current_work = current_work->next;
 		if (res == 0)
 		{
@@ -216,25 +218,32 @@ size_t fill_path_2(t_finder finder, t_map map)
 		}
 	}
 
-	dll_func(finder->working_path, print_path_dll);
 	clean_woking(finder);
 
 	dll_func(finder->working_path, print_path_dll);
+	//	printf(" \n");
+	//	dll_func(finder->close_path, print_path_dll);
+
 	printf("%zu \n", finder->working_path->length);
 	return (finder->working_path->length);
 }
 
 void init_algo_little_map(t_cache cache, t_data data, t_map map)
 {
-	// set finder
 	t_finder finder;
 
 	finder = new_finder(data, data->start_room, map, cache);
 
+	/*
+	**    regarder si la start room n'a pas ete trouver directement
+	 * 	  si elle n'est pas dans les 3 prochaine connection
+	*/
 	init_finder(finder, map);
-	dll_func(finder->working_path, print_path_dll);
 
-	fill_path_2(finder, map);
+//	fill_path_2(finder, map);
+//		 fill_path_2(finder, map);
+		while (fill_path_2(finder, map))
+	//	{}
 	dll_func(finder->working_path, print_path_dll);
 
 	// boucler tant que woking

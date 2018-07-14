@@ -21,7 +21,7 @@ int is_close_path(t_dll_l link, void *name_end_room)
 	return (FALSE);
 }
 
-void drop_tout_path_finient(t_finder finder)
+void drop_finish_path_working(t_finder finder)
 {
 	t_dll_l link_droped;
 
@@ -42,10 +42,11 @@ void drop_tout_path_finient(t_finder finder)
 \*------------------------------------*/
 int clean_woking(t_finder finder)
 {
+	finder->option = TRUE;
 	//	dll_func(finder->new_path, print_path_dll);
-	drop_tout_path_finient(finder);
 	destroy_dll_func(&finder->working_path, dll_l_notfree_content);
 	finder->working_path = finder->new_path;
+	drop_finish_path_working(finder);
 	option_print_list(finder, finder->working_path,
 					  "path en cours de recherche");
 	option_print_list(finder, finder->close_path,

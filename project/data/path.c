@@ -20,7 +20,8 @@ t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
 	path->room = room;
 	path->prev = prev;
 	path->size = size;
-	return (dll_ptr_add_create(path, all_path));
+	dll_ptr_add_create(path, all_path);
+	return (new_dll_l_ptr(path));
 }
 
 // ajouter ca dans la lib,
