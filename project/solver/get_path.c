@@ -101,12 +101,12 @@ void get_all_path(t_dll list_finder, t_map map, t_data data, t_cache cache)
 			split_path(map, finder, link->content, &res);
 			link = link->next;
 		}
-		
+
 		dll_func(finder->new_path, print_path_dll_order);
 		printf("********************** \n");
-		
+
 		clean_woking(finder);
-		
+
 		dll_func(finder->working_path, print_path_dll_order);
 	}
 

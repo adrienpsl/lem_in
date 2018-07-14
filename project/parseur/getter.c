@@ -30,8 +30,6 @@ void get_nb_foumis(t_getter get)
 	free_str(&get->utils.line);
 }
 
-
-
 // premiere fonction get sur gnl les data
 void lem_read_data(t_data data)
 {
@@ -41,7 +39,7 @@ void lem_read_data(t_data data)
 	get.data = data;
 
 	get.utils.fd = open_file(
-	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/big");
+	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
 
 	get_nb_foumis(&get);
 	get_room(get.data, &get.utils);

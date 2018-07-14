@@ -36,6 +36,10 @@ void drop_tout_path_finient(t_finder finder)
 	}
 }
 
+/*------------------------------------*\
+    enleve et met les path terminer dans la close liste
+    working path = new_path
+\*------------------------------------*/
 int clean_woking(t_finder finder)
 {
 	//	dll_func(finder->new_path, print_path_dll);

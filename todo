@@ -35,3 +35,22 @@ calculer la complexiter de mon algo
 
 faire des simulation sans coder en python ?
 
+remmetre les bon nom des room pour faire des bon test
+
+
+je dois faire deux algo,ou je get la plus grande
+// soit je prends tout les chemins, et c'est immpossible,
+// soit je fais le parcourds de graph
+
+--> faire tout les chemin pour les petites map, faire le plus rapide pour les moyennes
+
+il me faut deux algo, un pour les petite map et un pour les grandes
+
+
+je choppe tout les chemins sur les petites carte car on peut verifier,
+
+
+je fais le deuxieme algo comme celui que je viens de faire.
+
+        finir chopper tout les graphe pour le premier
+        en regardan

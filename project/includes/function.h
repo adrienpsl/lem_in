@@ -56,6 +56,7 @@ void free_list_list_path(void *list_ptr);
 t_dll copy_all_path_order(t_dll_l close_path_link);
 t_dll_l     get_dll_by_path(t_path path);
 void generate_path_map(t_dll room, t_dll path_lst, t_map map);
+size_t fill_path(t_finder cache, t_map map);
 
 
 /*
@@ -81,6 +82,11 @@ void destroy_map(t_map map);
 */
 t_lem new_lem();
 void     free_lem(t_lem lem);
+
+/*
+**    finder
+*/
+int init_finder(t_finder finder, t_map map);
 
 /*
 **   PARSEUR  ========================================================
