@@ -134,121 +134,10 @@ void t_1(t_dll all_path_list, t_map map)
 	print_line_path(path->tab_result, map->line);
 }
 
-/*------------------------------------*\
-    verifie que le path m'est pas deja dans sa liste pour ne pas
-    faire des boucles sur des path deja pris par le path de la liste
-\*------------------------------------*/
-int is_already_taken(t_path cur_path, int name_current_room)
-{
-	while (cur_path)
-	{
-		if (cur_path->room == name_current_room)
-			return (TRUE);
-		cur_path = cur_path->prev;
-	}
-	return (FALSE);
-}
 
-/*------------------------------------*\
-    boucle sur toute les links du maillon qu'on lui donnes
-\*------------------------------------*/
-void split_path_2(t_map map, t_finder finder, t_path current_path, int *res)
-{
-	char *map_line;
-	t_dll_l path_link;
-	t_path path;
-	(void) path;
-	size_t i;
 
-	map_line = map->start + (current_path->room * map->col);
-	i = 0;
-	//	print_line_first(map_line, map->line, current_path->room);
-	//
-	//	print_line(map_line, map->line, i);
 
-	*res = 0;
-	//	print_line_first(finder->taken_room, map->line, current_path->room);
-	while (i < map->col)
-	{
-		*res = 1;
-		if (map_line[i] &&
-			is_already_taken(current_path, i) == FALSE)
-		{
-			path_link = new_path_link(i, current_path, finder->all_path,
-									  current_path->size + 1);
-			dll_add_at_index(path_link, finder->new_path,
-							 finder->new_path->length);
-			//			dll_func(finder->new_path, print_path_dll);
-			//			print_line(map_line + i, map->line, i);
-		}
-		++i;
-	}
-	//		print_line(finder->taken_room, map->line, 25);
-}
 
-/*------------------------------------*\
-    fait le tour de working et le met ensuite a jour
-    avec res je suprime les cul de sac
-\*------------------------------------*/
-size_t fill_path_2(t_finder finder, t_map map)
-{
-	t_dll_l current_work;
-	int res;
-	int i = 0;
-
-	static t_dll cul_sac = NULL;
-	t_dll_l cul_link;
-	if (cul_sac == NULL)
-	{
-		cul_sac = new_dll();
-	}
-	current_work = finder->working_path->top;
-	while (current_work)
-	{
-		i++;
-		split_path_2(map, finder, current_work->content, &res);
-		//		printf("%p \n", current_work);
-		//		dll_func(finder->new_path, print_path_dll);
-
-		current_work = current_work->next;
-		if (res == 0)
-		{
-			cul_link = dll_drop_link(finder->working_path, current_work->prev);
-			dll_add(cul_link, cul_sac);
-		}
-	}
-
-	clean_woking(finder);
-
-	dll_func(finder->working_path, print_path_dll);
-	//	printf(" \n");
-	//	dll_func(finder->close_path, print_path_dll);
-
-	printf("%zu \n", finder->working_path->length);
-	return (finder->working_path->length);
-}
-
-void init_algo_little_map(t_cache cache, t_data data, t_map map)
-{
-	t_finder finder;
-
-	finder = new_finder(data, data->start_room, map, cache);
-
-	/*
-	**    regarder si la start room n'a pas ete trouver directement
-	 * 	  si elle n'est pas dans les 3 prochaine connection
-	*/
-	init_finder(finder, map);
-
-//	fill_path_2(finder, map);
-//		 fill_path_2(finder, map);
-		while (fill_path_2(finder, map))
-	//	{}
-	dll_func(finder->working_path, print_path_dll);
-
-	// boucler tant que woking
-	// get all path a chaque fois :)
-}
 
 int main()
 {
@@ -278,7 +167,7 @@ int main()
 	    a definir ...
 	\*------------------------------------*/
 
-	init_algo_little_map(cache, lem->data, map);
+	short_algo(cache, lem->data, map);
 
 	//	get_all_path(test_list, map, lem->data, cache);
 

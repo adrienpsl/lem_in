@@ -66,6 +66,12 @@ void split_path(t_map map, t_finder finder, t_path current_path, int *res);
 void destroy_cache(t_cache cache);
 
 /*
+**    SHORT ALGO
+*/
+void     short_algo(t_cache cache, t_data data, t_map map);
+
+
+/*
 **    cache
 */
 void init_cache(t_cache cache, t_data data);

@@ -19,38 +19,8 @@ d  _  e  -  f    |
 g  -  h  -  i_____
 
 
-il y a un tab avec toute les room deja
-
-j'ai des depart_possible ==> avec un cache et un tab de sortie avec tout les path possible
-
-
-maintenant que j'ai deja trouver un chemin je peux le garder et effacer les autres puisque c'est ok :)
-
-il me faut une recurtion a partir de la :
-
-
-regarder si celui de nico fait le bon calcule,
-
-calculer la complexiter de mon algo
-
-faire des simulation sans coder en python ?
-
-remmetre les bon nom des room pour faire des bon test
-
-
-je dois faire deux algo,ou je get la plus grande
-// soit je prends tout les chemins, et c'est immpossible,
-// soit je fais le parcourds de graph
-
---> faire tout les chemin pour les petites map, faire le plus irapide pour les moyennes
-
-il me faut deux algo, un pour les petite map et un pour les grandes
-
-
-je choppe tout les chemins sur les petites carte car on peut verifier,
-
-
-je fais le deuxieme algo comme celui que je viens de faire.
-
-        finir chopper tout les graphe pour le premier
-        en regardan
+short algo :
+    1 --> refractoring
+    2 --> les options d'affichage
+    3 --> la limite
+    4 --> traduction et optimistation
