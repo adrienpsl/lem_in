@@ -22,13 +22,15 @@ typedef struct		s_cache_finder_00
 } 					t_cache_finder_00;
 typedef t_cache_finder_00 *t_cache_finder;
 
-
+/*
+**    stocke le cache et les data de recherche de path
+*/
 typedef struct s_finder_00
 {
 	t_dll working_path;
 	t_dll new_path;
 	t_dll all_path;
-	t_dll close_path;
+	t_dll valid_path;
 	int end_room;
 	int start_room;
 	char *taken_room;

@@ -33,10 +33,10 @@ void print_finder(t_dll finder_list)
 	if (finder_list->top)
 	{
 		finder = finder_list->top->content;
-		if (finder->close_path)
+		if (finder->valid_path)
 		{
 			printf("closed finder \n");
-			dll_func(finder->close_path, print_path_dll_order);
+			dll_func(finder->valid_path, print_path_dll_order);
 		}
 	}
 	printf("------------------------------------------ \n");

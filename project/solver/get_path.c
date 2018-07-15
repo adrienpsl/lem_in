@@ -117,9 +117,9 @@ void get_all_path(t_dll list_finder, t_map map, t_data data, t_cache cache)
 	//	while (fill_path(finder, map))
 	//	{
 	//				dll_func(finder->working_path, print_path_dll);
-	//		if (cache->close_path->length >= 10)
+	//		if (cache->valid_path->length >= 10)
 	//			break;
 	//		printf("%lu \n", cache->working_path->length);
 	//	}
-	//	dll_func(finder->close_path, print_path_dll);
+	//	dll_func(finder->valid_path, print_path_dll);
 }

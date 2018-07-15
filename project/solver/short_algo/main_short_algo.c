@@ -104,45 +104,22 @@ size_t split_all_path_working(t_finder finder, t_map map)
 	return (finder->working_path->length);
 }
 
-/*
-**	**** VARIABLES
-**	data	>	data get par le parseur
-**			>
-**			>
-**
-**	**** RETURN
-**	=>
-**
-**	**** MAKING
-**
-**
-**
-*/
-void init_algo_little_map(t_cache cache, t_data data, t_map map)
+void short_algo(t_cache cache, t_data data, t_map map)
 {
 	t_finder finder;
 
 	finder = new_finder(data, data->start_room, map, cache);
-
 	/*
 	**    regarder si la start room n'a pas ete trouver directement
 	 * 	  si elle n'est pas dans les 3 prochaine connection
 	*/
 	init_finder(finder, map);
 
-	//	split_all_path_working(finder, map);
-	//		 split_all_path_working(finder, map);
 	while (split_all_path_working(finder, map))
 	{
-		//	{}
 		dll_func(finder->working_path, print_path_dll);
 	}
-
-	// boucler tant que woking
-	// get all path a chaque fois :)
-}
-
-void short_algo(t_cache cache, t_data data, t_map map)
-{
-	init_algo_little_map(cache, data, map);
+	generate_path_map(data->room,
+					  finder->valid_path,
+					  map);
 }

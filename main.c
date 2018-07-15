@@ -179,16 +179,16 @@ int main()
 	    je print les paths et je relechis a comment leurs generer une start
 
 	\*------------------------------------*/
-	//	dll_func(cache->close_path, print_path_dll);
+	//	dll_func(cache->valid_path, print_path_dll);
 
 	//	t_map_00 map_t1;
-	//	generate_path_map(lem->data->room, cache->close_path, &map_t1);
-	//	t_1(cache->close_path, &map_t1);
+	//	generate_path_map(lem->data->room, cache->valid_path, &map_t1);
+	//	t_1(cache->valid_path, &map_t1);
 	// je copy chaque liste dans sont propre paht
 
 
 
-	//	list = copy_all_path_order(cache->close_path->top);
+	//	list = copy_all_path_order(cache->valid_path->top);
 
 	// je fait le trie dans les chemin
 	//	printf("Inversion des path listes et transfere en liste chaine \n ---- \n");

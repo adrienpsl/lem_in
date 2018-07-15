@@ -75,7 +75,7 @@ void     short_algo(t_cache cache, t_data data, t_map map);
 **    cache
 */
 void init_cache(t_cache cache, t_data data);
-int clean_woking(t_finder finder);
+void clean_woking(t_finder finder);
 
 /*
 **    start

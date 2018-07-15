@@ -30,7 +30,6 @@ void add_all_path(char *map, t_dll_l path_link, size_t line)
 \*------------------------------------*/
 void generate_path_map(t_dll room, t_dll path_lst, t_map map)
 {
-
 	t_dll_l link;
 	size_t i;
 
@@ -45,5 +44,5 @@ void generate_path_map(t_dll room, t_dll path_lst, t_map map)
 		link = link->next;
 		++i;
 	}
-//	print_path_map(map->start, room->length, map->col);
+	print_path_map(map->start, room->length, map->col);
 }

@@ -17,7 +17,7 @@ t_finder new_finder(t_data data, int new_room_start, t_map map, t_cache cache)
 	t_finder finder;
 
 	finder = ft_0_new_memory(sizeof(t_finder_00));
-	finder->close_path = cache->close_path;
+	finder->valid_path = cache->close_path;
 	finder->new_path = new_dll();
 	finder->all_path = cache->all_path;
 	finder->working_path = new_dll();
@@ -46,11 +46,12 @@ int init_finder(t_finder finder, t_map map)
 	path = path_l->content;
 
 	split_path(map, finder, path_l->content, &res);
-	if (clean_woking(finder) == TRUE)
-	{
-		destroy_finder(finder);
-		return (FALSE);
-	}
+	clean_woking(finder);
+//	if (clean_woking(finder) == TRUE)
+//	{
+//		destroy_finder(finder);
+//		return (FALSE);
+//	}
 	//	dll_func(finder->working_path, print_path_dll);
 	return (TRUE);
 }
