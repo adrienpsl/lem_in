@@ -104,6 +104,18 @@ size_t split_all_path_working(t_finder finder, t_map map)
 	return (finder->working_path->length);
 }
 
+
+t_best_path new_best_path(/*size_t nb_roon, size_t nb_path*/)
+{
+	t_best_path best;
+
+	best = ft_0_new_memory(sizeof(t_best_path));
+	best->tab_result = ft_0_new_memory(sizeof(1000));
+	best->tab_current = ft_0_new_memory(sizeof(1000));
+
+	return (best);
+}
+
 void short_algo(t_cache cache, t_data data, t_map map)
 {
 	t_finder finder;
@@ -122,4 +134,6 @@ void short_algo(t_cache cache, t_data data, t_map map)
 	generate_path_map(data->room,
 					  finder->valid_path,
 					  map);
+	t_best_path best;
+	find_best_path(map, )
 }

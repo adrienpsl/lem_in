@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "../../all_includes.h"
 
 void add_all_path(char *map, t_dll_l path_link, size_t line)
 {

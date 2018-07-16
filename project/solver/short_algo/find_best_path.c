@@ -54,6 +54,7 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
 }
 
 
+
 /*
 **	**** VARIABLES
 **	map			>	all_path x nb_room
@@ -61,12 +62,10 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
 **
 **
 **	**** RETURN
-**	=>
+**	=> le best past
 **
 **	**** MAKING
 **	genere le best_path, que apres je set dedans
-**
-**
 */
 void find_best_path(t_map map, t_best_path best_path)
 {
@@ -86,7 +85,7 @@ void find_best_path(t_map map, t_best_path best_path)
 		if (check_all_case(best_path->tab_current, test_line, map) ==
 			FALSE)
 		{
-			//			print_line(map->start + (col * map->line), map->line, 1);
+						print_line(map->start + (col * map->line), map->line, 1);
 			//			printf("%d \n", best_path->max_founded);
 			++best_path->nb_current;
 			best_path->tab_current[col] = 1;
