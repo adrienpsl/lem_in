@@ -11,15 +11,6 @@
     un tab pour mettre le nombre de chemin independants pour chaque chemin
 \*------------------------------------*/
 
-t_best_path new_best_path(size_t size)
-{
-	t_best_path path;
-	path = ft_0_new_memory(sizeof(t_best_path_00));
-	path->tab_current = ft_0_new_memory(sizeof(char) * size);
-	path->tab_result = ft_0_new_memory(sizeof(char) * size);
-	return (path);
-}
-
 //void t_1(t_dll all_path_list, t_map map)
 //{
 //	t_dll list_out = new_dll();

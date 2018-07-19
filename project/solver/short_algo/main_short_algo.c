@@ -104,7 +104,6 @@ size_t split_all_path_working(t_finder finder, t_map map)
 	return (finder->working_path->length);
 }
 
-
 t_best_path new_best_path(/*size_t nb_roon, size_t nb_path*/)
 {
 	t_best_path best;
@@ -135,5 +134,6 @@ void short_algo(t_cache cache, t_data data, t_map map)
 					  finder->valid_path,
 					  map);
 	t_best_path best;
-	find_best_path(map, )
+	best = new_best_path();
+	find_best_path(map, best);
 }

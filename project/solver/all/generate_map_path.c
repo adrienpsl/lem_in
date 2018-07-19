@@ -34,8 +34,8 @@ void generate_path_map(t_dll room, t_dll path_lst, t_map map)
 	size_t i;
 
 	link = path_lst->top;
-	map->line = room->length;
-	map->col = path_lst->length;
+	map->col = room->length;
+	map->line = path_lst->length;
 	i = 0;
 	map->start = ft_0_new_memory(sizeof(char) * map->line * map->col);
 	while (link)

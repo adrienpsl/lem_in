@@ -53,7 +53,10 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
 	return (FALSE);
 }
 
-
+void     is_bettre_best_path(t_best_path best)
+{
+    if(bes)
+}
 
 /*
 **	**** VARIABLES
@@ -67,30 +70,36 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
 **	**** MAKING
 **	genere le best_path, que apres je set dedans
 */
+
+/*------------------------------------*\
+    pour le moment ca ne me test que le premier
+\*------------------------------------*/
 void find_best_path(t_map map, t_best_path best_path)
 {
-	size_t col;
+	size_t line;
 	char *test_line;
 
-	col = 0;
+	line = 0;
 	//	printf(" \n");
-	//	print_line(map->start + (cur_line * map->col), map->line, 1);
+	//	print_line(map->start + (cur_line * map->line), map->line, 1);
 	//	printf(" \n");
+	print_line(map->start, map->line, 0);
 
-
-	while (col < map->col)
+	while (line < map->line)
 	{
-		test_line = map->start + (col * map->line);
+		test_line = map->start + (line * map->line);
 		// je dois tester tout les autres chemin
 		if (check_all_case(best_path->tab_current, test_line, map) ==
 			FALSE)
 		{
-						print_line(map->start + (col * map->line), map->line, 1);
+			print_line(map->start + (line * map->line), map->line, 1);
 			//			printf("%d \n", best_path->max_founded);
 			++best_path->nb_current;
-			best_path->tab_current[col] = 1;
+			best_path->tab_current[line] = 1;
+			// faire une mise a jour du best path 
 		}
-		++col;
+		++line;
 	}
+//	print_line_first(best_path->tab_current)
 }
 
