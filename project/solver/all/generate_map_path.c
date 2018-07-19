@@ -40,9 +40,9 @@ void generate_path_map(t_dll room, t_dll path_lst, t_map map)
 	map->start = ft_0_new_memory(sizeof(char) * map->line * map->col);
 	while (link)
 	{
-		add_all_path(map->start, link, i * map->line);
+		add_all_path(map->start, link, i * map->col);
 		link = link->next;
 		++i;
 	}
-	print_path_map(map->start, room->length, map->col);
+	print_path_map_2(map);
 }

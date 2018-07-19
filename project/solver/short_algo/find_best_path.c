@@ -53,10 +53,10 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
 	return (FALSE);
 }
 
-void     is_bettre_best_path(t_best_path best)
-{
-    if(bes)
-}
+//void     is_bettre_best_path(t_best_path best)
+//{
+//    if(bes)
+//}
 
 /*
 **	**** VARIABLES
@@ -92,7 +92,7 @@ void find_best_path(t_map map, t_best_path best_path)
 		if (check_all_case(best_path->tab_current, test_line, map) ==
 			FALSE)
 		{
-			print_line(map->start + (line * map->line), map->line, 1);
+			print_line(map->start + (line * map->col), map->col, 1);
 			//			printf("%d \n", best_path->max_founded);
 			++best_path->nb_current;
 			best_path->tab_current[line] = 1;

@@ -135,5 +135,5 @@ void short_algo(t_cache cache, t_data data, t_map map)
 					  map);
 	t_best_path best;
 	best = new_best_path();
-	find_best_path(map, best);
+//	find_best_path(map, best);
 }

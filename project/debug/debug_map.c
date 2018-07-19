@@ -150,3 +150,32 @@ void print_path_map(char *tab_room, size_t size_line, size_t col)
 	printf("\n");
 }
 
+void print_path_map_2(t_map map)
+{
+	size_t i;
+	size_t col;
+	size_t lim;
+	size_t counter;
+
+	i = 0;
+	col = 0;
+	lim = map->col * map->line;
+	counter = 2;
+
+	print_name(map->col);
+	printf("\n1  ");
+	while (i < lim)
+	{
+		printf("%c ", map->start[i] ? 'X' : '.');
+		++i;
+		++col;
+		if (col == map->col)
+		{
+			printf(" \n%lu  ", counter);
+			col = 0;
+			++counter;
+		}
+	}
+	printf("\n");
+}
+
