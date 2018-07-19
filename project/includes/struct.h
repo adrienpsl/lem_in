@@ -35,10 +35,11 @@ typedef t_lem_00 *t_lem;
 */
 typedef struct		s_best_path_00
 {
-	char *tab_current;
-	int nb_current;
-	char *tab_result;
-	int max_founded;
+	char *cur_good_path;
+	int cur_nb;
+	char *good_path;
+	int diff_path;
+	int best_path;
 } 					t_best_path_00;
 typedef t_best_path_00 *t_best_path;
 

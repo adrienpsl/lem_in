@@ -31,6 +31,20 @@ void print_name(int a)
 	printf("]]\n");
 }
 
+void print_name_int(int a)
+{
+	int i;
+
+	i = 0;
+	printf("[[ ");
+	while (i < a)
+	{
+		printf("%d ", i);
+		++i;
+	}
+	printf("]]\n");
+}
+
 void print_line_first(char *tab_room, size_t size_line, int cur_line)
 {
 	size_t i;
@@ -46,6 +60,24 @@ void print_line_first(char *tab_room, size_t size_line, int cur_line)
 	}
 	printf("\n\n");
 }
+
+
+void print_line_first_int(char *tab_room, size_t size_line, int cur_line)
+{
+	size_t i;
+
+	i = 0;
+
+	print_name_int(size_line);
+	printf("%c  ", 'A' + cur_line);
+	while (i < size_line)
+	{
+		printf("%c ", tab_room[i] ? 'X' : '.');
+		++i;
+	}
+	printf("\n\n");
+}
+
 
 
 void print_line(char *tab_room, size_t size_line, int cur_line)

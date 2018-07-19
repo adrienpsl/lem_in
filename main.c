@@ -23,24 +23,24 @@
 //	(void) all_path_list;
 //	(void) list_out;
 //
-//	path->tab_current[i] = 1;
+//	path->cur_good_path[i] = 1;
 //
 //	while (i < map->line)
 //	{
 //		find_best_path(i, map, path);
-//		if (path->nb_current > path->max_founded)
+//		if (path->cur_nb > path->diff_path)
 //		{
-//			path->max_founded = path->nb_current;
-//			tmp = path->tab_current;
-//			path->tab_current = path->tab_result;
-//			path->tab_result = tmp;
-//			//			printf("%d \n", path->max_founded);
+//			path->diff_path = path->cur_nb;
+//			tmp = path->cur_good_path;
+//			path->cur_good_path = path->good_path;
+//			path->good_path = tmp;
+//			//			printf("%d \n", path->diff_path);
 //		}
 //		//		printf("---------------------------------------------- \n");
-//		ft_bzero(path->tab_current, map->line);
+//		ft_bzero(path->cur_good_path, map->line);
 //		++i;
 //	}
-//	print_line_path(path->tab_result, map->line);
+//	print_line_path(path->good_path, map->line);
 //}
 
 

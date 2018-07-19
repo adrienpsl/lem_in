@@ -30,33 +30,51 @@ int cmp_line(char *cur_line, char *line, size_t lim)
 }
 
 /*------------------------------------*\
-    va passer comparer avec tous les path deja tester et independant pour savoir
-    si le current path est bien independant
-
-    verifie que les chemin deja touver son independant du nouveau
+	return le nombre de chemin entierement different du path que j'envoie
+ 	et les print dans best path
 \*------------------------------------*/
-int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
+void test_current_path(t_map map, t_best_path best_path, int cur_ligne)
 {
 	size_t i;
 
 	i = 0;
 	while (i < map->line)
 	{
-		if (tab_path_deja_trouve[i] == 1)
+		if (cmp_line(map->start + (i * map->line),
+					 map->start + (i * cur_ligne),
+					 map->col))
 		{
-			if (cmp_line(map->start + (i * map->line), test_line, map->line))
-				return (TRUE);
+			best_path->cur_good_path[i] = TRUE;
 		}
 		i++;
 	}
 	//	printf("ok \n");
-	return (FALSE);
 }
 
-//void     is_bettre_best_path(t_best_path best)
-//{
-//    if(bes)
-//}
+/*
+**	**** VARIABLES
+**	cur_line	> 	la ligne en cours de test de la map de tout les chemins
+**
+**	**** RETURN
+**
+**	**** MAKING
+**	si diff_path( nombre de path independent de best_path) < test actuel
+**		le best_path garde la ligne en cours
+**		je transfere le tab des paths independant dans le cache
+**		je reset le cache
+*/
+
+void is_bettre_best_path(t_best_path best, int cur_line)
+{
+	if (best->diff_path < best->cur_nb)
+	{
+		best->best_path = cur_line;
+		free_str(&best->good_path);
+		best->good_path = best->cur_good_path;
+		best->diff_path = best->cur_nb;
+		best->cur_nb = 0;
+	}
+}
 
 /*
 **	**** VARIABLES
@@ -72,12 +90,14 @@ int check_all_case(char *tab_path_deja_trouve, char *test_line, t_map map)
 */
 
 /*------------------------------------*\
-    pour le moment ca ne me test que le premier
+   je passe sur chaque ligne et je get celui qui a le plus de
+   connection possible, et je selectinne tout les chemin ok
+
+
 \*------------------------------------*/
 void find_best_path(t_map map, t_best_path best_path)
 {
 	size_t line;
-	char *test_line;
 
 	line = 0;
 	//	printf(" \n");
@@ -87,19 +107,11 @@ void find_best_path(t_map map, t_best_path best_path)
 
 	while (line < map->line)
 	{
-		test_line = map->start + (line * map->line);
-		// je dois tester tout les autres chemin
-		if (check_all_case(best_path->tab_current, test_line, map) ==
-			FALSE)
-		{
-			print_line(map->start + (line * map->col), map->col, 1);
-			//			printf("%d \n", best_path->max_founded);
-			++best_path->nb_current;
-			best_path->tab_current[line] = 1;
-			// faire une mise a jour du best path 
-		}
+		test_current_path(map, best_path, line);
+		//			print_line(map->start + (line * map->col), map->col, 1);
+		is_bettre_best_path(best_path, line);
 		++line;
 	}
-//	print_line_first(best_path->tab_current)
+		print_line_first(best_path)
 }
 

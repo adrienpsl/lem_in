@@ -44,5 +44,4 @@ void generate_path_map(t_dll room, t_dll path_lst, t_map map)
 		link = link->next;
 		++i;
 	}
-	print_path_map_2(map);
 }
