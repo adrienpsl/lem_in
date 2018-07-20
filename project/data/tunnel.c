@@ -31,15 +31,17 @@ void get_max_path(t_data data, t_map map_ptr)
 
 	i = 0;
 	map = map_ptr->start + (data->start_room * map_ptr->col);
+	print_map(map, map_ptr->col);
+	print_line_first(map, map_ptr->col, 1);
 	end = 0;
 	while (i < map_ptr->col)
 	{
-		++i;
 		if (map[i] == 1)
-		    end++;
+			end++;
+		++i;
 	}
 	i = 0;
-	map = map_ptr->start + (data->end_room *  map_ptr->col);
+	map = map_ptr->start + (data->end_room * map_ptr->col);
 	start = 0;
 	while (i < map_ptr->col)
 	{
@@ -61,7 +63,7 @@ void set_tunnel(t_data data, t_map map)
 	/*
 	**    orint tunnel
 	*/
-//	dll_func(data->tunnel, print_tunnel_dll);
+	//	dll_func(data->tunnel, print_tunnel_dll);
 	while (tunnel_link)
 	{
 		tunnel = tunnel_link->content;
