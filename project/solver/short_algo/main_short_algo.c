@@ -111,10 +111,31 @@ t_best_path new_best_path(size_t nb_path)
 	best = ft_0_new_memory(sizeof(t_best_path_00));
 	best->tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
 	best->cur_tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
-//	print_line_first_int(best->tab_good_path, nb_path, 0);
-//	print_line_first_int(best->cur_tab_good_path, nb_path, 0);
+	//	print_line_first_int(best->tab_good_path, nb_path, 0);
+	//	print_line_first_int(best->cur_tab_good_path, nb_path, 0);
 	return (best);
 }
+
+// set up les path possible en fonction des connection
+t_move new_move()
+{
+	t_move move;
+
+	move = ft_0_new_memory(sizeof(t_move_00));
+	return (move);
+}
+
+//void manage_max_path(t_data data, int size_tab, char *tab_best_path)
+//{
+//	int i;
+//
+//
+//	i = 0;
+//	while (i < size_tab)
+//	{
+//
+//	}
+//}
 
 void short_algo(t_cache cache, t_data data, t_map map)
 {
@@ -138,6 +159,8 @@ void short_algo(t_cache cache, t_data data, t_map map)
 
 	t_best_path best;
 	best = new_best_path(map->line);
-
 	find_best_path(map, best);
+
+	t_move move = new_move();
+	move->tab_best_path = best->tab_good_path;
 }

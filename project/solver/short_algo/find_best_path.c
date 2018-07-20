@@ -38,7 +38,7 @@ int test_prev_good_path(t_map map, t_best_path best, int cur_line)
 	size_t col;
 
 	col = 0;
-//	print_line_first_int(best->cur_tab_good_path, map->line, 1);
+	//	print_line_first_int(best->cur_tab_good_path, map->line, 1);
 	while (col < map->col)
 	{
 		if (best->cur_tab_good_path[col] == TRUE)
@@ -97,10 +97,11 @@ void is_bettre_best_path(t_best_path best, int cur_line, size_t nb_path)
 {
 	if (best->good_path_nb < best->nb_independant_path)
 	{
-	 	best->best_line = cur_line;
+		best->best_line = cur_line;
 		free_str(&best->tab_good_path);
 		best->tab_good_path = best->cur_tab_good_path;
 		best->cur_tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
+		best->good_path_nb =  best->nb_independant_path;
 		best->nb_independant_path = 0;
 	}
 }
@@ -128,22 +129,18 @@ void find_best_path(t_map map, t_best_path best)
 	//	printf(" \n");
 	print_line_first(map->start + (line * map->col), map->col, line);
 
-	//	while (line < map->line)
-	//	{
-	//	print_line_first_int(best->tab_good_path, map->line, line);
+	while (line < map->line)
+	{
+		//	print_line_first_int(best->tab_good_path, map->line, line);
 
-	test_current_path(map, best, line);
-	is_bettre_best_path(best, line, map->line);
-	++line;
-	//	}
-	best->tab_good_path[best->good_path_nb] = TRUE;
-	print_line_first_int(best->tab_good_path, map->line, line);
-
+		test_current_path(map, best, line);
+		is_bettre_best_path(best, line, map->line);
+		best->tab_good_path[best->good_path_nb] = TRUE;
+		++line;
+	}
+	print_line_first_int(best->tab_good_path, map->line, 0);
 }
 
 /*
- * le probleme est que : je ne sais pas quel est le chemin le plus performant
- *  car en choisir un c'est me fermer d'autre porte, comment savoir si le chemin
- *  que j'ai pris est le plus mieux ?
  *
  * */

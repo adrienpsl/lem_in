@@ -43,4 +43,18 @@ typedef struct		s_best_path_00
 } 					t_best_path_00;
 typedef t_best_path_00 *t_best_path;
 
+
+/*
+**    move_lem ========================================================
+*/
+typedef struct		s_move_00
+{
+	t_map	map;
+	char 	*tab_best_path;
+	t_data 	data;
+} 					t_move_00;
+typedef t_move_00 *t_move;
+
+
+
 #endif

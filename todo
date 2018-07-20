@@ -9,19 +9,19 @@ le nombre de connextion entre les rooms,
 je prends une room et je la branche avec combien de
 room max je peux la brancher.
 
-
-j -- k-----------|
-|                |
-a  -  b  -  c    |
-|  \  |     |    |
-d  _  e  -  f    |
-|     |  \  |    |
-g  -  h  -  i_____
-
-
 short algo :
     1 --> refractoring
         2 -->
     2 --> les options d'affichage
     3 --> la limite
     4 --> traduction et optimistation
+
+
+
+// pour les fourmis;
+    je veux un genetateur de map en js, il print les resultats ?
+
+    je commence corwars ?
+    je regarde les path dispo vs les entre et sortie et je garde que ceux la :)
+    je regarde si le nb de fourmis est = -1 au nombre de room first path
+    je lance les fourmis
