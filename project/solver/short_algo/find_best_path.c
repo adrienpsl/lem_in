@@ -64,14 +64,14 @@ void test_current_path(t_map map, t_best_path best_path, int cur_ligne)
 **		je reset le cache
 */
 
-void is_bettre_best_path(t_best_path best, int cur_line, size_t size_line)
+void is_bettre_best_path(t_best_path best, int cur_line, size_t nb_path)
 {
 	if (best->diff_path < best->cur_nb)
 	{
 		best->best_path = cur_line;
 		free_str(&best->good_path);
 		best->good_path = best->cur_good_path;
-		best->cur_good_path = ft_0_new_memory(size_line);
+		best->cur_good_path = ft_0_new_memory(nb_path);
 		best->diff_path = best->cur_nb;
 		best->cur_nb = 0;
 	}
@@ -106,13 +106,13 @@ void find_best_path(t_map map, t_best_path best_path)
 	//	printf(" \n");
 	print_line_first(map->start, map->col, 0);
 
-	while (line < map->line)
-	{
+//	while (line < map->line)
+//	{
 		test_current_path(map, best_path, line);
 		//			print_line(map->start + (line * map->col), map->col, 1);
 		is_bettre_best_path(best_path, line, map->line);
 		++line;
-	}
+//	}
 	print_line_first_int(best_path->good_path, map->line, line);
 }
 

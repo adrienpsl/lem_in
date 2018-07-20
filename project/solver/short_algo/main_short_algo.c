@@ -104,13 +104,13 @@ size_t split_all_path_working(t_finder finder, t_map map)
 	return (finder->working_path->length);
 }
 
-t_best_path new_best_path(/*size_t nb_roon, size_t nb_path*/)
+t_best_path new_best_path(size_t nb_path)
 {
 	t_best_path best;
 
 	best = ft_0_new_memory(sizeof(t_best_path));
-	best->good_path = ft_0_new_memory(sizeof(1000));
-	best->cur_good_path = ft_0_new_memory(sizeof(1000));
+	best->good_path = ft_0_new_memory(sizeof(nb_path));
+	best->cur_good_path = ft_0_new_memory(sizeof(nb_path));
 
 	return (best);
 }
@@ -136,7 +136,7 @@ void short_algo(t_cache cache, t_data data, t_map map)
 	print_path_map_2(map);
 
 	t_best_path best;
-	best = new_best_path();
+	best = new_best_path(map->line);
 
 	find_best_path(map, best);
 }
