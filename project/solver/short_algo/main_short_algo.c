@@ -133,8 +133,10 @@ void short_algo(t_cache cache, t_data data, t_map map)
 	generate_path_map(data->room,
 					  finder->valid_path,
 					  map);
+	print_path_map_2(map);
+
 	t_best_path best;
 	best = new_best_path();
+
 	find_best_path(map, best);
-	print_path_map_2(map);
 }

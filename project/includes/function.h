@@ -33,6 +33,7 @@ void print_path_link_nb(t_dll_l link);
 void print_line_first(char *tab_room, size_t size_line, int cur_line);
 void print_finder(t_dll finder);
 void print_path_dll_order(t_dll_l link);
+void print_line_first_int(char *tab_room, size_t size_line, int cur_line);
 
 
 

@@ -22,24 +22,10 @@ void print_name(int a)
 	int i;
 
 	i = 'A';
-	printf("[[ ");
+	printf(" [[ ");
 	while (i < a + 'A')
 	{
 		printf("%c ", i);
-		++i;
-	}
-	printf("]]\n");
-}
-
-void print_name_int(int a)
-{
-	int i;
-
-	i = 0;
-	printf("[[ ");
-	while (i < a)
-	{
-		printf("%d ", i);
 		++i;
 	}
 	printf("]]\n");
@@ -52,7 +38,7 @@ void print_line_first(char *tab_room, size_t size_line, int cur_line)
 	i = 0;
 
 	print_name(size_line);
-	printf("%c  ", 'A' + cur_line);
+	printf("%c   ", 'A' + cur_line);
 	while (i < size_line)
 	{
 		printf("%c ", tab_room[i] ? 'X' : '.');
@@ -61,6 +47,19 @@ void print_line_first(char *tab_room, size_t size_line, int cur_line)
 	printf("\n\n");
 }
 
+void print_name_int(int a)
+{
+	int i;
+
+	i = 1;
+	printf("[[ ");
+	while (i <= a)
+	{
+		printf("%2d ", i);
+		++i;
+	}
+	printf("]]\n");
+}
 
 void print_line_first_int(char *tab_room, size_t size_line, int cur_line)
 {
@@ -72,7 +71,7 @@ void print_line_first_int(char *tab_room, size_t size_line, int cur_line)
 	printf("%c  ", 'A' + cur_line);
 	while (i < size_line)
 	{
-		printf("%c ", tab_room[i] ? 'X' : '.');
+		printf("%2c ", tab_room[i] ? 'X' : '.');
 		++i;
 	}
 	printf("\n\n");
@@ -195,7 +194,7 @@ void print_path_map_2(t_map map)
 	counter = 2;
 
 	print_name(map->col);
-	printf("\n1  ");
+	printf("\n 1  ");
 	while (i < lim)
 	{
 		printf("%c ", map->start[i] ? 'X' : '.');
@@ -203,7 +202,7 @@ void print_path_map_2(t_map map)
 		++col;
 		if (col == map->col)
 		{
-			printf(" \n%lu  ", counter);
+			printf(" \n%2lu  ", counter);
 			col = 0;
 			++counter;
 		}
