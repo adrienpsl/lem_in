@@ -58,7 +58,7 @@ t_dll copy_all_path_order(t_dll_l close_path_link);
 t_dll_l     get_dll_by_path(t_path path);
 void generate_path_map(t_dll room, t_dll path_lst, t_map map);
 size_t fill_path(t_finder cache, t_map map);
-void find_best_path(t_map map, t_best_path best_path);
+void find_best_path(t_map map, t_best_path best);
 void print_path_map_2(t_map map);
 
 

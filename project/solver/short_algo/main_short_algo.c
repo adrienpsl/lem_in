@@ -108,10 +108,11 @@ t_best_path new_best_path(size_t nb_path)
 {
 	t_best_path best;
 
-	best = ft_0_new_memory(sizeof(t_best_path));
-	best->good_path = ft_0_new_memory(sizeof(nb_path));
-	best->cur_good_path = ft_0_new_memory(sizeof(nb_path));
-
+	best = ft_0_new_memory(sizeof(t_best_path_00));
+	best->tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
+	best->cur_tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
+//	print_line_first_int(best->tab_good_path, nb_path, 0);
+//	print_line_first_int(best->cur_tab_good_path, nb_path, 0);
 	return (best);
 }
 

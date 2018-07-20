@@ -20,6 +20,10 @@ int cmp_line(char *cur_line, char *line, size_t lim)
 	size_t i;
 
 	i = 0;
+	//	print_line_first(cur_line, lim, 1);
+	//	print_line_first(line, lim, 25);
+	if (cur_line == line)
+		return (TRUE);
 	while (i < lim)
 	{
 		if (cur_line[i] && line[i])
@@ -29,24 +33,49 @@ int cmp_line(char *cur_line, char *line, size_t lim)
 	return (FALSE);
 }
 
+int test_prev_good_path(t_map map, t_best_path best, int cur_line)
+{
+	size_t col;
+
+	col = 0;
+//	print_line_first_int(best->cur_tab_good_path, map->line, 1);
+	while (col < map->col)
+	{
+		if (best->cur_tab_good_path[col] == TRUE)
+		{
+			if (cmp_line(map->start + (col * map->col),
+						 map->start + (cur_line * map->col),
+						 map->col) == TRUE)
+				return (FALSE);
+		}
+		++col;
+	}
+	return (TRUE);
+}
+
 /*------------------------------------*\
 	return le nombre de chemin entierement different du path que j'envoie
  	et les print dans best path
+ 	les path doivents aussi etre differents des path deja get
 \*------------------------------------*/
-void test_current_path(t_map map, t_best_path best_path, int cur_ligne)
+void test_current_path(t_map map, t_best_path best_path, int cur_line)
 {
-	size_t i;
+	size_t line;
 
-	i = 0;
-	while (i < map->line)
+	line = 0;
+	while (line < map->line)
 	{
-		if (cmp_line(map->start + (i * map->line),
-					 map->start + (i * cur_ligne),
-					 map->col))
+		if (cmp_line(map->start + (line * map->col),
+					 map->start + (cur_line * map->col),
+					 map->col) == FALSE
+			&& test_prev_good_path(map, best_path, line) == TRUE
+		 )
 		{
-			best_path->cur_good_path[i] = TRUE;
+			best_path->cur_tab_good_path[line] = TRUE;
+			best_path->nb_independant_path += 1;
+			print_line_first(map->start + (line * map->col), map->col, line);
 		}
-		i++;
+		line++;
 	}
 	//	printf("ok \n");
 }
@@ -58,45 +87,38 @@ void test_current_path(t_map map, t_best_path best_path, int cur_ligne)
 **	**** RETURN
 **
 **	**** MAKING
-**	si diff_path( nombre de path independent de best_path) < test actuel
-**		le best_path garde la ligne en cours
+**	si good_path_nb( nombre de path independent de best_line) < test actuel
+**		le best_line garde la ligne en cours
 **		je transfere le tab des paths independant dans le cache
 **		je reset le cache
 */
 
 void is_bettre_best_path(t_best_path best, int cur_line, size_t nb_path)
 {
-	if (best->diff_path < best->cur_nb)
+	if (best->good_path_nb < best->nb_independant_path)
 	{
-		best->best_path = cur_line;
-		free_str(&best->good_path);
-		best->good_path = best->cur_good_path;
-		best->cur_good_path = ft_0_new_memory(nb_path);
-		best->diff_path = best->cur_nb;
-		best->cur_nb = 0;
+	 	best->best_line = cur_line;
+		free_str(&best->tab_good_path);
+		best->tab_good_path = best->cur_tab_good_path;
+		best->cur_tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
+		best->nb_independant_path = 0;
 	}
 }
 
 /*
 **	**** VARIABLES
 **	map			>	all_path x nb_room
-**	best_path	> 	save le nb de path different compatible d'in path avec un autre
+**	best_line	> 	save le nb de path different compatible d'in path avec un autre
 **
 **
 **	**** RETURN
 **	=> le best past
 **
 **	**** MAKING
-**	genere le best_path, que apres je set dedans
+**	genere le best_line, que apres je set dedans
 */
 
-/*------------------------------------*\
-   je passe sur chaque ligne et je get celui qui a le plus de
-   connection possible, et je selectinne tout les chemin ok
-
-
-\*------------------------------------*/
-void find_best_path(t_map map, t_best_path best_path)
+void find_best_path(t_map map, t_best_path best)
 {
 	size_t line;
 
@@ -104,15 +126,24 @@ void find_best_path(t_map map, t_best_path best_path)
 	//	printf(" \n");
 	//	print_line(map->start + (cur_line * map->line), map->line, 1);
 	//	printf(" \n");
-	print_line_first(map->start, map->col, 0);
+	print_line_first(map->start + (line * map->col), map->col, line);
 
-//	while (line < map->line)
-//	{
-		test_current_path(map, best_path, line);
-		//			print_line(map->start + (line * map->col), map->col, 1);
-		is_bettre_best_path(best_path, line, map->line);
-		++line;
-//	}
-	print_line_first_int(best_path->good_path, map->line, line);
+	//	while (line < map->line)
+	//	{
+	//	print_line_first_int(best->tab_good_path, map->line, line);
+
+	test_current_path(map, best, line);
+	is_bettre_best_path(best, line, map->line);
+	++line;
+	//	}
+	best->tab_good_path[best->good_path_nb] = TRUE;
+	print_line_first_int(best->tab_good_path, map->line, line);
+
 }
 
+/*
+ * le probleme est que : je ne sais pas quel est le chemin le plus performant
+ *  car en choisir un c'est me fermer d'autre porte, comment savoir si le chemin
+ *  que j'ai pris est le plus mieux ?
+ *
+ * */
