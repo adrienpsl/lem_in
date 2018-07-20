@@ -45,9 +45,9 @@ void get_max_path(t_data data, t_map map_ptr)
 	start = 0;
 	while (i < map_ptr->col)
 	{
-		++i;
 		if (map[i] == 1)
 			start++;
+		++i;
 	}
 	data->lim = start > end ? end : start;
 }
