@@ -30,6 +30,7 @@ typedef struct		s_path_00
 {
 	int 	room;
 	int		size;
+	int		is_full;
 	struct s_path_00 *prev;
 } 					t_path_00;
 typedef t_path_00 *t_path;

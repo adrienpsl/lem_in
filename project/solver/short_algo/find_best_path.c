@@ -73,7 +73,7 @@ void test_current_path(t_map map, t_b_path cache, int cur_line)
 		{
 			cache->tab[line] = TRUE;
 			cache->nb += 1;
-						print_line_first(map->start + (line * map->col), map->col, line);
+//			print_line_first(map->start + (line * map->col), map->col, line);
 		}
 		line++;
 	}
@@ -111,7 +111,6 @@ void is_bettre_best_path(t_best_path best, int cur_line, size_t nb_path)
 		data->nb = cache->nb;
 	}
 	cache->nb = 0;
-
 }
 
 /*
@@ -145,7 +144,7 @@ void find_best_path(t_map map, t_best_path best)
 		best->cache.nb++;
 		is_bettre_best_path(best, line, map->line);
 		best->data.tab[best->data.line] = TRUE;
-		print_line_first_int(best->data.tab, map->line, 0);
+//		print_line_first_int(best->data.tab, map->line, 0);
 
 		++line;
 	}
