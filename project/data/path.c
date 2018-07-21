@@ -44,7 +44,7 @@ int has_taken_this_room(t_path path, int name, t_finder finder)
 
 	//	while (path)
 	//	{
-	//		if (name == path->room)
+	//		if (line == path->room)
 	//			return (FALSE);
 	//		path = path->prev;
 	//	}

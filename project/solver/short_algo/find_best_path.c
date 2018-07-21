@@ -33,7 +33,7 @@ int cmp_line(char *cur_line, char *line, size_t lim)
 	return (FALSE);
 }
 
-int test_prev_good_path(t_map map, t_best_path best, int cur_line)
+int test_prev_good_path(t_map map, t_b_path cache, int cur_line)
 {
 	size_t col;
 
@@ -41,7 +41,7 @@ int test_prev_good_path(t_map map, t_best_path best, int cur_line)
 	//	print_line_first_int(best->cur_tab_good_path, map->line, 1);
 	while (col < map->col)
 	{
-		if (best->cur_tab_good_path[col] == TRUE)
+		if (cache->tab[col] == TRUE)
 		{
 			if (cmp_line(map->start + (col * map->col),
 						 map->start + (cur_line * map->col),
@@ -58,7 +58,7 @@ int test_prev_good_path(t_map map, t_best_path best, int cur_line)
  	et les print dans best path
  	les path doivents aussi etre differents des path deja get
 \*------------------------------------*/
-void test_current_path(t_map map, t_best_path best_path, int cur_line)
+void test_current_path(t_map map, t_b_path cache, int cur_line)
 {
 	size_t line;
 
@@ -68,12 +68,12 @@ void test_current_path(t_map map, t_best_path best_path, int cur_line)
 		if (cmp_line(map->start + (line * map->col),
 					 map->start + (cur_line * map->col),
 					 map->col) == FALSE
-			&& test_prev_good_path(map, best_path, line) == TRUE
+			&& test_prev_good_path(map, cache, line) == TRUE
 		 )
 		{
-			best_path->cur_tab_good_path[line] = TRUE;
-			best_path->nb_independant_path += 1;
-			print_line_first(map->start + (line * map->col), map->col, line);
+			cache->tab[line] = TRUE;
+			cache->nb += 1;
+						print_line_first(map->start + (line * map->col), map->col, line);
 		}
 		line++;
 	}
@@ -95,15 +95,23 @@ void test_current_path(t_map map, t_best_path best_path, int cur_line)
 
 void is_bettre_best_path(t_best_path best, int cur_line, size_t nb_path)
 {
-	if (best->good_path_nb < best->nb_independant_path)
+
+	t_b_path cache;
+	t_b_path data;
+
+	cache = &best->cache;
+	data = &best->data;
+
+	if (data->nb < cache->nb)
 	{
-		best->best_line = cur_line;
-		free_str(&best->tab_good_path);
-		best->tab_good_path = best->cur_tab_good_path;
-		best->cur_tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
-		best->good_path_nb =  best->nb_independant_path;
-		best->nb_independant_path = 0;
+		data->line = cur_line;
+		free_str(&data->tab);
+		data->tab = cache->tab;
+		cache->tab = ft_0_new_memory(sizeof(char) * nb_path);
+		data->nb = cache->nb;
 	}
+	cache->nb = 0;
+
 }
 
 /*
@@ -133,12 +141,15 @@ void find_best_path(t_map map, t_best_path best)
 	{
 		//	print_line_first_int(best->tab_good_path, map->line, line);
 
-		test_current_path(map, best, line);
+		test_current_path(map, &best->cache, line);
+		best->cache.nb++;
 		is_bettre_best_path(best, line, map->line);
-		best->tab_good_path[best->good_path_nb] = TRUE;
+		best->data.tab[best->data.line] = TRUE;
+		print_line_first_int(best->data.tab, map->line, 0);
+
 		++line;
 	}
-//	print_line_first_int(best->tab_good_path, map->line, 0);
+	//	print_line_first_int(best->tab_good_path, map->line, 0);
 }
 
 /*

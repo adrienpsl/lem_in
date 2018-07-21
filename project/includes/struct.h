@@ -30,15 +30,25 @@ typedef struct s_lem
 typedef t_lem_00 *t_lem;
 
 /*
-**    best_line ========================================================
+**    struct_path
+*/
+typedef struct		s_b_path_00
+{
+	char *tab;
+	int nb;
+	int line;
+} 					t_b_path_00;
+typedef t_b_path_00 *t_b_path;
+
+
+/*
+**    best_path ========================================================
 */
 typedef struct s_best_path_00
 {
-	char *cur_tab_good_path;
-	int nb_independant_path;
-	char *tab_good_path;
-	int good_path_nb;
-	int best_line;
+	t_b_path_00 cache;
+	t_b_path_00 data;
+
 } t_best_path_00;
 
 typedef t_best_path_00 *t_best_path;

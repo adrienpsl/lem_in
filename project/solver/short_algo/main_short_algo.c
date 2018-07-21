@@ -107,10 +107,12 @@ size_t split_all_path_working(t_finder finder, t_map map)
 t_best_path new_best_path(size_t nb_path)
 {
 	t_best_path best;
+	t_b_path cache;
 
 	best = ft_0_new_memory(sizeof(t_best_path_00));
-	best->tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
-	best->cur_tab_good_path = ft_0_new_memory(sizeof(char) * nb_path);
+	cache = &best->cache;
+	cache->tab = ft_0_new_memory(sizeof(char) * nb_path);
+//	cache->nb = 1;
 	//	print_line_first_int(best->tab_good_path, nb_path, 0);
 	//	print_line_first_int(best->cur_tab_good_path, nb_path, 0);
 	return (best);
@@ -142,6 +144,19 @@ void manage_max_path(t_data data, int size_tab, char *tab_best_path)
 	}
 }
 
+
+// pour chaque cel du tab, je creer ma liste chainer,
+// mettre dans liste chainer tout les trucs
+t_real_path generate_all_move(t_best_path best_path)
+{
+	t_real_path real;
+
+	real = ft_0_new_memory(
+	 sizeof(t_real_path_00) * best_path->data.nb);
+
+	return (real);
+}
+
 void short_algo(t_cache cache, t_data data, t_map map)
 {
 	t_finder finder;
@@ -155,7 +170,7 @@ void short_algo(t_cache cache, t_data data, t_map map)
 
 	while (split_all_path_working(finder, map))
 	{
-		dll_func(finder->working_path, print_path_dll);
+		//		dll_func(finder->working_path, print_path_dll);
 	}
 	generate_path_map(data->room,
 					  finder->valid_path,
@@ -167,11 +182,10 @@ void short_algo(t_cache cache, t_data data, t_map map)
 	find_best_path(map, best);
 
 	t_real_path move = new_real_path();
-	move->tab_best_path = best->tab_good_path;
+	move->tab_best_path = best->data.tab;
 
-//	manage_max_path(data, map->col, move->tab_best_path);
+	//	manage_max_path(data, map->col, move->tab_best_path);
 	print_line_first_int(move->tab_best_path, map->line, 0);
-
 }
 
 // je compte par chemin le temps que ca me prends d'etre full,

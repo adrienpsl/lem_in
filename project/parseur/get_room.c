@@ -71,16 +71,17 @@ void  get_coord_room(t_data data, t_get_utils utils)
 	}
 	destroy_str_split(&split);
 }
+
 /*
 **	**** VARIABLES
 **
 **	**** RETURN
 **
 **	**** MAKING
-**	verifie une fois toutes les rooms lue, qu'il
-**
-**
+**	verifie une fois toutes les rooms lue,
+**	et affiche un message d'erreur en  consequence
 */
+
 void check_err_room(t_get_utils utils)
 {
 	if (utils->start == NULL)
