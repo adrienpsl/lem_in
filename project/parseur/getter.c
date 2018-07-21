@@ -17,7 +17,12 @@
 #include "../all_includes.h"
 
 /*
-**    get le bon nb de fourmis
+**	**** VARIABLES
+**
+**	**** RETURN
+**
+**	**** MAKING
+**  set le nb de fourmis et verifie qu'il est un int
 */
 void get_nb_foumis(t_getter get)
 {
@@ -25,12 +30,19 @@ void get_nb_foumis(t_getter get)
 
 	ask_gnl(get->utils.fd, &get->utils.line);
 	if (is_int(get->utils.line, &result) == FAIL || result <= 0)
-		ft_error("Il n'col a pas de fourmis OU le nb n'est pas Valable");
+		ft_error("Il n'y a pas de fourmis OU le nb n'est pas Valable");
 	get->data->nb_fourmis = result;
 	free_str(&get->utils.line);
 }
 
-// premiere fonction get sur gnl les data
+/*
+**	**** VARIABLES
+**	data	> sock toute les data du parseur
+**
+**	**** RETURN
+**
+**	**** MAKING
+*/
 void lem_read_data(t_data data)
 {
 	t_getter_00 get;

@@ -11,17 +11,15 @@ room max je peux la brancher.
 
 short algo :
     1 --> refractoring
-        2 -->
+    2 -->
     2 --> les options d'affichage
     3 --> la limite
     4 --> traduction et optimistation
 
 
 
-// pour les fourmis;
-    je veux un genetateur de map en js, il print les resultats ?
+// generer real_path
+    tab_ptr des path qui les contient
+    generer la liste dans le bon ordre des path
 
-    je commence corwars ?
-    je regarde les path dispo vs les entre et sortie et je garde que ceux la :)
-    je regarde si le nb de fourmis est = -1 au nombre de room first path
-    je lance les fourmis
+

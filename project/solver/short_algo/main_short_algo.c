@@ -117,25 +117,30 @@ t_best_path new_best_path(size_t nb_path)
 }
 
 // set up les path possible en fonction des connection
-t_move new_move()
+t_real_path new_real_path()
 {
-	t_move move;
+	t_real_path real_path;
 
-	move = ft_0_new_memory(sizeof(t_move_00));
-	return (move);
+	real_path = ft_0_new_memory(sizeof(t_real_path_00));
+	return (real_path);
 }
 
-//void manage_max_path(t_data data, int size_tab, char *tab_best_path)
-//{
-//	int i;
-//
-//
-//	i = 0;
-//	while (i < size_tab)
-//	{
-//
-//	}
-//}
+void manage_max_path(t_data data, int size_tab, char *tab_best_path)
+{
+	int i;
+	int number_past_path;
+
+	i = 0;
+	number_past_path = 0;
+	while (i < size_tab)
+	{
+		if (number_past_path > data->lim)
+			tab_best_path[i] = FALSE;
+		if (tab_best_path[i] == TRUE)
+			++number_past_path;
+		++i;
+	}
+}
 
 void short_algo(t_cache cache, t_data data, t_map map)
 {
@@ -161,6 +166,13 @@ void short_algo(t_cache cache, t_data data, t_map map)
 	best = new_best_path(map->line);
 	find_best_path(map, best);
 
-	t_move move = new_move();
+	t_real_path move = new_real_path();
 	move->tab_best_path = best->tab_good_path;
+
+//	manage_max_path(data, map->col, move->tab_best_path);
+	print_line_first_int(move->tab_best_path, map->line, 0);
+
 }
+
+// je compte par chemin le temps que ca me prends d'etre full,
+// un tab avec les chemin et le temps pour qu'il soit full ?
