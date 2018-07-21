@@ -36,6 +36,8 @@ void print_path_dll_order(t_dll_l link);
 void print_line_first_int(char *tab_room, size_t size_line, int cur_line);
 
 
+t_best_path new_best_path(size_t nb_path);
+
 
 /*
 **    explication
@@ -56,7 +58,7 @@ void get_all_path(t_dll list_finder, t_map map, t_data data, t_cache cache);
 void free_list_list_path(void *list_ptr);
 t_dll copy_all_path_order(t_dll_l close_path_link);
 t_dll_l     get_dll_by_path(t_path path);
-void generate_path_map(t_dll room, t_dll path_lst, t_map map);
+t_map generate_path_map(t_dll room, t_dll path_lst);
 size_t fill_path(t_finder cache, t_map map);
 void find_best_path(t_map map, t_best_path best);
 void print_path_map_2(t_map map);
@@ -71,7 +73,7 @@ void destroy_cache(t_cache cache);
 /*
 **    SHORT ALGO
 */
-void     short_algo(t_cache cache, t_data data, t_map map);
+t_move short_algo(t_cache cache, t_data data, t_map map);
 
 
 /*

@@ -150,7 +150,3 @@ void find_best_path(t_map map, t_best_path best)
 	}
 	//	print_line_first_int(best->tab_good_path, map->line, 0);
 }
-
-/*
- *
- * */

@@ -53,6 +53,17 @@ typedef struct s_best_path_00
 
 typedef t_best_path_00 *t_best_path;
 
+
+typedef struct		s_move_00
+{
+	t_data	data;
+	t_map path_map;
+	t_b_path best_path;
+	t_dll real_path;
+} 					t_move_00;
+typedef t_move_00 *t_move;
+
+
 /*
 **    real_path ========================================================
 */
