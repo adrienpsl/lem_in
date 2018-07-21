@@ -104,37 +104,12 @@ size_t split_all_path_working(t_finder finder, t_map map)
 	return (finder->working_path->length);
 }
 
-// set up les path possible en fonction des connection
-t_real_path new_real_path()
-{
-	t_real_path real_path;
-
-	real_path = ft_0_new_memory(sizeof(t_real_path_00));
-	return (real_path);
-}
-
-/*------------------------------------*\
- pour chaque cel du tab, je creer ma liste chainer,
- mettre dans liste chainer tout les trucs
-
-\*------------------------------------*/
-t_real_path generate_all_move(t_best_path best_path)
-{
-	t_real_path real;
-
-	real = ft_0_new_memory(
-	 sizeof(t_real_path_00) * best_path->data.nb);
-	// set la premier cel du tab et free les path ? yep !
-
-	return (real);
-}
-
 t_move short_algo(t_cache cache, t_data data, t_map map)
 {
 	t_finder finder;
 	t_map path_map;
 	t_best_path best;
-	t_move move;
+	t_move move = NULL;
 
 	finder = new_finder(data, data->start_room, map, cache);
 	init_finder(finder, map);
@@ -147,7 +122,7 @@ t_move short_algo(t_cache cache, t_data data, t_map map)
 		//		dll_func(finder->working_path, print_path_dll);
 	}
 
-	
+
 	/*------------------------------------*\
 	    genere la map des path
 	\*------------------------------------*/
@@ -160,16 +135,15 @@ t_move short_algo(t_cache cache, t_data data, t_map map)
 	best = new_best_path(path_map->line);
 	find_best_path(path_map, best);
 
-	
+	dll_func(finder->valid_path, print_path_dll);
+	print_line_first_int(best->data.tab, path_map->line, 0);
+
+	move = new_move(data, map, &best->data, finder);
 	/*------------------------------------*\
 	    init et return move pour lancer le move des fourmis
 	\*------------------------------------*/
 	//	t_real_path move = new_real_path();
 	//	move->tab_best_path = best->data.tab;
 
-	//	print_line_first_int(move->tab_best_path, map->line, 0);
 	return (move);
 }
-
-// je compte par chemin le temps que ca me prends d'etre full,
-// un tab avec les chemin et le temps pour qu'il soit full ?

@@ -53,27 +53,26 @@ typedef struct s_best_path_00
 
 typedef t_best_path_00 *t_best_path;
 
-
-typedef struct		s_move_00
-{
-	t_data	data;
-	t_map path_map;
-	t_b_path best_path;
-	t_dll real_path;
-} 					t_move_00;
-typedef t_move_00 *t_move;
-
-
 /*
 **    real_path ========================================================
 */
 typedef struct s_real_path_00
 {
 	int size;
-	char *tab_best_path;
-	t_data data;
+	int free;
+	t_dll list_path;
 } t_real_path_00;
 
 typedef t_real_path_00 *t_real_path;
+
+typedef struct		s_move_00
+{
+	t_data	data;
+	int nb_fourmis;
+	t_map path_map;
+	t_b_path best_path;
+	t_real_path *tab;
+} 					t_move_00;
+typedef t_move_00 *t_move;
 
 #endif

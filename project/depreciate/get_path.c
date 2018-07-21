@@ -29,12 +29,12 @@ int option_print_list(t_finder cache, t_dll list, char *explain)
 void preparer_debut(t_data data, t_map map, t_dll list_finder, t_cache cache)
 {
 	(void) list_finder;
-	char *connection_start_room;
+//	char *connection_start_room;
 	size_t i;
 	t_dll_l finder_link;
 
 	i = 0;
-	connection_start_room = map->start + data->start_room * map->line;
+//	connection_start_room = map->start + data->start_room * map->line;
 	// pour tout les conenction de start
 //	print_line(connection_start_room, map->line, data->start_room);
 

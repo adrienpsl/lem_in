@@ -148,5 +148,5 @@ void find_best_path(t_map map, t_best_path best)
 
 		++line;
 	}
-	//	print_line_first_int(best->tab_good_path, map->line, 0);
+		print_line_first_int(best->data.tab, map->line, 0);
 }

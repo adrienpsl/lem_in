@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "all_includes.h"
+#include "../all_includes.h"
 
 int is_not_this_room(t_dll_l link, void *name_end_room)
 {

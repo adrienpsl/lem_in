@@ -68,7 +68,7 @@ void drop_finish_path_working(t_finder finder)
 */
 void clean_woking(t_finder finder)
 {
-	finder->option = TRUE;
+//	finder->option = TRUE;
 	//	dll_func(finder->new_path, print_path_dll);
 	destroy_dll_func(&finder->working_path, dll_l_notfree_content);
 	finder->working_path = finder->new_path;
