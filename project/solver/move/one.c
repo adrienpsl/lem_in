@@ -98,25 +98,31 @@ void put_f_all_start(t_move move)
     avancer tout les fourmis ?
     reccursif, tant que le link a une fourmis je decalle d'un
 \*------------------------------------*/
-void move_all_f(t_dll_l link_f, int new_f)
+void recursif_all_f(t_dll_l link, int new_f, int end_room)
 {
-	// tant que dans link il y a une f
 	t_path path;
 
-	// end recursiviter
-	if (link_f == NULL)
-		return;
+	path = link->content;
+	if (link->next)
+	    recursif_all_f(link->next, path->is_full, end_room);
+	path->is_full = 0;
+	if (new_f)
+	{
+		printf("F%d-%s \n", new_f, path->name_room);
+		path->is_full = new_f != end_room ? new_f : 0;
+	}
+}
 
-	// algo
-	path = link_f->content;
-	printf("F%d-%s \n", new_f, path->name_room);
-	if (link_f->next == NULL)
-	    path->is_full = 0;
-	if (path->is_full != 0)
-		move_all_f(link_f->next, path->is_full);
+void move_all_f(t_move move)
+{
+	size_t i;
 
-	// secu si end room
-
+	i = 0;
+	while (i < move->size_tab)
+	{
+	    recursif_all_f(move->tab[i]->list_path->top, 0, move->end_room);
+	    ++i;
+	}
 }
 
 /*------------------------------------*\
@@ -127,7 +133,17 @@ void manage_move(t_move move)
 	(void) move;
 
 	put_f_all_start(move);
-	put_f_all_start(move);
-	put_f_all_start(move);
+	printf("-------------------- \n");
+
+//	put_f_all_start(move);
+	move_all_f(move);
+	printf("-------------------- \n");
+	move_all_f(move);
+	printf("-------------------- \n");
+	move_all_f(move);
+
+	//	put_f_all_start(move);
+//	move_all_f(move->tab[2]->list_path->top->next);
+
 	//    move_all_f(move);
 }
