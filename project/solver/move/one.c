@@ -68,7 +68,6 @@ void add_f(t_move move, size_t nb_path, size_t room, int f_nb)
 	printf("F%d-%s \n", f_nb, path->name_room);
 	if (path->room != move->end_room)
 		path->is_full = f_nb;
-
 }
 /*------------------------------------*\
     metre fourmis dans salle si
@@ -93,6 +92,31 @@ void put_f_all_start(t_move move)
 		}
 		++path;
 	}
+}
+
+/*------------------------------------*\
+    avancer tout les fourmis ?
+    reccursif, tant que le link a une fourmis je decalle d'un
+\*------------------------------------*/
+void move_all_f(t_dll_l link_f, int new_f)
+{
+	// tant que dans link il y a une f
+	t_path path;
+
+	// end recursiviter
+	if (link_f == NULL)
+		return;
+
+	// algo
+	path = link_f->content;
+	printf("F%d-%s \n", new_f, path->name_room);
+	if (link_f->next == NULL)
+	    path->is_full = 0;
+	if (path->is_full != 0)
+		move_all_f(link_f->next, path->is_full);
+
+	// secu si end room
+
 }
 
 /*------------------------------------*\
