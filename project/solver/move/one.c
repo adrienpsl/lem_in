@@ -53,12 +53,20 @@ int is_free(t_move move, size_t nb_path, size_t room)
     dois check si j'ai la fourmis est a la fin pour empty
 \*------------------------------------*/
 
-void add_f(t_move move, size_t nb_path, size_t room, int f_nb)
+int add_f(t_move move, size_t nb_path, size_t room, int f_nb)
 {
 	t_dll_l link;
 	t_path path;
+	int bn;
+	int zize;
 
 	link = move->tab[nb_path]->list_path->top;
+	zize = move->tab[nb_path]->size - 2;
+	bn =  move->nb_fourmis - f_nb;
+	if (move->nb_fourmis < f_nb)
+		return TRUE;
+	if (nb_path > 0 && bn < zize)
+		return FALSE;
 	while (room)
 	{
 		link = link->next;
@@ -68,6 +76,7 @@ void add_f(t_move move, size_t nb_path, size_t room, int f_nb)
 	printf("F%d-%s ", f_nb, path->name_room);
 	if (path->room != move->end_room)
 		path->is_full = f_nb;
+	return (TRUE);
 }
 /*------------------------------------*\
     metre fourmis dans salle si
@@ -87,8 +96,8 @@ int put_f_all_start(t_move move)
 		if (move->nb_fourmis > 0 &&
 			is_free(move, path, 1) == TRUE)
 		{
-			add_f(move, path, 1, f);
-			++f;
+			if (add_f(move, path, 1, f) == TRUE)
+				++f;
 		}
 		++path;
 	}
@@ -146,8 +155,8 @@ void manage_move(t_move move)
 	{
 		printf("\n-------------------- \n\n");
 		move_all_f(move);
-		printf("\n-------------------- \n\n");
 	}
+	//	printf("\n-------------------- \n\n");
 	printf("\n-------------------- \n\n");
 
 	//	move_all_f(move);
@@ -155,6 +164,7 @@ void manage_move(t_move move)
 
 	while (move_all_f(move))
 	{
+		put_f_all_start(move);
 		printf("\n-------------------- \n\n");
 	}
 }
