@@ -71,6 +71,7 @@ typedef struct		s_move_00
 	int nb_fourmis;
 	size_t size_tab;
 	t_real_path *tab;
+	int end_room;
 } 					t_move_00;
 typedef t_move_00 *t_move;
 

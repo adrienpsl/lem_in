@@ -75,8 +75,9 @@ int main()
 	    algo petite map,
 	    a definir ...
 	\*------------------------------------*/
-
-	short_algo(cache, lem->data, map);
+	t_move move;
+	move = short_algo(cache, lem->data, map);
+	manage_move(move);
 
 	//	get_all_path(test_list, map, lem->data, cache);
 

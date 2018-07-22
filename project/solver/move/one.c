@@ -35,27 +35,75 @@
 //
 //}
 
+int is_free(t_move move, size_t nb_path, size_t room)
+{
+	t_dll_l link;
 
+	link = move->tab[nb_path]->list_path->top;
+	while (room)
+	{
+		link = link->next;
+		--room;
+	}
+	return (
+	 ((t_path) link->content)->is_full ? FALSE : TRUE);
+}
+
+/*------------------------------------*\
+    dois check si j'ai la fourmis est a la fin pour empty
+\*------------------------------------*/
+
+void add_f(t_move move, size_t nb_path, size_t room, int f_nb)
+{
+	t_dll_l link;
+	t_path path;
+
+	link = move->tab[nb_path]->list_path->top;
+	while (room)
+	{
+		link = link->next;
+		--room;
+	}
+	path = link->content;
+	printf("F%d-%s \n", f_nb, path->name_room);
+	if (path->room != move->end_room)
+		path->is_full = f_nb;
+
+}
 /*------------------------------------*\
     metre fourmis dans salle si
     boucle sur les path et si le path est plus grand que le nb de fourmis
     restant, je passe le tour
 \*------------------------------------*/
-void put_f(t_move move)
+void put_f_all_start(t_move move)
 {
-	size_t i;
+	size_t path;
+	size_t *F;
+	static size_t f = 1;
 
-	i = 0;
-	while (i < move->size_tab)
-	{;
+	path = 0;
+	F = &f;
+	while (path < move->size_tab)
+	{
+		if (move->nb_fourmis > 0 &&
+			is_free(move, path, 1) == TRUE)
+		{
+			add_f(move, path, 1, f);
+			++f;
+		}
+		++path;
 	}
 }
 
 /*------------------------------------*\
     manage le movement des fourmis
 \*------------------------------------*/
-void superpp(t_move move)
+void manage_move(t_move move)
 {
 	(void) move;
+
+	put_f_all_start(move);
+	put_f_all_start(move);
+	put_f_all_start(move);
 	//    move_all_f(move);
 }
