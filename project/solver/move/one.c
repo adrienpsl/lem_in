@@ -65,7 +65,7 @@ void add_f(t_move move, size_t nb_path, size_t room, int f_nb)
 		--room;
 	}
 	path = link->content;
-	printf("F%d-%s \n", f_nb, path->name_room);
+	printf("F%d-%s ", f_nb, path->name_room);
 	if (path->room != move->end_room)
 		path->is_full = f_nb;
 }
@@ -74,7 +74,7 @@ void add_f(t_move move, size_t nb_path, size_t room, int f_nb)
     boucle sur les path et si le path est plus grand que le nb de fourmis
     restant, je passe le tour
 \*------------------------------------*/
-void put_f_all_start(t_move move)
+int put_f_all_start(t_move move)
 {
 	size_t path;
 	size_t *F;
@@ -92,37 +92,47 @@ void put_f_all_start(t_move move)
 		}
 		++path;
 	}
+	return (f < (size_t) move->nb_fourmis ? TRUE : FALSE);
 }
 
 /*------------------------------------*\
     avancer tout les fourmis ?
     reccursif, tant que le link a une fourmis je decalle d'un
 \*------------------------------------*/
-void recursif_all_f(t_dll_l link, int new_f, int end_room)
+int recursif_all_f(t_dll_l link, int new_f, int end_room)
 {
 	t_path path;
+	int i;
 
+	i = 0;
 	path = link->content;
 	if (link->next)
-	    recursif_all_f(link->next, path->is_full, end_room);
+	{
+		i = recursif_all_f(link->next, path->is_full, end_room);
+	}
 	path->is_full = 0;
 	if (new_f)
 	{
-		printf("F%d-%s \n", new_f, path->name_room);
+		i = 1;
+		printf("F%d-%s ", new_f, path->name_room);
 		path->is_full = new_f != end_room ? new_f : 0;
 	}
+	return (i);
 }
 
-void move_all_f(t_move move)
+int move_all_f(t_move move)
 {
 	size_t i;
+	int res;
 
 	i = 0;
 	while (i < move->size_tab)
 	{
-	    recursif_all_f(move->tab[i]->list_path->top, 0, move->end_room);
-	    ++i;
+		res = recursif_all_f(move->tab[i]->list_path->top, 0, move->end_room) ?
+			  1 : 0;
+		++i;
 	}
+	return (res);
 }
 
 /*------------------------------------*\
@@ -132,18 +142,19 @@ void manage_move(t_move move)
 {
 	(void) move;
 
-	put_f_all_start(move);
-	printf("-------------------- \n");
+	while (put_f_all_start(move))
+	{
+		printf("\n-------------------- \n\n");
+		move_all_f(move);
+		printf("\n-------------------- \n\n");
+	}
+	printf("\n-------------------- \n\n");
 
-//	put_f_all_start(move);
-	move_all_f(move);
-	printf("-------------------- \n");
-	move_all_f(move);
-	printf("-------------------- \n");
-	move_all_f(move);
+	//	move_all_f(move);
+	//	printf("\n-------------------- \n\n");
 
-	//	put_f_all_start(move);
-//	move_all_f(move->tab[2]->list_path->top->next);
-
-	//    move_all_f(move);
+	while (move_all_f(move))
+	{
+		printf("\n-------------------- \n\n");
+	}
 }
