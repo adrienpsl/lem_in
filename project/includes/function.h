@@ -37,7 +37,7 @@ void print_line_first_int(char *tab_room, size_t size_line, int cur_line);
 
 
 t_best_path new_best_path(size_t nb_path);
-t_move new_move(t_data data, t_map map, t_b_path best_path, t_finder finder);
+t_move new_move(t_data data, t_b_path best_path, t_finder finder);
 
 
 /*

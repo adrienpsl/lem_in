@@ -138,7 +138,7 @@ t_move short_algo(t_cache cache, t_data data, t_map map)
 	dll_func(finder->valid_path, print_path_dll);
 	print_line_first_int(best->data.tab, path_map->line, 0);
 
-	move = new_move(data, map, &best->data, finder);
+	move = new_move(data, &best->data, finder);
 	/*------------------------------------*\
 	    init et return move pour lancer le move des fourmis
 	\*------------------------------------*/

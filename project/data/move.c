@@ -79,16 +79,16 @@ fill_tab(t_b_path best_path, t_finder finder, t_real_path real_ptr, t_dll room_l
 	}
 }
 
-t_move new_move(t_data data, t_map map, t_b_path best_path, t_finder finder)
+t_move new_move(t_data data, t_b_path best_path, t_finder finder)
 {
 	t_move move;
 
 	move = ft_0_new_memory(sizeof(t_move_00));
 	move->nb_fourmis = data->nb_fourmis;
 	move->data = data;
-	move->path_map = map;
 	move->tab = ft_0_new_memory(sizeof(t_real_path_00) * (best_path->nb + 1));
 	move->tab[best_path->nb] = NULL;
+	move->size_tab = best_path->nb;
 	fill_tab(best_path, finder, *move->tab, data->room);
 
 	return (move);

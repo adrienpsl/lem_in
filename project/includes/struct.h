@@ -69,8 +69,7 @@ typedef struct		s_move_00
 {
 	t_data	data;
 	int nb_fourmis;
-	t_map path_map;
-	t_b_path best_path;
+	size_t size_tab;
 	t_real_path *tab;
 } 					t_move_00;
 typedef t_move_00 *t_move;
