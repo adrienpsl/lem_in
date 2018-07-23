@@ -1,0 +1,12 @@
+{
+  "test": {
+    "PORT": 3000,
+    "MONGODB_MINE": "mongodb://localhost:27017/conier-test",
+    "JWT_SECRET":  "dlsjfa;lsdgfhj;fvas;dfqs;l32343546+54"
+  },
+  "development": {
+    "PORT": 3000,
+    "MONGODB_MINE": "mongodb://heroku_n78h9jvf:982hddsatbpappg5036b6d8rno@ds129936.mlab.com:29936/heroku_n78h9jvf",
+    "JWT_SECRET":  "klsdfl;ajsdgfasdsfgdfs3h4wer4wtg3fdhsd"
+  }
+}
