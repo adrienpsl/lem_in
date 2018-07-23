@@ -8,6 +8,8 @@ var tab_place = 0
 // les variable globale :
 var print_room = false
 var liaison = false
+var start = false
+var end = false
 var tab_lianson = []
 
 var room_1 = false
@@ -30,8 +32,21 @@ const jq = () =>
   $("#btn_liaison").click((e) =>
   {
 	liaison = !liaison
-
 	liaison ? $("#btn_liaison").text("faire des liaison") : $("#btn_liaison").text("pas faire des liaison")
+  })
+
+  // start
+  $("#btn_start").click((e) =>
+  {
+	start = !start
+	start ? $("#btn_start").text("faire start") : $("#btn_start").text("pas faire start")
+  })
+
+  // end
+  $("#btn_end").click((e) =>
+  {
+	end = !end
+	end ? $("#btn_end").text("faire end") : $("#btn_end").text("pas faire end")
   })
 }
 
@@ -75,7 +90,10 @@ const room = (x, y, canvas) =>
   rect.TYPE = true
   rect.on("selected", function ()
   {
-	fill_room(rect.link, canvas)
+
+	if (print_room) {
+	  fill_room(rect.link, canvas)
+	}
   })
   canvas.add(rect)
 
@@ -108,9 +126,12 @@ const line = (canvas) =>
   canvas.add(LINE)
   tab_lianson.push(`${room_1}-${room_2}`)
 
-  console.log(canvas.getObjects().filter((el) => {
+  console.log(canvas.getObjects().filter((el) =>
+  {
 	if (el.TYPE)
-	  return el;
+	{
+	  return el
+	}
   }))
 }
 window.onload = function ()
@@ -121,17 +142,10 @@ window.onload = function ()
   let canvas = new fabric.Canvas("mon_canvas")
   canvas.on("mouse:down", function (event)
   {
-	if (liaison && canvas.getActiveObject())
-	{
-
-	  // console.log(room_1, room_2)
-	}
 	if (print_room === true)
 	{
 	  room(event.e.clientX - 35, event.e.clientY - 50, canvas)
 	}
-	// console.log(event.e.clientX, event.e.clientY)
-
   })
 
   room(500, 500, canvas)
