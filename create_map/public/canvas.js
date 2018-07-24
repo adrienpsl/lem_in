@@ -188,12 +188,16 @@ const line = (canvas) =>
   let tab_check = tab_link.filter((el) => {
 	let split = el.substring(0, el.length - 1).split("-")
 	if (
-	  (parseInt(split[0]) === room_1.my || parseInt(split[0]) === room_2.my) &&
-	  (parseInt(split[0]) === room_1.my || parseInt(split[0]) === room_2.my))
-	  return (true)
+	  (parseInt(split[0]) === room_1.my || parseInt(split[0]) === room_2.my)
+	  &&
+	  (parseInt(split[1]) === room_1.my || parseInt(split[1]) === room_2.my)
+	)
+	return (true)
   })
   if (tab_check.length === 0)
 	tab_link.push(`${room_1.my}-${room_2.my}\n`)
+  console.log(tab_check)
+  console.log(tab_link)
 }
 
 window.onload = function ()
@@ -214,14 +218,4 @@ window.onload = function ()
   room(500, 500, canvas)
   room(250, 500, canvas)
 
-
-  //C'est ici que l'on placera tout le code servant à nos dessins.
 }
-
-
-// print_all_that_shit()
-// import { saveAs } from './FileSaver';
-
-
-// une fonction qui verifie que j'ai pas les meme connection entre les rooms
-// un truc qui efface tout les connections ?
