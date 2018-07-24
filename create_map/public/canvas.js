@@ -10,7 +10,7 @@ var print_room = false
 var liaison = false
 var start = false
 var end = false
-var tab_lianson = []
+var tab_link = []
 
 var room_1 = false
 var room_2 = false
@@ -63,35 +63,28 @@ const jq = () =>
 	if (liaison === true)
 	  $("#btn_liaison").trigger("click")
 
-    if (end != -1)
+	if (end != -1)
 	  end = true
 	$("#btn_end").text("end done")
   })
 }
 
-const find_room = (canvas, nb_room) => {
-  console.log(canvas.getObjects().filter(el => el.my === nb_room))
-}
-
-const make_connection = (nb, canvas) =>
+const make_connection = (rect, canvas) =>
 {
   if (liaison)
   {
 	if (room_1 === false)
 	{
-	  // cherche dans canvas la bonne room
-	  room_1 = Number(nb)
+	  room_1 = rect
 	  console.log(room_1)
-	  // console.log(canvas.item(room_1).getCenterPoint())
 	}
-	else if (nb != room_1)
+	else if (rect != room_1)
 	{
-	  find_room(canvas, nb)
-	  room_2 = Number(nb)
+	  room_2 = rect
 	  line(canvas)
 	  room_1 = false
 	  room_2 = false
-	  console.log(tab_lianson)
+	  console.log(tab_link)
 	}
   }
 }
@@ -127,7 +120,6 @@ const room = (x, y, canvas) =>
 	hasControls  : false
   })
   rect.my = parseInt(name)
-  rect.link = parseInt(tab_place)
   rect.TYPE = true
   rect.on("selected", function ()
   {
@@ -136,7 +128,7 @@ const room = (x, y, canvas) =>
 	if (end === true)
 	  make_end(rect)
 	if (liaison) {
-	  make_connection(rect.link, canvas)
+	  make_connection(rect, canvas)
 	}
   })
   canvas.add(rect)
@@ -158,17 +150,25 @@ const line = (canvas) =>
   // canvas.item(room_2).getCenterPoint().y,
   // room_1, room_2)
   let LINE = new fabric.Line([
-	canvas.item(room_1).getCenterPoint().x,
-	canvas.item(room_1).getCenterPoint().y,
-	canvas.item(room_2).getCenterPoint().x,
-	canvas.item(room_2).getCenterPoint().y
+	room_1.getCenterPoint().x,
+	room_1.getCenterPoint().y,
+	room_2.getCenterPoint().x,
+	room_2.getCenterPoint().y
   ], {
 	stroke     : "red",
 	strokeWidth: 0.9,
 	selectable : false
   })
   canvas.add(LINE)
-  tab_lianson.push(`${room_1}-${room_2}\n`)
+  let tab_check = tab_link.filter((el) => {
+	let split = el.substring(0, el.length - 1).split("-")
+	if (
+	  (parseInt(split[0]) === room_1.my || parseInt(split[0]) === room_2.my) &&
+	  (parseInt(split[0]) === room_1.my || parseInt(split[0]) === room_2.my))
+	  return (true)
+  })
+  if (tab_check.length === 0)
+	tab_link.push(`${room_1.my}-${room_2.my}\n`)
 
 
 }
