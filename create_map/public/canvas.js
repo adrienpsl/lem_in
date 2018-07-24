@@ -26,6 +26,7 @@ const jq = () =>
 	print_room = !print_room
 
 	print_room ? $("#btn__room").text("faire des rooms") : $("#btn__room").text("pas faire des rooms")
+	print_room ? $("#btn__room").css("background", "green") : $("#btn__room").css("background", "grey")
   })
 
   // liaison
@@ -33,24 +34,28 @@ const jq = () =>
   {
 	liaison = !liaison
 	liaison ? $("#btn_liaison").text("faire des liaison") : $("#btn_liaison").text("pas faire des liaison")
+	liaison ? $("#btn_liaison").css("background", "red") : $("#btn_liaison").css("background", "grey")
+
   })
 
   // start
   $("#btn_start").click((e) =>
   {
-	start = !start
-	start ? $("#btn_start").text("faire start") : $("#btn_start").text("pas faire start")
+	if (start != -1)
+	  start = true
+	$("#btn_start").text("start done")
   })
 
   // end
   $("#btn_end").click((e) =>
   {
-	end = !end
-	end ? $("#btn_end").text("faire end") : $("#btn_end").text("pas faire end")
+	if (end != -1)
+	  end = true
+	$("#btn_end").text("end done")
   })
 }
 
-const fill_room = (nb, canvas) =>
+const make_connection = (nb, canvas) =>
 {
   if (liaison)
   {
@@ -71,6 +76,21 @@ const fill_room = (nb, canvas) =>
   }
 }
 
+const make_start = (rect) => {
+  start = -1
+  rect.start = true
+  rect.set({
+	fill: "red"
+  })
+}
+
+const make_end = (rect) => {
+  end = -1
+  rect.end = true
+  rect.set({
+	fill: "blue"
+  })
+}
 const room = (x, y, canvas) =>
 {
   var rect = new fabric.Rect({
@@ -90,9 +110,12 @@ const room = (x, y, canvas) =>
   rect.TYPE = true
   rect.on("selected", function ()
   {
-
-	if (print_room) {
-	  fill_room(rect.link, canvas)
+	if (start === true)
+	  make_start(rect)
+	if (end === true)
+	  make_end(rect)
+	if (liaison) {
+	  make_connection(rect.link, canvas)
 	}
   })
   canvas.add(rect)
@@ -134,6 +157,7 @@ const line = (canvas) =>
 	}
   }))
 }
+
 window.onload = function ()
 {
   // jquery
@@ -154,3 +178,6 @@ window.onload = function ()
 
   //C'est ici que l'on placera tout le code servant à nos dessins.
 }
+
+// une fonction qui verifie que j'ai pas les meme connection entre les rooms
+// un truc qui efface tout les connections ?
