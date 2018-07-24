@@ -1,5 +1,43 @@
 "use strict"
 
+let test_str = "550\n" +
+  "0 528 528\n" +
+  "1 278 528\n" +
+  "2 185 179\n" +
+  "3 544 182\n" +
+  "4 704 392\n" +
+  "5 953 242\n" +
+  "##end \n" +
+  "6 1106 645\n" +
+  "7 673 773\n" +
+  "8 287 795\n" +
+  "9 86 571\n" +
+  "10 371 400\n" +
+  "##start \n" +
+  "11 424 183\n" +
+  "2-10\n" +
+  "11-10\n" +
+  "11-2\n" +
+  "1-2\n" +
+  "9-1\n" +
+  "9-8\n" +
+  "7-8\n" +
+  "7-0\n" +
+  "6-0\n" +
+  "6-5\n" +
+  "6-4\n" +
+  "6-3\n" +
+  "0-3\n" +
+  "0-4\n" +
+  "5-4\n" +
+  "5-3\n" +
+  "11-3\n" +
+  "11-8\n" +
+  "0-8\n" +
+  "0-2\n" +
+  "10-5\n" +
+  "4-7\n"
+
 var name = 0
 var tab_place = 0
 /*------------------------------------*\
@@ -17,22 +55,77 @@ var room_2 = false
 var CANVAS
 
 
-const teste = (tab) => {
-  let test_tab = tab.split("\n");
-  console.log(test_tab)
-  console.log("dfa")
+let data = {}
+
+/*------------------------------------*\
+    get les datas
+\*------------------------------------*/
+const get_data = () => {
+  let count_start = 0
+  let count_end = 0
+
+  data.tab_room = []
+  data.tab_connection = []
+  let tab_data = test_str.split("\n")
+  let i = 1
+  console.log(tab_data)
+
+  data.nb_f = parseInt(tab_data[0])
+
+  while (tab_data[i].split(" ").length === 3 || tab_data[i][0] === "#")
+  {
+	let room
+	room = tab_data[i]
+	if (tab_data[i] === "##start ")
+	{
+	  count_start = 1
+	  i++
+	  continue
+	}
+	if (tab_data[i] === "##end ")
+	{
+	  count_end = 1
+	  i++
+	  continue
+	}
+	if (count_start)
+	{
+	  room = "s " + room
+	  count_start = false
+	}
+	if (count_end)
+	{
+	  room = "e " + room
+	  count_end = false
+	}
+	data.tab_room.push(room)
+	++i
+  }
+
+  while (tab_data[i].split("-").length === 2 && tab_data[i][0] !== "F")
+  {
+	data.tab_connection.push(tab_data[i])
+	i++
+  }
+
+  console.log(data)
+
+  // faire tab des room
 }
 
+/*------------------------------------*\
+    read le file
+\*------------------------------------*/
 const set_input = () => {
-  document.getElementById('file').onchange = function(){
-	var file = this.files[0];
-	var reader = new FileReader();
-	reader.onload = function(){
+  document.getElementById("file").onchange = function () {
+	var file = this.files[0]
+	var reader = new FileReader()
+	reader.onload = function () {
 	  // Entire file
-	  teste(this.result);
-	};
-	reader.readAsText(file);
-  };
+	  get_data(this.result)
+	}
+	reader.readAsText(file)
+  }
 
 }
 
@@ -94,6 +187,7 @@ const jq = () =>
   })
 }
 
+
 const make_connection = (rect, canvas) =>
 {
   if (liaison)
@@ -111,6 +205,7 @@ const make_connection = (rect, canvas) =>
 	}
   }
 }
+
 
 const make_start = (rect) => {
   start = -1
@@ -155,13 +250,11 @@ const room = (x, y, canvas) =>
 	}
   })
   canvas.add(rect)
-
   var text = new fabric.Text(name, {
 	left: x, top: y, selectable: false
   })
-  canvas.add(text)
   name = parseInt(name) + 1
-  tab_place = parseInt(tab_place) + 2
+  canvas.renderAll()
 }
 
 const line = (canvas) =>
@@ -190,7 +283,7 @@ const line = (canvas) =>
 	  &&
 	  (parseInt(split[1]) === room_1.my || parseInt(split[1]) === room_2.my)
 	)
-	return (true)
+	  return (true)
   })
   if (tab_check.length === 0)
 	tab_link.push(`${room_1.my}-${room_2.my}\n`)
@@ -198,13 +291,27 @@ const line = (canvas) =>
   console.log(tab_link)
 }
 
+
+const tt = () => {
+  data.tab_room.map((e) => {
+	let room_el = e.split(" ")
+	if (room_el.length < 4)
+	  room(parseInt(room_el[1]), parseInt(room_el[2]), CANVAS)
+
+  })
+  // console.log(CANVAS.getAll())
+  room(800, 500, CANVAS)
+
+}
+
 window.onload = function ()
 {
   // jquery
   // jq()
   set_input()
+  get_data()
 
-  let canvas = new fabric.Canvas("mon_canvas")
+  let canvas = new fabric.StaticCanvas("mon_canvas")
   canvas.on("mouse:down", function (event)
   {
 	if (print_room === true)
@@ -212,8 +319,11 @@ window.onload = function ()
 	  room(event.e.clientX - 35, event.e.clientY - 50, canvas)
 	}
   })
+  // canvas.building.dirty = true;
 
   CANVAS = canvas
+
+
   room(500, 500, canvas)
   room(250, 500, canvas)
 
