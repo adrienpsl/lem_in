@@ -76,7 +76,6 @@ const make_connection = (rect, canvas) =>
 	if (room_1 === false)
 	{
 	  room_1 = rect
-	  console.log(room_1)
 	}
 	else if (rect != room_1)
 	{
@@ -84,7 +83,6 @@ const make_connection = (rect, canvas) =>
 	  line(canvas)
 	  room_1 = false
 	  room_2 = false
-	  console.log(tab_link)
 	}
   }
 }
@@ -169,8 +167,6 @@ const line = (canvas) =>
   })
   if (tab_check.length === 0)
 	tab_link.push(`${room_1.my}-${room_2.my}\n`)
-
-  s
 }
 
 window.onload = function ()
@@ -200,7 +196,6 @@ const print_all_that_shit = () => {
   let new_tab = []
   let tap = CANVAS.getObjects().filter((el) =>
   {
-
 	let new_el
 	if (el.TYPE)
 	{
@@ -209,13 +204,11 @@ const print_all_that_shit = () => {
 		new_el = `##start \n${new_el}`
 	  if (el.end)
 		new_el = `##end \n${new_el}`
-	  console.log(new_el)
 	  new_tab.push(new_el)
 	}
   })
-  console.log(new_tab)
 
-  var blob = new Blob(new_tab, {type: "text/plain;charset=utf-8"})
+  var blob = new Blob([...new_tab,...tab_link], {type: "text/plain;charset=utf-8"})
   saveAs(blob, "map.txt")
 }
 
