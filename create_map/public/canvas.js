@@ -23,8 +23,10 @@ const jq = () =>
   // room
   $("#btn__room").click((e) =>
   {
-	print_room = !print_room
+	if (liaison === true)
+	  $("#btn_liaison").trigger("click")
 
+	print_room = !print_room
 	print_room ? $("#btn__room").text("faire des rooms") : $("#btn__room").text("pas faire des rooms")
 	print_room ? $("#btn__room").css("background", "green") : $("#btn__room").css("background", "grey")
   })
@@ -32,6 +34,8 @@ const jq = () =>
   // liaison
   $("#btn_liaison").click((e) =>
   {
+	if (print_room === true)
+	  $("#btn__room").trigger("click")
 	liaison = !liaison
 	liaison ? $("#btn_liaison").text("faire des liaison") : $("#btn_liaison").text("pas faire des liaison")
 	liaison ? $("#btn_liaison").css("background", "red") : $("#btn_liaison").css("background", "grey")
@@ -41,6 +45,11 @@ const jq = () =>
   // start
   $("#btn_start").click((e) =>
   {
+	if (print_room === true)
+	  $("#btn__room").trigger("click")
+	if (liaison === true)
+	  $("#btn_liaison").trigger("click")
+
 	if (start != -1)
 	  start = true
 	$("#btn_start").text("start done")
@@ -49,10 +58,19 @@ const jq = () =>
   // end
   $("#btn_end").click((e) =>
   {
-	if (end != -1)
+	if (print_room === true)
+	  $("#btn__room").trigger("click")
+	if (liaison === true)
+	  $("#btn_liaison").trigger("click")
+
+    if (end != -1)
 	  end = true
 	$("#btn_end").text("end done")
   })
+}
+
+const find_room = (canvas, nb_room) => {
+  console.log(canvas.getObjects().filter(el => el.my === nb_room))
 }
 
 const make_connection = (nb, canvas) =>
@@ -61,12 +79,14 @@ const make_connection = (nb, canvas) =>
   {
 	if (room_1 === false)
 	{
+	  // cherche dans canvas la bonne room
 	  room_1 = Number(nb)
 	  console.log(room_1)
 	  // console.log(canvas.item(room_1).getCenterPoint())
 	}
 	else if (nb != room_1)
 	{
+	  find_room(canvas, nb)
 	  room_2 = Number(nb)
 	  line(canvas)
 	  room_1 = false
@@ -177,18 +197,18 @@ window.onload = function ()
 
 const print_all_that_shit = () => {
 
-  let new_tab = [];
+  let new_tab = []
   let tap = CANVAS.getObjects().filter((el) =>
   {
 
-    let new_el
-    if (el.TYPE)
+	let new_el
+	if (el.TYPE)
 	{
 	  new_el = `${el.my} ${Math.round(el.getCenterPoint().x)} ${Math.round(el.getCenterPoint().y)}\n`
 	  if (el.start)
-	      new_el = `##start ${new_el}`;
+		new_el = `##start \n${new_el}`
 	  if (el.end)
-		new_el = `##start ${new_el}`;
+		new_el = `##end \n${new_el}`
 	  console.log(new_el)
 	  new_tab.push(new_el)
 	}
