@@ -170,7 +170,7 @@ const line = (canvas) =>
   if (tab_check.length === 0)
 	tab_link.push(`${room_1.my}-${room_2.my}\n`)
 
-
+  s
 }
 
 window.onload = function ()
