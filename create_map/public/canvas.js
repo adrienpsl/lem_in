@@ -14,7 +14,7 @@ var tab_lianson = []
 
 var room_1 = false
 var room_2 = false
-
+var CANVAS
 
 // function qui set les button
 const jq = () =>
@@ -91,6 +91,7 @@ const make_end = (rect) => {
 	fill: "blue"
   })
 }
+
 const room = (x, y, canvas) =>
 {
   var rect = new fabric.Rect({
@@ -130,12 +131,12 @@ const room = (x, y, canvas) =>
 
 const line = (canvas) =>
 {
-  console.log(room_1, room_2)
-  console.log(canvas.item(room_1).getCenterPoint().x,
-	canvas.item(room_1).getCenterPoint().y,
-	canvas.item(room_2).getCenterPoint().x,
-	canvas.item(room_2).getCenterPoint().y,
-	room_1, room_2)
+  // console.log(room_1, room_2)
+  // console.log(canvas.item(room_1).getCenterPoint().x,
+  // canvas.item(room_1).getCenterPoint().y,
+  // canvas.item(room_2).getCenterPoint().x,
+  // canvas.item(room_2).getCenterPoint().y,
+  // room_1, room_2)
   let LINE = new fabric.Line([
 	canvas.item(room_1).getCenterPoint().x,
 	canvas.item(room_1).getCenterPoint().y,
@@ -147,15 +148,9 @@ const line = (canvas) =>
 	selectable : false
   })
   canvas.add(LINE)
-  tab_lianson.push(`${room_1}-${room_2}`)
+  tab_lianson.push(`${room_1}-${room_2}\n`)
 
-  console.log(canvas.getObjects().filter((el) =>
-  {
-	if (el.TYPE)
-	{
-	  return el
-	}
-  }))
+
 }
 
 window.onload = function ()
@@ -172,12 +167,41 @@ window.onload = function ()
 	}
   })
 
+  CANVAS = canvas
   room(500, 500, canvas)
   room(250, 500, canvas)
 
 
   //C'est ici que l'on placera tout le code servant à nos dessins.
 }
+
+const print_all_that_shit = () => {
+
+  let new_tab = [];
+  let tap = CANVAS.getObjects().filter((el) =>
+  {
+
+    let new_el
+    if (el.TYPE)
+	{
+	  new_el = `${el.my} ${Math.round(el.getCenterPoint().x)} ${Math.round(el.getCenterPoint().y)}\n`
+	  if (el.start)
+	      new_el = `##start ${new_el}`;
+	  if (el.end)
+		new_el = `##start ${new_el}`;
+	  console.log(new_el)
+	  new_tab.push(new_el)
+	}
+  })
+  console.log(new_tab)
+
+  var blob = new Blob(new_tab, {type: "text/plain;charset=utf-8"})
+  saveAs(blob, "map.txt")
+}
+
+// print_all_that_shit()
+// import { saveAs } from './FileSaver';
+
 
 // une fonction qui verifie que j'ai pas les meme connection entre les rooms
 // un truc qui efface tout les connections ?
