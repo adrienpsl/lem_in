@@ -16,12 +16,39 @@ var room_1 = false
 var room_2 = false
 var CANVAS
 
+const print_all_that_shit = () => {
+
+  let new_tab = []
+  let tap = CANVAS.getObjects().filter((el) =>
+  {
+	let new_el
+	if (el.TYPE)
+	{
+	  new_el = `${el.my} ${Math.round(el.getCenterPoint().x)} ${Math.round(el.getCenterPoint().y)}\n`
+	  if (el.start)
+		new_el = `##start \n${new_el}`
+	  if (el.end)
+		new_el = `##end \n${new_el}`
+	  new_tab.push(new_el)
+	}
+  })
+
+  var blob = new Blob([`${parseInt($("#nb_f").val()) }\n`, ...new_tab, ...tab_link], {type: "text/plain;charset=utf-8"})
+  saveAs(blob, "map")
+}
+
+
 // function qui set les button
 const jq = () =>
 {
+  // validate
+  $("#validate").click((e) =>
+  {
+	print_all_that_shit()
+  })
 
   // room
-  $("#btn__room").click((e) =>
+  $("#btn__room").click(() =>
   {
 	if (liaison === true)
 	  $("#btn_liaison").trigger("click")
@@ -191,26 +218,6 @@ window.onload = function ()
   //C'est ici que l'on placera tout le code servant à nos dessins.
 }
 
-const print_all_that_shit = () => {
-
-  let new_tab = []
-  let tap = CANVAS.getObjects().filter((el) =>
-  {
-	let new_el
-	if (el.TYPE)
-	{
-	  new_el = `${el.my} ${Math.round(el.getCenterPoint().x)} ${Math.round(el.getCenterPoint().y)}\n`
-	  if (el.start)
-		new_el = `##start \n${new_el}`
-	  if (el.end)
-		new_el = `##end \n${new_el}`
-	  new_tab.push(new_el)
-	}
-  })
-
-  var blob = new Blob([...new_tab,...tab_link], {type: "text/plain;charset=utf-8"})
-  saveAs(blob, "map.txt")
-}
 
 // print_all_that_shit()
 // import { saveAs } from './FileSaver';
