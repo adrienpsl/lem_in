@@ -69,47 +69,15 @@ int main()
 	t_dll test_list = new_dll();
 	(void) test_list;
 
-
-
 	/*------------------------------------*\
 	    algo petite map,
 	    a definir ...
 	\*------------------------------------*/
 	t_move move;
 	move = short_algo(cache, lem->data, map);
+
 	manage_move(move);
 
-	//	get_all_path(test_list, map, lem->data, cache);
-
-
-	// find all path
-	// list des path,
-
-	/*------------------------------------*\
-	    je print les paths et je relechis a comment leurs generer une start
-
-	\*------------------------------------*/
-	//	dll_func(cache->valid_path, print_path_dll);
-
-	//	t_map_00 map_t1;
-	//	generate_path_map(lem->data->room, cache->valid_path, &map_t1);
-	//	t_1(cache->valid_path, &map_t1);
-	// je copy chaque liste dans sont propre paht
-
-
-
-	//	list = copy_all_path_order(cache->valid_path->top);
-
-	// je fait le trie dans les chemin
-	//	printf("Inversion des path listes et transfere en liste chaine \n ---- \n");
-	//	dll_func(list, print_list_dll_path);
-
-	//	test_1(list->top, list);
-	//	test_1(list->top->next, list);
-	//	dll_func(list, print_list_dll_path);
-
-	//	printf("%d \n", lem->data->lim);
-	//	destroy_dll_func(&list, free_list_list_path);
 	destroy_cache(&algo->cache);
 	free_lem(lem);
 	return EXIT_SUCCESS;

@@ -15,7 +15,6 @@
 void add_all_path(char *map, t_dll_l path_link, size_t line)
 {
 	t_path path;
-
 	path = path_link->content;
 	path = path->prev;
 	while (path->prev)
