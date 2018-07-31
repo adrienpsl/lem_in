@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es6",
+    "sourceMap": true,
+    "pretty": true,
+    "moduleResolution": "node"
+  },
+  "files": [
+    "index.ts",
+    "scrooltoo.d.ts",
+    "../../../typings/index.d.ts"
+  ],
+  "exclude": [
+    "../../../node_modules"
+  ]
+}
