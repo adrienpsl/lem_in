@@ -47,7 +47,7 @@ const jq = () =>
 	print_all_that_shit()
   })
 
-  // room
+  // print_room_visu
   $("#btn__room").click(() =>
   {
 	if (liaison === true)

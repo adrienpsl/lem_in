@@ -44,7 +44,6 @@ var tab_place = 0
     jquery
 \*------------------------------------*/
 // les variable globale :
-var print_room = false
 var liaison = false
 var start = false
 var end = false
@@ -68,7 +67,9 @@ const get_data = () => {
   data.tab_connection = []
   let tab_data = test_str.split("\n")
   let i = 1
-  console.log(tab_data)
+
+
+  // console.log(tab_data)
 
   data.nb_f = parseInt(tab_data[0])
 
@@ -108,9 +109,9 @@ const get_data = () => {
 	i++
   }
 
-  console.log(data)
+  // console.log(data)
 
-  // faire tab des room
+  // faire tab des print_room_visu
 }
 
 /*------------------------------------*\
@@ -138,7 +139,7 @@ const jq = () =>
 	print_all_that_shit()
   })
 
-  // room
+  // print_room_visu
   $("#btn__room").click(() =>
   {
 	if (liaison === true)
@@ -199,7 +200,7 @@ const make_connection = (rect, canvas) =>
 	else if (rect != room_1)
 	{
 	  room_2 = rect
-	  line(canvas)
+	  draw_line_visu(canvas)
 	  room_1 = false
 	  room_2 = false
 	}
@@ -223,12 +224,13 @@ const make_end = (rect) => {
   })
 }
 
-const room = (element, canvas) =>
+const print_room_visu = (element, canvas) =>
 {
   let tab = element.split(" ")
-  console.log(tab)
+
   let x = parseInt(tab[1])
   let y = parseInt(tab[2])
+
   var rect = new fabric.Rect({
 	left         : x,
 	top          : y,
@@ -241,33 +243,30 @@ const room = (element, canvas) =>
 	lockMovementY: true,
 	hasControls  : false
   })
-  rect.my = parseInt(name)
-  rect.TYPE = true
-  rect.on("selected", function ()
-  {
-	if (start === true)
-	  make_start(rect)
-	if (end === true)
-	  make_end(rect)
-	if (liaison) {
-	  make_connection(rect, canvas)
-	}
-  })
   canvas.add(rect)
 
+  // le name de la room
   name = parseInt(tab[0])
+  rect.my = parseInt(name)
+
   var text = new fabric.Text(name, {
 	left: x, top: y, selectable: false
   })
-  console.log(name)
+  if (tab.length == 4)
+  {
+    if (tab[3] == 's')
+	  make_start(rect)
+	if (tab[3] == 'e')
+	    make_end(rect);
+  }
   canvas.add(text)
 
 
 }
 
-const line = (canvas) =>
+const draw_line_visu = (canvas) =>
 {
-  // console.log(room_1, room_2)
+  console.log(room_1, room_2)
   // console.log(canvas.item(room_1).getCenterPoint().x,
   // canvas.item(room_1).getCenterPoint().y,
   // canvas.item(room_2).getCenterPoint().x,
@@ -284,26 +283,34 @@ const line = (canvas) =>
 	selectable : false
   })
   canvas.add(LINE)
-  let tab_check = tab_link.filter((el) => {
-	let split = el.substring(0, el.length - 1).split("-")
-	if (
-	  (parseInt(split[0]) === room_1.my || parseInt(split[0]) === room_2.my)
-	  &&
-	  (parseInt(split[1]) === room_1.my || parseInt(split[1]) === room_2.my)
-	)
-	  return (true)
-  })
-  if (tab_check.length === 0)
-	tab_link.push(`${room_1.my}-${room_2.my}\n`)
-  console.log(tab_check)
-  console.log(tab_link)
+
 }
 
 
-const trace_room = () => {
+const draw_map = () => {
   data.tab_room.map((element) => {
-	room(element, CANVAS)
+	print_room_visu(element, CANVAS)
+  })
 
+
+  // let all_el = CANVAS.getObjects().map((el) => {
+  //     console.log(el.my)
+  // })
+  //
+  data.tab_connection.map((element) => {
+    let tab_line = element.split("-")
+	let all_el = CANVAS.getObjects()
+
+	room_1 = all_el.find((el) => {
+	  return el.my === parseInt(tab_line[0])
+	})
+
+	room_2 = all_el.find((el) => {
+	  return el.my === parseInt(tab_line[1])
+	})
+	// console.log(room_1, room_2)
+	console.log(tab_line[0], tab_line[1])
+    draw_line_visu(CANVAS)
   })
 }
 
@@ -315,16 +322,8 @@ window.onload = function ()
   get_data()
 
   let canvas = new fabric.StaticCanvas("mon_canvas")
-  canvas.on("mouse:down", function (event)
-  {
-	if (print_room === true)
-	{
-	  room(event.e.clientX - 35, event.e.clientY - 50, canvas)
-	}
-  })
-  // canvas.building.dirty = true;
 
   CANVAS = canvas
-  setTimeout(trace_room(), 500)
+  setTimeout(draw_map(), 500)
 
 }
