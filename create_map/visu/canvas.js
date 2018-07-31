@@ -90,12 +90,12 @@ const get_data = () => {
 	}
 	if (count_start)
 	{
-	  room = "s " + room
+	  room = room + " s"
 	  count_start = false
 	}
 	if (count_end)
 	{
-	  room = "e " + room
+	  room = room + " e"
 	  count_end = false
 	}
 	data.tab_room.push(room)
@@ -223,8 +223,12 @@ const make_end = (rect) => {
   })
 }
 
-const room = (x, y, canvas) =>
+const room = (element, canvas) =>
 {
+  let tab = element.split(" ")
+  console.log(tab)
+  let x = parseInt(tab[1])
+  let y = parseInt(tab[2])
   var rect = new fabric.Rect({
 	left         : x,
 	top          : y,
@@ -250,11 +254,15 @@ const room = (x, y, canvas) =>
 	}
   })
   canvas.add(rect)
+
+  name = parseInt(tab[0])
   var text = new fabric.Text(name, {
 	left: x, top: y, selectable: false
   })
-  name = parseInt(name) + 1
-  canvas.renderAll()
+  console.log(name)
+  canvas.add(text)
+
+
 }
 
 const line = (canvas) =>
@@ -292,16 +300,11 @@ const line = (canvas) =>
 }
 
 
-const tt = () => {
-  data.tab_room.map((e) => {
-	let room_el = e.split(" ")
-	if (room_el.length < 4)
-	  room(parseInt(room_el[1]), parseInt(room_el[2]), CANVAS)
+const trace_room = () => {
+  data.tab_room.map((element) => {
+	room(element, CANVAS)
 
   })
-  // console.log(CANVAS.getAll())
-  room(800, 500, CANVAS)
-
 }
 
 window.onload = function ()
@@ -322,9 +325,6 @@ window.onload = function ()
   // canvas.building.dirty = true;
 
   CANVAS = canvas
-
-
-  room(500, 500, canvas)
-  room(250, 500, canvas)
+  setTimeout(trace_room(), 500)
 
 }
