@@ -43,11 +43,6 @@
 //	print_line_path(path->tab_good_path, map->line);
 //}
 
-
-
-
-
-
 int main()
 {
 	setbuf(stdout, NULL);
