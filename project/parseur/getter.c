@@ -15,8 +15,8 @@
 \*------------------------------------*/
 
 #include "../all_includes.h"
-extern t_debug_struct DEBUG;
 
+extern t_debug_struct DEBUG;
 
 /*
 **	**** VARIABLES
@@ -31,10 +31,15 @@ void get_nb_foumis(t_getter get)
 	static int result = 0;
 
 	ask_gnl(get->utils.fd, &get->utils.line);
-	if (str_is_int(get->utils.line, &result) == FAIL || result <= 0)
-		ft_error("Il n'y a pas de fourmis OU le nb n'est pas Valable");
+	if (str_is_int(get->utils.line, &result) == FAIL)
+		err1_add_err(get->err,
+					 "need interger for the amount of lemmings",
+					 0, NULL);
+	if (result <= 0)
+		err1_add_err(get->err,
+					 "the number of lemmings is negatif or 0",
+					 0, NULL);;
 	get->data->nb_fourmis = result;
-	free_str(&get->utils.line);
 }
 
 /*
@@ -45,6 +50,7 @@ void get_nb_foumis(t_getter get)
 **
 **	**** MAKING
 */
+
 void lem_getter(t_data data)
 {
 	t_getter_00 get;
@@ -52,6 +58,8 @@ void lem_getter(t_data data)
 	ft_memset(&get, 0, sizeof(t_getter_00));
 	get.data = data;
 
+	(void) "  je set utils  ";
+	get.err = new_err1();
 	get.utils.fd = open_file(DEBUG->str_file);
 
 	get_nb_foumis(&get);

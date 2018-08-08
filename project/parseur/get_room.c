@@ -46,6 +46,11 @@ t_dll_l create_room_link(t_str_split split, t_data data, t_get_utils utils)
 	return (room_link);
 }
 
+
+/*------------------------------------*\
+    si count space == 2 --> je split et donne les 3 a create room_link
+    si pas de space je stop
+\*------------------------------------*/
 void  get_coord_room(t_data data, t_get_utils utils)
 {
 	static t_dll_l room_link;
@@ -54,6 +59,7 @@ void  get_coord_room(t_data data, t_get_utils utils)
 	split = NULL;
 	while (ask_gnl(utils->fd, &utils->line))
 	{
+		// je counte les espaces // je compte les espaces: 2 == c'est room
 		split = new_str_split(utils->line, ' ');
 		if (split->current && split->current[0] == '#')
 			utils->type_salle = manage_comment(split);
