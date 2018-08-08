@@ -15,6 +15,47 @@
 
 # include "../all_includes.h"
 
+typedef struct s_debug_struct_00
+{
+	int parseur;
+	char *str_file;
+} t_debug_struct_00;
+
+typedef t_debug_struct_00 *t_debug_struct;
+
+
+/*
+**    MAIN
+*/
+
+
+/*
+**    Parseur
+*/
+void read_and_parse_data(t_lem lem);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 **    debugs
 */
@@ -103,7 +144,7 @@ int init_finder(t_finder finder, t_map map);
 /*
 **   PARSEUR  ========================================================
 */
-void	lem_read_data(t_data data);
+void	lem_getter(t_data data);
 void 	get_tunnel(t_data data, t_get_utils utils);
 void	get_room(t_data data, t_get_utils utils);
 void	set_tunnel(t_data data, t_map map);

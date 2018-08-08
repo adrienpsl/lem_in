@@ -15,6 +15,8 @@
 \*------------------------------------*/
 
 #include "../all_includes.h"
+extern t_debug_struct DEBUG;
+
 
 /*
 **	**** VARIABLES
@@ -29,7 +31,7 @@ void get_nb_foumis(t_getter get)
 	static int result = 0;
 
 	ask_gnl(get->utils.fd, &get->utils.line);
-	if (is_int(get->utils.line, &result) == FAIL || result <= 0)
+	if (str_is_int(get->utils.line, &result) == FAIL || result <= 0)
 		ft_error("Il n'y a pas de fourmis OU le nb n'est pas Valable");
 	get->data->nb_fourmis = result;
 	free_str(&get->utils.line);
@@ -43,18 +45,33 @@ void get_nb_foumis(t_getter get)
 **
 **	**** MAKING
 */
-void lem_read_data(t_data data)
+void lem_getter(t_data data)
 {
 	t_getter_00 get;
 
 	ft_memset(&get, 0, sizeof(t_getter_00));
 	get.data = data;
 
-	get.utils.fd = open_file(
-//	 "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2");
-	 "/Users/adpusel/code/42/lem_in/project/test/test_2");
+	get.utils.fd = open_file(DEBUG->str_file);
 
 	get_nb_foumis(&get);
 	get_room(get.data, &get.utils);
 	get_tunnel(get.data, &get.utils);
+}
+
+/*!
+ * 	le parseur va get toute les err et lees stoker au fur et a mesure
+ * 	si err, le parseur les print et quitte
+ */
+void read_and_parse_data(t_lem lem)
+{
+	t_data data;
+
+	data = ft_0_new_memory(sizeof(t_data_00));
+	data->room = new_dll();
+	data->tunnel = new_dll();
+
+	lem_getter(data);
+	// si une err je quite en la printant --> si plusieur err je dois avoir un tab qui les listes >
+	lem->data = data;
 }

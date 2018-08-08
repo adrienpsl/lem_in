@@ -23,7 +23,7 @@ int find_room(t_dll_l link, void *ptr_str)
 	char *current_room;
 	char *room;
 
-	current_room = ((t_room)link->content)->name;
+	current_room = ((t_room) link->content)->name;
 	room = ptr_str;
 	if (ft_strcmp(current_room, room) == 0)
 		return (TRUE);
@@ -49,9 +49,9 @@ t_dll_l get_tunnel_link(t_str_split split, t_data data)
 
 void get_tunnel(t_data data, t_get_utils utils)
 {
-	static t_dll_l tunnel_link;
+	t_dll_l tunnel_link;
 	t_str_split split;
-	static int signal = 1;
+	int signal = 1;
 
 	while (signal || ask_gnl(utils->fd, &utils->line))
 	{

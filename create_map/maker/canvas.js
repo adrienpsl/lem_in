@@ -31,9 +31,6 @@ const make_connection = (rect, canvas) => {
 }
 
 
-
-
-
 const line = (canvas) => {
   let LINE = new fabric.Line([
     room_1.getCenterPoint().x,

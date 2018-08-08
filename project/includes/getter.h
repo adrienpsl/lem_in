@@ -42,6 +42,8 @@ typedef struct		s_get_utils_00
 	char *line;
 	int fd;
 	int type_salle;
+	int is_err;
+	char *type_err;
 
 } 					t_get_utils_00;
 typedef t_get_utils_00 *t_get_utils;
@@ -53,6 +55,7 @@ typedef t_get_utils_00 *t_get_utils;
 typedef struct		s_getter_00
 {
 	t_data data;
+	t_err1_00 err;
 	t_get_utils_00 utils;
 } 					t_getter_00;
 typedef t_getter_00 *t_getter;

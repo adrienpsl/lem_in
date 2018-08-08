@@ -31,6 +31,8 @@ file(GLOB head "${REPO}/includes/*.h")
 #*------------------------------------*\
 #    -- LIB FT FILE --
 #*------------------------------------*/
+file(GLOB head_lib "${LIBFT}/include/*.h")
+file(GLOB all_head_lib "${LIBFT}/ft_library_header.h")
 file(GLOB sources0 "${LIBFT}/src/*.c")
 file(GLOB sources1 "${LIBFT}/src/**/*.c")
 file(GLOB sources2 "${LIBFT}/src/**/**/*.c")
@@ -81,6 +83,13 @@ set(
         #        ${sources08}
         project/solver/big_algo/main_big_algo.c)
 
+
+set(
+        header
+        ${head}
+        ${head_lib}
+        ${all_head_lib}
+)
 #*------------------------------------*\
 #    --  ADD TO PROGRAMME  --
 #*------------------------------------*/
@@ -89,7 +98,7 @@ add_executable(
         ${PROJECT_NAME}
         main.c
         ${sources}
-        ${head}
+        ${header}
 )
 
 
