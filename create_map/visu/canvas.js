@@ -49,8 +49,8 @@ var start = false
 var end = false
 var tab_link = []
 
-var room_1 = false
-var room_2 = false
+var room_1
+var room_2
 var CANVAS
 
 
@@ -59,59 +59,46 @@ let data = {}
 /*------------------------------------*\
     get les datas
 \*------------------------------------*/
-const get_data = () => {
+const get_data = (new_data = test_str) => {
   let count_start = 0
   let count_end = 0
 
   data.tab_room = []
   data.tab_connection = []
-  let tab_data = test_str.split("\n")
+  let tab_data = new_data.split("\n")
   let i = 1
-
-
-  // console.log(tab_data)
-
   data.nb_f = parseInt(tab_data[0])
 
-  while (tab_data[i].split(" ").length === 3 || tab_data[i][0] === "#")
-  {
-	let room
-	room = tab_data[i]
-	if (tab_data[i] === "##start ")
-	{
-	  count_start = 1
-	  i++
-	  continue
-	}
-	if (tab_data[i] === "##end ")
-	{
-	  count_end = 1
-	  i++
-	  continue
-	}
-	if (count_start)
-	{
-	  room = room + " s"
-	  count_start = false
-	}
-	if (count_end)
-	{
-	  room = room + " e"
-	  count_end = false
-	}
-	data.tab_room.push(room)
-	++i
+  while (tab_data[i].split(" ").length === 3 || tab_data[i][0] === "#") {
+    let room
+    room = tab_data[i]
+    if (tab_data[i] === "##start ") {
+      count_start = 1
+      i++
+      continue
+    }
+    if (tab_data[i] === "##end ") {
+      count_end = 1
+      i++
+      continue
+    }
+    if (count_start) {
+      room = room + " s"
+      count_start = false
+    }
+    if (count_end) {
+      room = room + " e"
+      count_end = false
+    }
+    data.tab_room.push(room)
+    ++i
   }
 
-  while (tab_data[i].split("-").length === 2 && tab_data[i][0] !== "F")
-  {
-	data.tab_connection.push(tab_data[i])
-	i++
+  while (tab_data[i].split("-").length === 2 && tab_data[i][0] !== "F") {
+    data.tab_connection.push(tab_data[i])
+    i++
   }
 
-  // console.log(data)
-
-  // faire tab des print_room_visu
 }
 
 /*------------------------------------*\
@@ -119,100 +106,78 @@ const get_data = () => {
 \*------------------------------------*/
 const set_input = () => {
   document.getElementById("file").onchange = function () {
-	var file = this.files[0]
-	var reader = new FileReader()
-	reader.onload = function () {
-	  // Entire file
-	  get_data(this.result)
-	}
-	reader.readAsText(file)
+    var file = this.files[0]
+    var reader = new FileReader()
+    reader.onload = function () {
+      // Entire file
+      get_data(this.result)
+      draw_map()
+
+    }
+    reader.readAsText(file)
   }
 
 }
 
-// function qui set les button
-const jq = () =>
-{
+/*------------------------------------*\
+    UX
+\*------------------------------------*/
+const manage_UX = () => {
   // validate
-  $("#validate").click((e) =>
-  {
-	print_all_that_shit()
+  $("#validate").click((e) => {
+    print_all_that_shit()
   })
 
   // print_room_visu
-  $("#btn__room").click(() =>
-  {
-	if (liaison === true)
-	  $("#btn_liaison").trigger("click")
+  $("#btn__room").click(() => {
+    if (liaison === true)
+      $("#btn_liaison").trigger("click")
 
-	print_room = !print_room
-	print_room ? $("#btn__room").text("faire des rooms") : $("#btn__room").text("pas faire des rooms")
-	print_room ? $("#btn__room").css("background", "green") : $("#btn__room").css("background", "grey")
+    print_room = !print_room
+    print_room ? $("#btn__room").text("faire des rooms") : $("#btn__room").text("pas faire des rooms")
+    print_room ? $("#btn__room").css("background", "green") : $("#btn__room").css("background", "grey")
   })
 
   // liaison
-  $("#btn_liaison").click((e) =>
-  {
-	if (print_room === true)
-	  $("#btn__room").trigger("click")
-	liaison = !liaison
-	liaison ? $("#btn_liaison").text("faire des liaison") : $("#btn_liaison").text("pas faire des liaison")
-	liaison ? $("#btn_liaison").css("background", "red") : $("#btn_liaison").css("background", "grey")
+  $("#btn_liaison").click((e) => {
+    if (print_room === true)
+      $("#btn__room").trigger("click")
+    liaison = !liaison
+    liaison ? $("#btn_liaison").text("faire des liaison") : $("#btn_liaison").text("pas faire des liaison")
+    liaison ? $("#btn_liaison").css("background", "red") : $("#btn_liaison").css("background", "grey")
 
   })
 
   // start
-  $("#btn_start").click((e) =>
-  {
-	if (print_room === true)
-	  $("#btn__room").trigger("click")
-	if (liaison === true)
-	  $("#btn_liaison").trigger("click")
+  $("#btn_start").click((e) => {
+    if (print_room === true)
+      $("#btn__room").trigger("click")
+    if (liaison === true)
+      $("#btn_liaison").trigger("click")
 
-	if (start != -1)
-	  start = true
-	$("#btn_start").text("start done")
+    if (start != -1)
+      start = true
+    $("#btn_start").text("start done")
   })
 
   // end
-  $("#btn_end").click((e) =>
-  {
-	if (print_room === true)
-	  $("#btn__room").trigger("click")
-	if (liaison === true)
-	  $("#btn_liaison").trigger("click")
+  $("#btn_end").click((e) => {
+    if (print_room === true)
+      $("#btn__room").trigger("click")
+    if (liaison === true)
+      $("#btn_liaison").trigger("click")
 
-	if (end != -1)
-	  end = true
-	$("#btn_end").text("end done")
+    if (end != -1)
+      end = true
+    $("#btn_end").text("end done")
   })
 }
-
-
-const make_connection = (rect, canvas) =>
-{
-  if (liaison)
-  {
-	if (room_1 === false)
-	{
-	  room_1 = rect
-	}
-	else if (rect != room_1)
-	{
-	  room_2 = rect
-	  draw_line_visu(canvas)
-	  room_1 = false
-	  room_2 = false
-	}
-  }
-}
-
 
 const make_start = (rect) => {
   start = -1
   rect.start = true
   rect.set({
-	fill: "red"
+    fill: "red"
   })
 }
 
@@ -220,28 +185,27 @@ const make_end = (rect) => {
   end = -1
   rect.end = true
   rect.set({
-	fill: "blue"
+    fill: "blue"
   })
 }
 
-const print_room_visu = (element, canvas) =>
-{
+const print_room_visu = (element, canvas) => {
   let tab = element.split(" ")
 
   let x = parseInt(tab[1])
   let y = parseInt(tab[2])
 
   var rect = new fabric.Rect({
-	left         : x,
-	top          : y,
-	width        : 50,
-	height       : 50,
-	stroke       : "green",
-	fill         : "white",
-	strokeWidth  : 5,
-	lockMovementX: true,
-	lockMovementY: true,
-	hasControls  : false
+    left: x,
+    top: y,
+    width: 50,
+    height: 50,
+    stroke: "green",
+    fill: "white",
+    strokeWidth: 5,
+    lockMovementX: true,
+    lockMovementY: true,
+    hasControls: false
   })
   canvas.add(rect)
 
@@ -250,22 +214,21 @@ const print_room_visu = (element, canvas) =>
   rect.my = parseInt(name)
 
   var text = new fabric.Text(name, {
-	left: x, top: y, selectable: false
+    left: x, top: y, selectable: false
   })
-  if (tab.length == 4)
-  {
+  if (tab.length == 4) {
     if (tab[3] == 's')
-	  make_start(rect)
-	if (tab[3] == 'e')
-	    make_end(rect);
+      make_start(rect)
+    if (tab[3] == 'e')
+      make_end(rect);
   }
   canvas.add(text)
-
-
 }
 
-const draw_line_visu = (canvas) =>
-{
+/*------------------------------------*\
+    trace les connections
+\*------------------------------------*/
+const draw_line_visu = (canvas) => {
   console.log(room_1, room_2)
   // console.log(canvas.item(room_1).getCenterPoint().x,
   // canvas.item(room_1).getCenterPoint().y,
@@ -273,57 +236,63 @@ const draw_line_visu = (canvas) =>
   // canvas.item(room_2).getCenterPoint().y,
   // room_1, room_2)
   let LINE = new fabric.Line([
-	room_1.getCenterPoint().x,
-	room_1.getCenterPoint().y,
-	room_2.getCenterPoint().x,
-	room_2.getCenterPoint().y
+    room_1.getCenterPoint().x,
+    room_1.getCenterPoint().y,
+    room_2.getCenterPoint().x,
+    room_2.getCenterPoint().y
   ], {
-	stroke     : "red",
-	strokeWidth: 0.9,
-	selectable : false
+    stroke: "red",
+    strokeWidth: 0.9,
+    selectable: false
   })
   canvas.add(LINE)
 
 }
 
+const make_connection = (rect, canvas) => {
+  if (liaison) {
+    if (room_1 === false) {
+      room_1 = rect
+    }
+    else if (rect != room_1) {
+      room_2 = rect
+      draw_line_visu(canvas)
+      room_1 = false
+      room_2 = false
+    }
+  }
+}
 
 const draw_map = () => {
   data.tab_room.map((element) => {
-	print_room_visu(element, CANVAS)
+    print_room_visu(element, CANVAS)
   })
 
-
-  // let all_el = CANVAS.getObjects().map((el) => {
-  //     console.log(el.my)
-  // })
-  //
   data.tab_connection.map((element) => {
     let tab_line = element.split("-")
-	let all_el = CANVAS.getObjects()
+    let all_el = CANVAS.getObjects()
 
-	room_1 = all_el.find((el) => {
-	  return el.my === parseInt(tab_line[0])
-	})
+    room_1 = all_el.find((el) => {
+      return el.my === parseInt(tab_line[0])
+    })
 
-	room_2 = all_el.find((el) => {
-	  return el.my === parseInt(tab_line[1])
-	})
-	// console.log(room_1, room_2)
-	console.log(tab_line[0], tab_line[1])
+    room_2 = all_el.find((el) => {
+      return el.my === parseInt(tab_line[1])
+    })
+    // console.log(room_1, room_2)
+    console.log(tab_line[0], tab_line[1])
     draw_line_visu(CANVAS)
   })
 }
 
-window.onload = function ()
-{
-  // jquery
-  // jq()
-  set_input()
-  get_data()
+window.onload = function () {
 
   let canvas = new fabric.StaticCanvas("mon_canvas")
 
+  set_input()
+  // get_data()
+
   CANVAS = canvas
-  setTimeout(draw_map(), 500)
+  // setTimeout(draw_map(), 500)
 
 }
