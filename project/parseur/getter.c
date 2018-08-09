@@ -30,13 +30,9 @@ int get_nb_foumis(t_getter get)
 
 	ask_gnl(get->utils.fd, &get->utils.line, NULL);
 	if (str_is_int(get->utils.line, &result) == FAIL)
-		err1_add_err(get->utils.err,
-					 ERR_FOURMIS_1,
-					 0, NULL);
+		return (print_err_retrun_int(ERR_FOURMIS_1, DEBUG->print_err));
 	else if (result <= 0)
-		err1_add_err(get->utils.err,
-					 ERR_FOURMIS_2,
-					 0, NULL);
+		return (print_err_retrun_int(ERR_FOURMIS_2, DEBUG->print_err));
 	get->data->nb_fourmis = ft_atoi(get->utils.line);
 	/*------------------------------------*\
 	    data printed
@@ -72,9 +68,9 @@ int lem_getter(t_data data)
 	 get_nb_foumis(&get) == TRUE &&
 	 get_room(get.data, &get.utils) == TRUE &&
 	 check_err_room(data) == TRUE
-//	 &&
-//	 get_tunnel(data, &get.utils) == TRUE
-		)
+		//	 &&
+		//	 get_tunnel(data, &get.utils) == TRUE
+	 )
 		return (TRUE);
 	err1_print_err(get.utils.err);
 	err1_print_err(get.utils.err);

@@ -21,6 +21,7 @@
 typedef struct s_debug_struct_00
 {
 	int parseur;
+	int print_err;
 	char *str_file;
 } t_debug_struct_00;
 typedef t_debug_struct_00 *t_debug_struct;

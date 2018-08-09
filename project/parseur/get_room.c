@@ -25,7 +25,7 @@ void manage_end_start(int i, t_data data, t_get_utils utils)
 	utils->type_salle = 0;
 }
 
-void     print_split(char **room_splited, int i)
+void print_split(char **room_splited, int i)
 {
 	printf("---> room name : %5s || n': %5d || X: %5s || Y: %5s \n",
 		   *room_splited,
@@ -65,9 +65,10 @@ int get_coord_room(t_data data, t_get_utils utils)
 		else if (ft_strchr_how_many(utils->line, ' ') == 2)
 		{
 			if (ft_strchr_how_many(utils->line, '-') > 0)
-				return (print_err_retrun_int("- dans le nom de la room"));
+				return (print_err_retrun_int("- dans le nom de la room",
+											 DEBUG->print_err));
 			if (add_room_link(data, utils) == FALSE)
-				return (FALSE);
+				break;
 		}
 		else
 			break;

@@ -21,6 +21,7 @@ t_debug_struct set_debug()
 	db = ft_0_new_memory(sizeof(t_debug_struct_00));
 	(void)"  set les demandes de debug  ";
 	db->parseur = TRUE;
+	db->print_err = TRUE;
 
 	(void)"  set le fichier a check  ";
 	db->str_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2";

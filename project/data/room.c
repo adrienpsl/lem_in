@@ -27,9 +27,9 @@ t_dll_l new_checked_room_link(char *name, char *x, char *y, t_data data)
 	static t_dll_l room_link = NULL;
 
 	if (str_is_int(x, &room.x) == FALSE || ft_atoi(x) < 0)
-		return (print_err_retrun_null("x is fuck"));
+		return (print_err_retrun_null("x is fuck", DEBUG->print_err));
 	if (str_is_int(y, &room.y) == FALSE || ft_atoi(x) < 0)
-		return (print_err_retrun_null("y is fuck"));
+		return (print_err_retrun_null("y is fuck", DEBUG->print_err));
 	room.name = ft_strdup(name);
 	room_link = new_dll_l(&room, sizeof(t_room_00));
 	if (dll_find(data->room, is_right_room, room_link) != NULL)
