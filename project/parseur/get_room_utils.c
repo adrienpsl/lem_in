@@ -16,11 +16,11 @@
 
 #include "../all_includes.h"
 
-int manage_comment(t_str_split split)
+int manage_comment(char *comment_str)
 {
-	if (ft_strcmp(split->current, "##start") == 0)
+	if (ft_strcmp(comment_str, "##start") == 0)
 		return (L_START);
-	else if (ft_strcmp(split->current, "##end") == 0)
+	else if (ft_strcmp(comment_str, "##end") == 0)
 		return (L_END);
 	return (FALSE);
 }

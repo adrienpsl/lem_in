@@ -49,27 +49,27 @@ t_dll_l get_tunnel_link(t_str_split split, t_data data)
 
 void get_tunnel(t_data data, t_get_utils utils)
 {
-	t_dll_l tunnel_link;
-	t_str_split split;
+//	t_dll_l tunnel_link;
+	(void)data;
+	char **split;
 	int signal = 1;
 
-	while (signal || ask_gnl(utils->fd, &utils->line))
+	while (signal || ask_gnl(utils->fd, &utils->line, NULL))
 	{
-		split = new_str_split(utils->line, '-');
-		if (split->current[0] == '#')
-			utils->type_salle = manage_comment(split);
-		else if (split->all == 2)
+		if (utils->line[0] == '#')
+			continue ;
+		else if (ft_strchr_how_many(utils->line, '-') == 1)
+		split = ft_strsplit(utils->line, '-');
+		else if (2 == 2)
 		{
-			tunnel_link = get_tunnel_link(split, data);
-			if (tunnel_link == NULL)
-				ft_error("err dans un tunnel");
-			else
-				dll_add(tunnel_link, data->tunnel);
+//			tunnel_link = get_tunnel_link(split, data);
+//			if (tunnel_link == NULL)
+//				ft_error("err dans un tunnel");
+//			else
+//				dll_add(tunnel_link, data->tunnel);
 		}
 		else
 			break;
 		signal = 0;
-		destroy_str_split(&split);
 	}
-	destroy_str_split(&split);
 }

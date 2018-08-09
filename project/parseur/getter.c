@@ -30,13 +30,13 @@ void get_nb_foumis(t_getter get)
 {
 	static int result = 0;
 
-	ask_gnl(get->utils.fd, &get->utils.line);
+	ask_gnl(get->utils.fd, &get->utils.line, NULL);
 	if (str_is_int(get->utils.line, &result) == FAIL)
-		err1_add_err(get->err,
+		err1_add_err(get->utils.err,
 					 "need interger for the amount of lemmings",
 					 0, NULL);
 	if (result <= 0)
-		err1_add_err(get->err,
+		err1_add_err(get->utils.err,
 					 "the number of lemmings is negatif or 0",
 					 0, NULL);;
 	get->data->nb_fourmis = result;
@@ -59,7 +59,7 @@ void lem_getter(t_data data)
 	get.data = data;
 
 	(void) "  je set utils  ";
-	get.err = new_err1();
+	get.utils.err = new_err1();
 	get.utils.fd = open_file(DEBUG->str_file);
 
 	get_nb_foumis(&get);

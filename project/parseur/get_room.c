@@ -16,26 +16,27 @@
 
 #include "../all_includes.h"
 
-t_dll_l create_room_link(t_str_split split, t_data data, t_get_utils utils)
+void manage_end_start(int i, t_data data, t_get_utils utils)
+{
+	if (utils->type_salle == L_START)
+		data->start_room = i;
+	if (utils->type_salle == L_END)
+		data->end_room = i;
+	utils->type_salle = 0;
+}
+
+t_dll_l create_room_link(char **room_splited, t_data data, t_get_utils utils)
 {
 	t_dll_l room_link;
 	t_room room;
 	static int i = 0;
 
-	room_link = new_room_link(*split->start, *(split->start + 1),
-							  *(split->start + 2));
-	if (utils->type_salle == L_START)
-	{
-		utils->start = room_link;
-		data->start_room = i;
-	}
-	if (utils->type_salle == L_END)
-	{
-		utils->end = room_link;
-		data->end_room = i;
-	}
-	utils->type_salle = 0;
-	if (room_link && dll_find(data->room, is_right_room, room_link) != NULL)
+	room_link = new_room_link(*room_splited, *(room_splited + 1),
+							  *(room_splited + 2));
+	// check room link
+	manage_end_start(i, data, utils);
+
+	if (dll_find(data->room, is_right_room, room_link) != NULL)
 		destroy_dll_l(&room_link);
 	if (room_link)
 	{
@@ -43,39 +44,45 @@ t_dll_l create_room_link(t_str_split split, t_data data, t_get_utils utils)
 		get_size_map(data, room->x, room->y);
 		room->nb = i++;
 	}
+	// check les err de rooms
 	return (room_link);
 }
 
+t_dll_l room_add_link(t_data data, t_get_utils utils)
+{
+	static t_dll_l room_link;
+	char **room_splited;
+
+	room_splited = ft_strsplit(utils->line, ' ');
+	room_link = create_room_link(room_splited, data, utils);
+
+	dll_add(room_link, data->room);
+	ft_free_split(&room_splited);
+	return (room_link);
+}
 
 /*------------------------------------*\
     si count space == 2 --> je split et donne les 3 a create room_link
     si pas de space je stop
 \*------------------------------------*/
-void  get_coord_room(t_data data, t_get_utils utils)
+void get_coord_room(t_data data, t_get_utils utils)
 {
-	static t_dll_l room_link;
-	t_str_split split;
-
-	split = NULL;
-	while (ask_gnl(utils->fd, &utils->line))
+	size_t nb_line;
+	while (ask_gnl(utils->fd, &utils->line, &nb_line))
 	{
-		// je counte les espaces // je compte les espaces: 2 == c'est room
-		split = new_str_split(utils->line, ' ');
-		if (split->current && split->current[0] == '#')
-			utils->type_salle = manage_comment(split);
-		else if (split->all == 3)
+		if (utils->line[0] == '#')
+			utils->type_salle = manage_comment(utils->line);
+		else if (ft_strchr_how_many(utils->line, ' ') == 2)
 		{
-			room_link = create_room_link(split, data, utils);
-			if (room_link == NULL)
-				ft_error("err dans un link");
-			else
-				dll_add(room_link, data->room);
+			if (room_add_link(data, utils) == FALSE)
+				break;
 		}
+		else if (ft_strchr_how_many(utils->line, ' ') != 2)
+			err1_add_err(utils->err,
+						 "une room est imcomplete", 0, utils->line);
 		else
 			break;
-		destroy_str_split(&split);
 	}
-	destroy_str_split(&split);
 }
 
 /*
@@ -101,5 +108,5 @@ void check_err_room(t_get_utils utils)
 void get_room(t_data data, t_get_utils utils)
 {
 	get_coord_room(data, utils);
-	check_err_room(utils);
+//	check_err_room(utils);
 }
