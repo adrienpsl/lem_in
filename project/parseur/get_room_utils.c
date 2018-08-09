@@ -30,7 +30,10 @@ int lim_same_coord(t_room current_room, t_room new_room)
 	if (current_room->x == new_room->x)
 	{
 		if (current_room->y == new_room->y)
+		{
+			print_err_retrun_null("same fucking coord");
 			return (TRUE);
+		}
 	}
 	return (FALSE);
 }
@@ -38,7 +41,10 @@ int lim_same_coord(t_room current_room, t_room new_room)
 int lim_same_name(t_room current_room, t_room new_room)
 {
 	if (ft_strcmp(current_room->name, new_room->name) == 0)
+	{
+		print_err_retrun_null("same fucking name");
 		return (TRUE);
+	}
 	return (FALSE);
 }
 

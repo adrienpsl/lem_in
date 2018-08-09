@@ -34,7 +34,7 @@ void     print_split(char **room_splited, int i)
 		   *(room_splited + 2));
 }
 
-t_dll_l room_add_link(t_data data, t_get_utils utils)
+t_dll_l add_room_link(t_data data, t_get_utils utils)
 {
 	static t_dll_l room_link;
 	char **room_splited;
@@ -43,10 +43,10 @@ t_dll_l room_add_link(t_data data, t_get_utils utils)
 	room_splited = ft_strsplit(utils->line, ' ');
 	if (DEBUG->parseur == TRUE)
 		print_split(room_splited, i);
-	room_link = new_room_link(*room_splited, *(room_splited + 1),
-							  *(room_splited + 2), data);
+	room_link = new_checked_room_link(*room_splited, *(room_splited + 1),
+									  *(room_splited + 2), data);
 	manage_end_start(i, data, utils);
-	dll_add(room_link, data->room);
+	dll_add_at_index(room_link, data->room, data->room->length);
 	ft_free_split(&room_splited);
 	i++;
 	return (room_link);
@@ -66,7 +66,7 @@ int get_coord_room(t_data data, t_get_utils utils)
 		{
 			if (ft_strchr_how_many(utils->line, '-') > 0)
 				return (print_err_retrun_int("- dans le nom de la room"));
-			if (room_add_link(data, utils) == FALSE)
+			if (add_room_link(data, utils) == FALSE)
 				return (FALSE);
 		}
 		else

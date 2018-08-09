@@ -166,7 +166,7 @@ void	get_size_map(t_data data, int x, int y);
 **    contruct ========================================================
 */
 t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
-t_dll_l new_room_link(char *x, char *y, char *name, t_data data);
+t_dll_l new_checked_room_link(char *x, char *y, char *name, t_data data);
 t_lem	new_lem();
 t_finder new_finder(t_data data, int new_room_start, t_map map, t_cache cache);
 t_dll_l new_finder_link(t_data data, t_map map, int new_start_room, t_cache cache);
