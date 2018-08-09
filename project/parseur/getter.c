@@ -16,8 +16,6 @@
 
 #include "../all_includes.h"
 
-extern t_debug_struct DEBUG;
-
 /*
 **	**** VARIABLES
 **
@@ -35,7 +33,7 @@ int get_nb_foumis(t_getter get)
 		err1_add_err(get->utils.err,
 					 ERR_FOURMIS_1,
 					 0, NULL);
-	if (result <= 0)
+	else if (result <= 0)
 		err1_add_err(get->utils.err,
 					 ERR_FOURMIS_2,
 					 0, NULL);
@@ -45,7 +43,6 @@ int get_nb_foumis(t_getter get)
 	\*------------------------------------*/
 	if (DEBUG->parseur == TRUE)
 		printf("---> nb fourmis : %d\n---- \n", get->data->nb_fourmis);
-	get->data->nb_fourmis = result;
 	return (get->utils.err->is_error == FALSE ? TRUE : FALSE);
 }
 
@@ -69,13 +66,19 @@ int lem_getter(t_data data)
 	get.utils.err = new_err1();
 	get.utils.fd = open_file(DEBUG->str_file);
 
+	// toute les fonctions retourn ret ==> qui represente les erreur
+	// mes err --> nom de l'erreur, son type, sa ligne
 	if (
 	 get_nb_foumis(&get) == TRUE &&
 	 get_room(get.data, &get.utils) == TRUE &&
-	 check_err_room(&get.utils, data, get.utils.err) == TRUE
-	 )
+	 check_err_room(data) == TRUE
+//	 &&
+//	 get_tunnel(data, &get.utils) == TRUE
+		)
 		return (TRUE);
 	err1_print_err(get.utils.err);
+	err1_print_err(get.utils.err);
+
 	return (FALSE);
 }
 
@@ -83,9 +86,10 @@ int lem_getter(t_data data)
  * 	le parseur va get toute les err et lees stoker au fur et a mesure
  * 	si err, le parseur les print et quitte
  */
-void read_and_parse_data(t_lem lem)
+int read_and_parse_data(t_lem lem)
 {
 	t_data data;
+	int ret = 0;
 
 	data = ft_0_new_memory(sizeof(t_data_00));
 	data->room = new_dll();
@@ -93,7 +97,9 @@ void read_and_parse_data(t_lem lem)
 	data->start_room = -1;
 	data->end_room = -1;
 
-	if (lem_getter(data) == FALSE)
-		// si une err je quite en la printant --> si plusieur err je dois avoir un tab qui les listes >
-		lem->data = data;
+	ret = lem_getter(data);
+	//	if (lem_getter(data) == FALSE)
+	// si une err je quite en la printant --> si plusieur err je dois avoir un tab qui les listes >
+	lem->data = data;
+	return (ret);
 }

@@ -16,8 +16,6 @@
 
 #include "../all_includes.h"
 
-extern t_debug_struct DEBUG;
-
 void manage_end_start(int i, t_data data, t_get_utils utils)
 {
 	if (utils->type_salle == L_START)
@@ -27,46 +25,30 @@ void manage_end_start(int i, t_data data, t_get_utils utils)
 	utils->type_salle = 0;
 }
 
-t_dll_l create_room_link(char **room_splited, t_data data, t_get_utils utils)
+void     print_split(char **room_splited, int i)
 {
-	t_dll_l room_link;
-	t_room room;
-	static int i = 0;
-
-	if (DEBUG->parseur == TRUE)
-		printf("---> room name : %5s || n': %5d || X: %5s || Y: %5s \n",
-			   *room_splited,
-			   i,
-			   *(room_splited + 1),
-			   *(room_splited + 2));
-	room_link = new_room_link(*room_splited, *(room_splited + 1),
-							  *(room_splited + 2), utils->err);
-	if (dll_find(data->room, is_right_room, room_link) != NULL)
-	{
-		err1_add_err(utils->err, "coor or name room in double", 0,
-					 *room_splited);
-		destroy_dll_l(&room_link);
-	}
-	if (room_link)
-	{
-		manage_end_start(i, data, utils);
-		room = room_link->content;
-		get_size_map(data, room->x, room->y);
-		room->nb = i++;
-	}
-	return (room_link);
+	printf("---> room name : %5s || n': %5d || X: %5s || Y: %5s \n",
+		   *room_splited,
+		   i,
+		   *(room_splited + 1),
+		   *(room_splited + 2));
 }
 
 t_dll_l room_add_link(t_data data, t_get_utils utils)
 {
 	static t_dll_l room_link;
 	char **room_splited;
+	static int i = 0;
 
 	room_splited = ft_strsplit(utils->line, ' ');
-	room_link = create_room_link(room_splited, data, utils);
-
+	if (DEBUG->parseur == TRUE)
+		print_split(room_splited, i);
+	room_link = new_room_link(*room_splited, *(room_splited + 1),
+							  *(room_splited + 2), data);
+	manage_end_start(i, data, utils);
 	dll_add(room_link, data->room);
 	ft_free_split(&room_splited);
+	i++;
 	return (room_link);
 }
 
@@ -74,27 +56,23 @@ t_dll_l room_add_link(t_data data, t_get_utils utils)
     si count space == 2 --> je split et donne les 3 a create room_link
     si pas de space je stop
 \*------------------------------------*/
-void get_coord_room(t_data data, t_get_utils utils)
+int get_coord_room(t_data data, t_get_utils utils)
 {
-	size_t nb_line;
-	while (ask_gnl(utils->fd, &utils->line, &nb_line))
+	while (ask_gnl(utils->fd, &utils->line, NULL))
 	{
 		if (utils->line[0] == '#')
 			utils->type_salle = manage_comment(utils->line);
 		else if (ft_strchr_how_many(utils->line, ' ') == 2)
 		{
+			if (ft_strchr_how_many(utils->line, '-') > 0)
+				return (print_err_retrun_int("- dans le nom de la room"));
 			if (room_add_link(data, utils) == FALSE)
-				break;
-		}
-		else if (ft_strchr_how_many(utils->line, ' ') != 2)
-		{
-			err1_add_err(utils->err,
-						 "une room est imcomplete", 0, utils->line);
-			break ;
+				return (FALSE);
 		}
 		else
 			break;
 	}
+	return (TRUE);
 }
 
 /*
@@ -107,10 +85,8 @@ void get_coord_room(t_data data, t_get_utils utils)
 **	et affiche un message d'erreur en  consequence
 */
 
-int check_err_room(t_get_utils utils, t_data data, t_err1 err1)
+int check_err_room(t_data data)
 {
-	(void)utils;
-	(void)err1;
 	if (data->start_room < 0)
 		ft_error("pas de start");
 	if (data->end_room < 0)

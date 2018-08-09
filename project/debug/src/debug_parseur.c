@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "../../all_includes.h"
 
 void print_tunnel_room(t_dll_l room_link)
 {

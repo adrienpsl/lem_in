@@ -18,21 +18,22 @@ void dll_nothing(void *link)
 }
 
 /*------------------------------------*\
-   	check si absciss et ordonnee sont bien des int < 0
+   	check si x et y sont bien des int < 0
+   	verifie que
 \*------------------------------------*/
-t_dll_l new_room_link(char *name, char *x, char *y, t_err1 err1)
+t_dll_l new_room_link(char *name, char *x, char *y, t_data data)
 {
 	static t_room_00 room;
 	static t_dll_l room_link = NULL;
 
 	if (str_is_int(x, &room.x) == FALSE || ft_atoi(x) < 0)
-		err1_add_err(err1, "pb avec X", 0, NULL);
+		return (NULL);
 	if (str_is_int(y, &room.y) == FALSE || ft_atoi(x) < 0)
-		err1_add_err(err1, "pb avec Y", 0, NULL);
-	if (err1->is_error == TRUE)
 		return (NULL);
 	room.name = ft_strdup(name);
 	room_link = new_dll_l(&room, sizeof(t_room_00));
+	if (dll_find(data->room, is_right_room, room_link) != NULL)
+		destroy_dll_l(&room_link);
 	return (room_link);
 }
 

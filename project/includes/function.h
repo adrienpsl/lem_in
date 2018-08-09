@@ -15,14 +15,19 @@
 
 # include "../all_includes.h"
 
+/*
+**    debug ========================================================
+*/
 typedef struct s_debug_struct_00
 {
 	int parseur;
 	char *str_file;
 } t_debug_struct_00;
-
 typedef t_debug_struct_00 *t_debug_struct;
 
+t_debug_struct set_debug();
+
+extern t_debug_struct DEBUG;
 
 /*
 **    MAIN
@@ -32,7 +37,7 @@ typedef t_debug_struct_00 *t_debug_struct;
 /*
 **    Parseur
 */
-void read_and_parse_data(t_lem lem);
+int read_and_parse_data(t_lem lem);
 
 
 
@@ -145,23 +150,23 @@ int init_finder(t_finder finder, t_map map);
 **   PARSEUR  ========================================================
 */
 int	lem_getter(t_data data);
-void 	get_tunnel(t_data data, t_get_utils utils);
+int get_tunnel(t_data data, t_get_utils utils);
 int get_room(t_data data, t_get_utils utils);
 void	set_tunnel(t_data data, t_map map);
 
 /*
 **    paseur utils
 */
-int		manage_comment(char *comment_str);
+int manage_comment(char *comment_str);
 int		is_right_room(t_dll_l link, void *ptr_new_room);
-int check_err_room(t_get_utils utils, t_data data, t_err1 err1);
+int check_err_room(t_data data);
 void	get_size_map(t_data data, int x, int y);
 
 /*
 **    contruct ========================================================
 */
 t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
-t_dll_l new_room_link(char *x, char *y, char *name, t_err1 err);
+t_dll_l new_room_link(char *x, char *y, char *name, t_data data);
 t_lem	new_lem();
 t_finder new_finder(t_data data, int new_room_start, t_map map, t_cache cache);
 t_dll_l new_finder_link(t_data data, t_map map, int new_start_room, t_cache cache);

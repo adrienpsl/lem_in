@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "../../all_includes.h"
 
 void print_finder_link(t_dll_l finder_link)
 {

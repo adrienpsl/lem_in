@@ -30,46 +30,58 @@ int find_room(t_dll_l link, void *ptr_str)
 	return (FALSE);
 }
 
-t_dll_l get_tunnel_link(t_str_split split, t_data data)
+t_dll_l get_tunnel_link(char **split, t_data data, t_err1 err1)
 {
 	t_dll_l tunne_link;
 	t_dll list_room;
 
 	list_room = data->room;
-
-	if (dll_find(list_room, find_room, *split->start) != NULL &&
-		dll_find(list_room, find_room, *(split->start + 1)) != NULL)
+	tunne_link = NULL;
+	if (dll_find(list_room, find_room, *split) != NULL &&
+		dll_find(list_room, find_room, *(split + 1)) != NULL)
 	{
-		tunne_link = new_tunnel_link(*split->start, *(split->start + 1));
+		tunne_link = new_tunnel_link(*split, *(split + 1));
+		if (DEBUG->parseur == TRUE)
+			printf("---> tunnel: %s -- %s \n", *split, *(split + 1));
 	}
 	else
-		tunne_link = NULL;
+		err1_add_err(err1, "la room n'existe pas", 0, NULL);
 	return (tunne_link);
 }
 
-void get_tunnel(t_data data, t_get_utils utils)
+int build_tunnel_link(t_data data, t_get_utils utils)
 {
-//	t_dll_l tunnel_link;
-	(void)data;
+	t_dll_l tunnel_link;
 	char **split;
-	int signal = 1;
 
-	while (signal || ask_gnl(utils->fd, &utils->line, NULL))
+	split = ft_strsplit(utils->line, '-');
+	tunnel_link = get_tunnel_link(split, data, utils->err);
+	if (tunnel_link == NULL)
+		err1_add_err(utils->err, "err dans un tunnel", 0, NULL);
+	else
+		dll_add(tunnel_link, data->tunnel);
+	ft_free_split(&split);
+	return (tunnel_link ? TRUE : FALSE);
+}
+
+int get_tunnel(t_data data, t_get_utils utils)
+{
+	int last_line = 1;
+
+	while (last_line || ask_gnl(utils->fd, &utils->line, NULL))
 	{
 		if (utils->line[0] == '#')
-			continue ;
+			continue;
 		else if (ft_strchr_how_many(utils->line, '-') == 1)
-		split = ft_strsplit(utils->line, '-');
-		else if (2 == 2)
 		{
-//			tunnel_link = get_tunnel_link(split, data);
-//			if (tunnel_link == NULL)
-//				ft_error("err dans un tunnel");
-//			else
-//				dll_add(tunnel_link, data->tunnel);
+			if (build_tunnel_link(data, utils) == FALSE)
+				return (FALSE);
 		}
+		else if (ft_strchr_how_many(utils->line, '-') != 1)
+			return (FALSE);
 		else
 			break;
-		signal = 0;
+		last_line = 0;
 	}
+	return (TRUE);
 }

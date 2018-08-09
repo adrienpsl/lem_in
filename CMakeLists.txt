@@ -55,7 +55,7 @@ file(GLOB sources05 "${REPO}/**/**/**/**/**/*.c")
 #*------------------------------------*\
 #    --  TEST FILE  --
 #*------------------------------------*/
-file(GLOB sources06 "test/*.c")
+#file(GLOB sources06 "test/*.c")
 #file(GLOB sources07 "includes/*.c")
 #file(GLOB sources08 "includes/*.h")
 
@@ -96,6 +96,7 @@ set(
 
 add_executable(
         ${PROJECT_NAME}
+
         main.c
         ${sources}
         ${header}
