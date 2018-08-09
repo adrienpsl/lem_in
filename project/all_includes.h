@@ -16,9 +16,15 @@
 # include "includes/struct_min.h"
 
 /*
+**    err
+*/
+# include "includes/err_name.h"
+
+/*
 **    debug
 */
 void     print_room_dll_l(t_dll_l room_link);
+
 
 
 /*

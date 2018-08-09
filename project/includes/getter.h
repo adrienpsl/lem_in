@@ -37,8 +37,6 @@ typedef t_data_00 *t_data;
 */
 typedef struct		s_get_utils_00
 {
-	t_dll_l start;
-	t_dll_l end;
 	char *line;
 	int fd;
 	int type_salle;

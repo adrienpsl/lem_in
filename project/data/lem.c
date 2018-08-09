@@ -39,7 +39,10 @@ t_lem new_lem()
 void     free_lem(t_lem lem)
 {
 	destroy_map(&lem->algo.map);
-	destroy_dll_func(&lem->data->room, &destroy_room);
-	destroy_dll_func(&lem->data->tunnel, &destroy_tunnel);
+	if (lem->data)
+	{
+		destroy_dll_func(&lem->data->room, &destroy_room);
+		destroy_dll_func(&lem->data->tunnel, &destroy_tunnel);
+	}
 	free(lem);
 }

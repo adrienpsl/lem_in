@@ -40,21 +40,20 @@ t_dll_l create_room_link(char **room_splited, t_data data, t_get_utils utils)
 			   *(room_splited + 1),
 			   *(room_splited + 2));
 	room_link = new_room_link(*room_splited, *(room_splited + 1),
-							  *(room_splited + 2), NULL);
-	// check room link
-	manage_end_start(i, data, utils);
-
+							  *(room_splited + 2), utils->err);
 	if (dll_find(data->room, is_right_room, room_link) != NULL)
+	{
+		err1_add_err(utils->err, "coor or name room in double", 0,
+					 *room_splited);
 		destroy_dll_l(&room_link);
-
-	// si err faire comme back
+	}
 	if (room_link)
 	{
+		manage_end_start(i, data, utils);
 		room = room_link->content;
 		get_size_map(data, room->x, room->y);
 		room->nb = i++;
 	}
-	// check les err de rooms
 	return (room_link);
 }
 
@@ -88,8 +87,11 @@ void get_coord_room(t_data data, t_get_utils utils)
 				break;
 		}
 		else if (ft_strchr_how_many(utils->line, ' ') != 2)
+		{
 			err1_add_err(utils->err,
 						 "une room est imcomplete", 0, utils->line);
+			break ;
+		}
 		else
 			break;
 	}
@@ -105,14 +107,17 @@ void get_coord_room(t_data data, t_get_utils utils)
 **	et affiche un message d'erreur en  consequence
 */
 
-void check_err_room(t_get_utils utils)
+int check_err_room(t_get_utils utils, t_data data, t_err1 err1)
 {
-	if (utils->start == NULL)
+	(void)utils;
+	(void)err1;
+	if (data->start_room < 0)
 		ft_error("pas de start");
-	if (utils->end == NULL)
+	if (data->end_room < 0)
 		ft_error("pas de end");
-	if (utils->start == utils->end)
+	if (data->start_room == data->end_room)
 		ft_error("start et end sont les memes");
+	return (TRUE);
 }
 
 int get_room(t_data data, t_get_utils utils)

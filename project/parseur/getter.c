@@ -33,18 +33,18 @@ int get_nb_foumis(t_getter get)
 	ask_gnl(get->utils.fd, &get->utils.line, NULL);
 	if (str_is_int(get->utils.line, &result) == FAIL)
 		err1_add_err(get->utils.err,
-					 "need integer for the amount of lemmings",
+					 ERR_FOURMIS_1,
 					 0, NULL);
 	if (result <= 0)
 		err1_add_err(get->utils.err,
-					 "the number of lemmings is negatif or 0",
+					 ERR_FOURMIS_2,
 					 0, NULL);
 	get->data->nb_fourmis = ft_atoi(get->utils.line);
 	/*------------------------------------*\
 	    data printed
 	\*------------------------------------*/
 	if (DEBUG->parseur == TRUE)
-	    printf("---> nb fourmis : %d\n---- \n", get->data->nb_fourmis);
+		printf("---> nb fourmis : %d\n---- \n", get->data->nb_fourmis);
 	get->data->nb_fourmis = result;
 	return (get->utils.err->is_error == FALSE ? TRUE : FALSE);
 }
@@ -69,11 +69,14 @@ int lem_getter(t_data data)
 	get.utils.err = new_err1();
 	get.utils.fd = open_file(DEBUG->str_file);
 
-	if (get_nb_foumis(&get) == FALSE)
-		return (FALSE);
-	get_room(get.data, &get.utils);
-//	get_tunnel(get.data, &get.utils);
-	return (TRUE);
+	if (
+	 get_nb_foumis(&get) == TRUE &&
+	 get_room(get.data, &get.utils) == TRUE &&
+	 check_err_room(&get.utils, data, get.utils.err) == TRUE
+	 )
+		return (TRUE);
+	err1_print_err(get.utils.err);
+	return (FALSE);
 }
 
 /*!
@@ -87,8 +90,10 @@ void read_and_parse_data(t_lem lem)
 	data = ft_0_new_memory(sizeof(t_data_00));
 	data->room = new_dll();
 	data->tunnel = new_dll();
+	data->start_room = -1;
+	data->end_room = -1;
 
-	lem_getter(data);
-	// si une err je quite en la printant --> si plusieur err je dois avoir un tab qui les listes >
-	lem->data = data;
+	if (lem_getter(data) == FALSE)
+		// si une err je quite en la printant --> si plusieur err je dois avoir un tab qui les listes >
+		lem->data = data;
 }

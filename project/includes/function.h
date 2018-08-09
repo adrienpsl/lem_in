@@ -154,7 +154,7 @@ void	set_tunnel(t_data data, t_map map);
 */
 int		manage_comment(char *comment_str);
 int		is_right_room(t_dll_l link, void *ptr_new_room);
-void	check_err_room(t_get_utils utils);
+int check_err_room(t_get_utils utils, t_data data, t_err1 err1);
 void	get_size_map(t_data data, int x, int y);
 
 /*
