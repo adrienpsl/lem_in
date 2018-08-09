@@ -72,8 +72,6 @@ int lem_getter(t_data data)
 		//	 get_tunnel(data, &get.utils) == TRUE
 	 )
 		return (TRUE);
-	err1_print_err(get.utils.err);
-	err1_print_err(get.utils.err);
 
 	return (FALSE);
 }
