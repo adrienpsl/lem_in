@@ -16,6 +16,8 @@
 
 #include "../all_includes.h"
 
+extern t_debug_struct DEBUG;
+
 void manage_end_start(int i, t_data data, t_get_utils utils)
 {
 	if (utils->type_salle == L_START)
@@ -31,13 +33,21 @@ t_dll_l create_room_link(char **room_splited, t_data data, t_get_utils utils)
 	t_room room;
 	static int i = 0;
 
+	if (DEBUG->parseur == TRUE)
+		printf("---> room name : %5s || n': %5d || X: %5s || Y: %5s \n",
+			   *room_splited,
+			   i,
+			   *(room_splited + 1),
+			   *(room_splited + 2));
 	room_link = new_room_link(*room_splited, *(room_splited + 1),
-							  *(room_splited + 2));
+							  *(room_splited + 2), NULL);
 	// check room link
 	manage_end_start(i, data, utils);
 
 	if (dll_find(data->room, is_right_room, room_link) != NULL)
 		destroy_dll_l(&room_link);
+
+	// si err faire comme back
 	if (room_link)
 	{
 		room = room_link->content;
@@ -105,8 +115,9 @@ void check_err_room(t_get_utils utils)
 		ft_error("start et end sont les memes");
 }
 
-void get_room(t_data data, t_get_utils utils)
+int get_room(t_data data, t_get_utils utils)
 {
 	get_coord_room(data, utils);
-//	check_err_room(utils);
+	//	check_err_room(utils);
+	return (TRUE);
 }

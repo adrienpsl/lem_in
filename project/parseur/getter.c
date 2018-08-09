@@ -26,20 +26,27 @@ extern t_debug_struct DEBUG;
 **	**** MAKING
 **  set le nb de fourmis et verifie qu'il est un int
 */
-void get_nb_foumis(t_getter get)
+int get_nb_foumis(t_getter get)
 {
 	static int result = 0;
 
 	ask_gnl(get->utils.fd, &get->utils.line, NULL);
 	if (str_is_int(get->utils.line, &result) == FAIL)
 		err1_add_err(get->utils.err,
-					 "need interger for the amount of lemmings",
+					 "need integer for the amount of lemmings",
 					 0, NULL);
 	if (result <= 0)
 		err1_add_err(get->utils.err,
 					 "the number of lemmings is negatif or 0",
-					 0, NULL);;
+					 0, NULL);
+	get->data->nb_fourmis = ft_atoi(get->utils.line);
+	/*------------------------------------*\
+	    data printed
+	\*------------------------------------*/
+	if (DEBUG->parseur == TRUE)
+	    printf("---> nb fourmis : %d\n---- \n", get->data->nb_fourmis);
 	get->data->nb_fourmis = result;
+	return (get->utils.err->is_error == FALSE ? TRUE : FALSE);
 }
 
 /*
@@ -51,7 +58,7 @@ void get_nb_foumis(t_getter get)
 **	**** MAKING
 */
 
-void lem_getter(t_data data)
+int lem_getter(t_data data)
 {
 	t_getter_00 get;
 
@@ -62,9 +69,11 @@ void lem_getter(t_data data)
 	get.utils.err = new_err1();
 	get.utils.fd = open_file(DEBUG->str_file);
 
-	get_nb_foumis(&get);
+	if (get_nb_foumis(&get) == FALSE)
+		return (FALSE);
 	get_room(get.data, &get.utils);
-	get_tunnel(get.data, &get.utils);
+//	get_tunnel(get.data, &get.utils);
+	return (TRUE);
 }
 
 /*!
