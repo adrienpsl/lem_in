@@ -30,7 +30,7 @@ void get_max_path(t_data data, t_map map_ptr)
 	size_t i;
 
 	i = 0;
-	map = map_ptr->start + (data->start_room * map_ptr->col);
+	map = map_ptr->map + (data->start_room * map_ptr->col);
 	print_map(map, map_ptr->col);
 	print_line_first(map, map_ptr->col, 1);
 	end = 0;
@@ -41,7 +41,7 @@ void get_max_path(t_data data, t_map map_ptr)
 		++i;
 	}
 	i = 0;
-	map = map_ptr->start + (data->end_room * map_ptr->col);
+	map = map_ptr->map + (data->end_room * map_ptr->col);
 	start = 0;
 	while (i < map_ptr->col)
 	{
@@ -52,7 +52,7 @@ void get_max_path(t_data data, t_map map_ptr)
 	data->lim = start > end ? end : start;
 }
 
-void set_tunnel(t_data data, t_map map)
+void fill_map_with_tunnel(t_data data, t_map map)
 {
 	t_dll_l tunnel_link;
 	t_tunnel tunnel;
@@ -60,29 +60,26 @@ void set_tunnel(t_data data, t_map map)
 	size_t y;
 
 	tunnel_link = data->tunnel->top;
-	/*
-	**    orint tunnel
-	*/
-	//	dll_func(data->tunnel, print_tunnel_dll);
 	while (tunnel_link)
 	{
 		tunnel = tunnel_link->content;
-		dll_index_link_func(data->room, same_name, tunnel->c_room_2, &x);
-		dll_index_link_func(data->room, same_name, tunnel->c_room_1, &y);
-		map->start[(y * data->room->length) + x] = 1;
-		map->start[(x * data->room->length) + y] = 1;
+		dll_index_link_func(data->room, same_name, tunnel->room_1->name, &x);
+		dll_index_link_func(data->room, same_name, tunnel->room_2->name, &y);
+		map->map[(y * map->line) + x] = 1;
+		map->map[(x * map->line) + y] = 1;
 		tunnel_link = tunnel_link->next;
 	}
-	get_max_path(data, map);
+	if (DEBUG->map_tunnel)
+		print_map(map->map, map->col);
 }
 
-t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2)
+t_dll_l new_tunnel_link(t_room room_1, t_room room_2)
 {
 	t_tunnel_00 tunnel;
 	t_dll_l tunnel_link = NULL;
 
-	tunnel.c_room_1 = ft_strdup(c_room_1);
-	tunnel.c_room_2 = ft_strdup(c_room_2);
+	tunnel.room_1 = room_1;
+	tunnel.room_2 = room_2;
 	tunnel_link = new_dll_l(&tunnel, sizeof(t_tunnel_00));
 	return (tunnel_link);
 }
@@ -92,7 +89,5 @@ void destroy_tunnel(void *ptr_tunnel)
 	static t_tunnel tunnel;
 
 	tunnel = ptr_tunnel;
-	free_str(&tunnel->c_room_1);
-	free_str(&tunnel->c_room_2);
 	free(tunnel);
 }

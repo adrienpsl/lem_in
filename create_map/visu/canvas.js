@@ -192,8 +192,8 @@ const make_end = (rect) => {
 const print_room_visu = (element, canvas) => {
   let tab = element.split(" ")
 
-  let x = parseInt(tab[1])
-  let y = parseInt(tab[2])
+  let x = parseInt(tab[1] + 50)
+  let y = parseInt(tab[2] + 50)
 
   var rect = new fabric.Rect({
     left: x,

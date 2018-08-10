@@ -10,7 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*------------------------------------*\
+    changer le fd dans les functions
+\*------------------------------------*/
+
 #include "../../all_includes.h"
+
+t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
+{
+	t_path path;
+
+	path = ft_0_new_memory(sizeof(t_path_00));
+	path->room = room;
+	path->prev = prev;
+	path->size = size;
+	dll_ptr_add_create(path, all_path);
+	return (new_dll_l_ptr(path));
+}
 
 /*
 **	**** VARIABLES
@@ -52,13 +68,13 @@ int is_already_taken(t_path cur_path, int name_current_room)
 **			je genere un nouveau link,
 **			je l'ajoute au new_path
 */
-void split_one_path(t_map map, t_finder finder, t_path cur_path)
+void split_path(t_map map, t_finder finder, t_path cur_path)
 {
 	char *map_line;
 	t_dll_l path_link;
 	size_t col;
 
-	map_line = map->start + (cur_path->room * map->col);
+	map_line = map->map + (cur_path->room * map->col);
 	col = 0;
 	while (col < map->col)
 	{
@@ -76,6 +92,19 @@ void split_one_path(t_map map, t_finder finder, t_path cur_path)
 	}
 }
 
+void deb_split(t_finder finder)
+{
+	if (DEBUG->print_split)
+	{
+		printf("----> working path -- %lu\n", finder->working_path->length);
+		dll_func(finder->working_path, print_path_dll);
+		printf("---- \n");
+		printf("----> valid path -- %lu \n", finder->valid_path->length);
+		dll_func(finder->valid_path, print_path_dll);
+		printf("---- \n");
+	}
+}
+
 /*
 **	**** VARIABLES
 **	map					>	stock les connections entre toutes les rooms
@@ -87,63 +116,24 @@ void split_one_path(t_map map, t_finder finder, t_path cur_path)
 **
 **	**** MAKING
 **	parcourt les links de working_path
-**	genere avec -- split_one_path --  les nouveaux path
+**	genere avec -- split_path --  les nouveaux path
 **	nettoie et genere un nouveau cache avec --  clean_woking --
 */
-size_t split_all_path_working(t_finder finder, t_map map)
+size_t split_all_path(t_finder finder, t_map map)
 {
 	t_dll_l cur_working_link;
 
-	cur_working_link = finder->working_path->top;
-	while (cur_working_link)
+	while (finder->working_path->length < 2500000 &&
+		   finder->working_path->length)
 	{
-		split_one_path(map, finder, cur_working_link->content);
-		cur_working_link = cur_working_link->next;
+		cur_working_link = finder->working_path->top;
+		while (cur_working_link)
+		{
+			split_path(map, finder, cur_working_link->content);
+			cur_working_link = cur_working_link->next;
+		}
+		deb_split(finder);
+		clean_woking(finder);
 	}
-	clean_woking(finder);
-	return (finder->working_path->length);
-}
-
-t_move short_algo(t_cache cache, t_data data, t_map map)
-{
-	t_finder finder;
-	t_map path_map;
-	t_best_path best;
-	t_move move = NULL;
-
-	finder = new_finder(data, data->start_room, map, cache);
-	init_finder(finder, map);
-
-	/*------------------------------------*\
-	    cherche les path
-	\*------------------------------------*/
-	while (split_all_path_working(finder, map))
-	{
-		//		dll_func(finder->working_path, print_path_dll);
-	}
-
-
-	/*------------------------------------*\
-	    genere la map des path
-	\*------------------------------------*/
-	path_map = generate_path_map(data->room, finder->valid_path);
-	//	print_path_map_2(map);
-
-	/*------------------------------------*\
-	    trie les path
-	\*------------------------------------*/
-	best = new_best_path(path_map->line);
-	find_best_path(path_map, best);
-
-	dll_func(finder->valid_path, print_path_dll);
-	print_line_first_int(best->data.tab, path_map->line, 0);
-
-	move = new_move(data, &best->data, finder);
-	/*------------------------------------*\
-	    init et return move pour lancer le move des fourmis
-	\*------------------------------------*/
-	//	t_real_path move = new_real_path();
-	//	move->tab_best_path = best->data.tab;
-
-	return (move);
+	return (TRUE);
 }

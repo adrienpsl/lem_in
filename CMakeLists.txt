@@ -81,7 +81,7 @@ set(
         ${sources06}
         #        ${sources07}
         #        ${sources08}
-        project/solver/big_algo/main_big_algo.c)
+        )
 
 
 set(

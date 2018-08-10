@@ -59,9 +59,9 @@ void print_tunnel_dll(t_dll_l room_link)
 
 	tunnel = room_link->content;
 
-	ft_printf("%s", tunnel->c_room_1);
+	ft_printf("%s", tunnel->room_1->name);
 	ft_printf(" - ");
-	ft_printf("%s \n", tunnel->c_room_2);
+	ft_printf("%s \n", tunnel->room_2->name);
 	//	printf("%d - %d\n", tunnel->room_1, tunnel->room_2);
 
 }

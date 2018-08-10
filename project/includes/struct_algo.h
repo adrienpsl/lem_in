@@ -42,7 +42,7 @@ typedef t_finder_00 *t_finder;
 typedef struct		s_cache_00
 {
 	t_dll all_path;
-	t_dll close_path;
+	t_dll valid_path;
 	t_dll list_cache;
 	int end_room;
 	int start_room;

@@ -22,6 +22,8 @@ typedef struct s_debug_struct_00
 {
 	int parseur;
 	int print_err;
+	int map_tunnel;
+	int print_split;
 	char *str_file;
 } t_debug_struct_00;
 typedef t_debug_struct_00 *t_debug_struct;
@@ -43,8 +45,11 @@ int read_and_parse_data(t_lem lem);
 
 
 
-
-
+/*
+**    split
+*/
+void split_path(t_map map, t_finder finder, t_path cur_path);
+size_t split_all_path(t_finder finder, t_map map);
 
 
 
@@ -90,7 +95,6 @@ void manage_move(t_move move);
 /*
 **    explication
 */
-int option_print_list(t_finder cache, t_dll list, char *explain);
 
 /*
 **    OBJ ========================================================
@@ -102,21 +106,13 @@ int option_print_list(t_finder cache, t_dll list, char *explain);
 //t_path new_path(int room, t_path prev);
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 void print_path(t_path path);
-void get_all_path(t_dll list_finder, t_map map, t_data data, t_cache cache);
-void free_list_list_path(void *list_ptr);
-t_dll copy_all_path_order(t_dll_l close_path_link);
-t_dll_l     get_dll_by_path(t_path path);
 t_map generate_path_map(t_dll room, t_dll path_lst);
-size_t fill_path(t_finder cache, t_map map);
 void find_best_path(t_map map, t_best_path best);
-void print_path_map_2(t_map map);
 
 
 /*
 **    ALGO ========================================================
 */
-void split_path(t_map map, t_finder finder, t_path current_path, int *res);
-void destroy_cache(t_cache cache);
 
 /*
 **    SHORT ALGO
@@ -133,19 +129,10 @@ void clean_woking(t_finder finder);
 /*
 **    start
 */
-void generate_map(t_map map, int y);
 void destroy_map(t_map map);
 
-/*
-**    lem
-*/
-t_lem new_lem();
 void     free_lem(t_lem lem);
 
-/*
-**    finder
-*/
-int init_finder(t_finder finder, t_map map);
 
 /*
 **   PARSEUR  ========================================================
@@ -153,7 +140,7 @@ int init_finder(t_finder finder, t_map map);
 int	lem_getter(t_data data);
 int get_tunnel(t_data data, t_get_utils utils);
 int get_room(t_data data, t_get_utils utils);
-void	set_tunnel(t_data data, t_map map);
+void	fill_map_with_tunnel(t_data data, t_map map);
 
 /*
 **    paseur utils
@@ -161,25 +148,18 @@ void	set_tunnel(t_data data, t_map map);
 int manage_comment(char *comment_str);
 int		is_right_room(t_dll_l link, void *ptr_new_room);
 int check_err_room(t_data data);
-void	get_size_map(t_data data, int x, int y);
 
 /*
 **    contruct ========================================================
 */
-t_dll_l new_tunnel_link(char *c_room_1, char *c_room_2);
+t_dll_l new_tunnel_link(t_room room_1, t_room room_2);
 t_dll_l new_checked_room_link(char *x, char *y, char *name, t_data data);
-t_lem	new_lem();
 t_finder new_finder(t_data data, int new_room_start, t_map map, t_cache cache);
-t_dll_l new_finder_link(t_data data, t_map map, int new_start_room, t_cache cache);
 
 /*
 **    destroy ========================================================
 */
 void destroy_tunnel(void *ptr_tunnel);
 void destroy_room(void *room_ptr);
-void destroy_lem(t_lem *lem);
-void destroy_finder(t_finder finder);
-
-void destroy_room_list(t_dll room_list);
 
 #endif

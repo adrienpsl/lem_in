@@ -12,29 +12,6 @@
 
 #include "../all_includes.h"
 
-extern t_debug_struct DEBUG;
-
-void set_up_algo(t_algo algo, t_data data)
-{
-	t_map map;
-
-	init_cache(&algo->cache, data);
-	map = &algo->map;
-	generate_map(map,  data->room->length);
-	set_tunnel(data, map);
-
-//	print_map(map->start, map->line);
-}
-
-t_lem new_lem()
-{
-	t_lem lem;
-
-	lem = ft_0_new_memory(sizeof(t_lem_00));
-//	set_up_algo(&lem->algo, lem->data);
-
-	return (lem);
-}
 
 void     free_lem(t_lem lem)
 {

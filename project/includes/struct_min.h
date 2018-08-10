@@ -8,15 +8,6 @@
 #define PATH 1
 #define TAKEN 2
 
-typedef struct		s_tunnel_00
-{
-	char *c_room_1;
-	char *c_room_2;
-	int room_1;
-	int room_2;
-} 					t_tunnel_00;
-typedef t_tunnel_00 *t_tunnel;
-
 typedef struct		s_room_00
 {
 	int x;
@@ -26,6 +17,13 @@ typedef struct		s_room_00
 	char *name;
 } 					t_room_00;
 typedef t_room_00 *t_room;
+
+typedef struct		s_tunnel_00
+{
+	t_room room_1;
+	t_room room_2;
+} 					t_tunnel_00;
+typedef t_tunnel_00 *t_tunnel;
 
 typedef struct		s_path_00
 {
@@ -39,7 +37,7 @@ typedef t_path_00 *t_path;
 
 typedef struct s_map_00
 {
-	char *start;
+	char *map;
 	size_t size;
 	size_t col;
 	size_t line;

@@ -43,8 +43,8 @@ int test_prev_good_path(t_map map, t_b_path cache, int cur_line)
 	{
 		if (cache->tab[col] == TRUE)
 		{
-			if (cmp_line(map->start + (col * map->col),
-						 map->start + (cur_line * map->col),
+			if (cmp_line(map->map + (col * map->col),
+						 map->map + (cur_line * map->col),
 						 map->col) == TRUE)
 				return (FALSE);
 		}
@@ -65,8 +65,8 @@ void test_current_path(t_map map, t_b_path cache, int cur_line)
 	line = 0;
 	while (line < map->line)
 	{
-		if (cmp_line(map->start + (line * map->col),
-					 map->start + (cur_line * map->col),
+		if (cmp_line(map->map + (line * map->col),
+					 map->map + (cur_line * map->col),
 					 map->col) == FALSE
 			&& test_prev_good_path(map, cache, line) == TRUE
 		 )
@@ -134,7 +134,7 @@ void find_best_path(t_map map, t_best_path best)
 	//	printf(" \n");
 	//	print_line(map->start + (cur_line * map->line), map->line, 1);
 	//	printf(" \n");
-	print_line_first(map->start + (line * map->col), map->col, line);
+	print_line_first(map->map + (line * map->col), map->col, line);
 
 	while (line < map->line)
 	{

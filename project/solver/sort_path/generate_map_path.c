@@ -38,10 +38,10 @@ t_map generate_path_map(t_dll room, t_dll path_lst)
 	map = ft_0_new_memory(sizeof(t_map_00));
 	map->col = room->length;
 	map->line = path_lst->length;
-	map->start = ft_0_new_memory(sizeof(char) * map->line * map->col);
+	map->map = ft_0_new_memory(sizeof(char) * map->line * map->col);
 	while (link)
 	{
-		add_all_path(map->start, link, i * map->col);
+		add_all_path(map->map, link, i * map->col);
 		link = link->next;
 		++i;
 	}

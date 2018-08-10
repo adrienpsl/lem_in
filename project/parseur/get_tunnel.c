@@ -33,19 +33,21 @@ int find_room(t_dll_l link, void *ptr_str)
 int build_tunnel_link(t_data data, t_get_utils utils)
 {
 	t_dll_l tunnel_link;
+	t_dll_l link;
+	t_room room_1;
+	t_room room_2;
 	char **split;
 
 	split = ft_strsplit(utils->line, '-');
 	tunnel_link = NULL;
-	if (dll_find(data->room, find_room, *split) != NULL &&
-		dll_find(data->room, find_room, *(split + 1)) != NULL)
-		tunnel_link = new_tunnel_link(*split, *(split + 1));
+	link = dll_find(data->room, find_room, *split);
+	room_1 = link ? link->content : NULL;
+	link = dll_find(data->room, find_room, *(split + 1));
+	room_2 = link ? link->content : NULL;
+	if (room_1 && room_2)
+		tunnel_link = new_tunnel_link(room_1, room_2);
 	ft_free_split(&split);
-
-	tunnel_link ? dll_add(tunnel_link, data->tunnel) : (void)1;
-
-//	if (DEBUG->parseur == TRUE)
-//		printf("---> tunnel: %s -- %s \n", *split, *(split + 1));
+	tunnel_link ? dll_add(tunnel_link, data->tunnel) : (void) 1;
 	return (tunnel_link ? TRUE : FALSE);
 }
 
