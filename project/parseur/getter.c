@@ -34,12 +34,7 @@ int get_nb_foumis(t_getter get)
 	else if (result <= 0)
 		return (print_err_retrun_int(ERR_FOURMIS_2, DEBUG->print_err));
 	get->data->nb_fourmis = ft_atoi(get->utils.line);
-	/*------------------------------------*\
-	    data printed
-	\*------------------------------------*/
-	if (DEBUG->parseur == TRUE)
-		printf("---> nb fourmis : %d\n---- \n", get->data->nb_fourmis);
-	return (get->utils.err->is_error == FALSE ? TRUE : FALSE);
+	return (TRUE);
 }
 
 /*
@@ -59,25 +54,25 @@ int lem_getter(t_data data)
 	get.data = data;
 
 	(void) "  je set utils  ";
-	get.utils.err = new_err1();
 	get.utils.fd = open_file(DEBUG->str_file);
 	if (
-	 get_nb_foumis(&get) == TRUE &&
-	 get_room(get.data, &get.utils) == TRUE &&
-	 check_err_room(data) == TRUE &&
-	 get_tunnel(data, &get.utils) == TRUE
+	 get_nb_foumis(&get) == FALSE ||
+	 get_room(get.data, &get.utils) == FALSE ||
+	 check_err_room(data) == FALSE ||
+	 get_tunnel(data, &get.utils) == FALSE
 	 )
-		return (TRUE);
+		return (FALSE);
 
-	return (FALSE);
+	return (TRUE);
 }
 
 void check_data(t_data data)
 {
+	printf("----> nb fourmis : %d\n---- \n", data->nb_fourmis);
 	printf("----> les rooms \n");
 	dll_func(data->room, print_room_dll_l);
 	printf("----\n");
-	printf("---->les tunnels \n");
+	printf("----> les tunnels \n");
 	dll_func(data->tunnel, print_tunnel_dll);
 	printf("---- \n");
 }

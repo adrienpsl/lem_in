@@ -40,7 +40,6 @@ typedef struct		s_get_utils_00
 	char *line;
 	int fd;
 	int type_salle;
-	t_err1 err;
 } 					t_get_utils_00;
 typedef t_get_utils_00 *t_get_utils;
 
