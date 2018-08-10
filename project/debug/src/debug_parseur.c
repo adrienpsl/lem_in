@@ -43,11 +43,14 @@ void print_room_dll_l(t_dll_l room_link)
 	t_room room;
 
 	room = room_link->content;
-	ft_printf("*%s*", room->name);
-	ft_printf("%d ", room->x);
-	ft_printf("%d \n", room->y);
-	ft_printf("---- \n");
-	ft_printf(" \n");
+	ft_printf("%5s || ", room->name);
+	ft_printf("%5d ||", room->x);
+	ft_printf("%5d || ", room->y);
+	if (room->type == L_START)
+	    printf("start");
+	if (room->type == L_END)
+		printf("end");
+	printf(" \n");
 }
 
 void print_tunnel_dll(t_dll_l room_link)

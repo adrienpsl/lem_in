@@ -22,6 +22,7 @@ typedef struct		s_room_00
 	int x;
 	int y;
 	int nb;
+	int type;
 	char *name;
 } 					t_room_00;
 typedef t_room_00 *t_room;

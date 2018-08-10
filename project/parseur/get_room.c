@@ -16,22 +16,23 @@
 
 #include "../all_includes.h"
 
-void manage_end_start(int i, t_data data, t_get_utils utils)
+int manage_end_start(int i, t_data data, t_get_utils utils)
 {
-	if (utils->type_salle == L_START)
-		data->start_room = i;
-	if (utils->type_salle == L_END)
-		data->end_room = i;
-	utils->type_salle = 0;
-}
+	static int res;
 
-void print_split(char **room_splited, int i)
-{
-	printf("---> room name : %5s || n': %5d || X: %5s || Y: %5s \n",
-		   *room_splited,
-		   i,
-		   *(room_splited + 1),
-		   *(room_splited + 2));
+	res = 0;
+	if (utils->type_salle == L_START)
+	{
+		data->start_room = i;
+		res = L_START;
+	}
+	if (utils->type_salle == L_END)
+	{
+		data->end_room = i;
+		res = L_END;
+	}
+	utils->type_salle = 0;
+	return (res);
 }
 
 t_dll_l add_room_link(t_data data, t_get_utils utils)
@@ -41,22 +42,44 @@ t_dll_l add_room_link(t_data data, t_get_utils utils)
 	static int i = 0;
 
 	room_splited = ft_strsplit(utils->line, ' ');
-	if (DEBUG->parseur == TRUE)
-		print_split(room_splited, i);
 	room_link = new_checked_room_link(*room_splited, *(room_splited + 1),
 									  *(room_splited + 2), data);
-	manage_end_start(i, data, utils);
+	if (room_link)
+		((t_room) room_link->content)->type = manage_end_start(i, data, utils);
 	dll_add_at_index(room_link, data->room, data->room->length);
 	ft_free_split(&room_splited);
 	i++;
 	return (room_link);
 }
 
+/*
+**	**** VARIABLES
+**
+**	**** RETURN
+**
+**	**** MAKING
+**	verifie une fois toutes les rooms lue,
+**	et affiche un message d'erreur en  consequence
+*/
+
+
+
+int check_err_room(t_data data)
+{
+	if (data->start_room < 0)
+		ft_error("pas de start");
+	if (data->end_room < 0)
+		ft_error("pas de end");
+	if (data->start_room == data->end_room)
+		ft_error("start et end sont les memes");
+	return (TRUE);
+}
+
 /*------------------------------------*\
     si count space == 2 --> je split et donne les 3 a create room_link
     si pas de space je stop
 \*------------------------------------*/
-int get_coord_room(t_data data, t_get_utils utils)
+int get_room(t_data data, t_get_utils utils)
 {
 	while (ask_gnl(utils->fd, &utils->line, NULL))
 	{
@@ -73,33 +96,6 @@ int get_coord_room(t_data data, t_get_utils utils)
 		else
 			break;
 	}
-	return (TRUE);
-}
-
-/*
-**	**** VARIABLES
-**
-**	**** RETURN
-**
-**	**** MAKING
-**	verifie une fois toutes les rooms lue,
-**	et affiche un message d'erreur en  consequence
-*/
-
-int check_err_room(t_data data)
-{
-	if (data->start_room < 0)
-		ft_error("pas de start");
-	if (data->end_room < 0)
-		ft_error("pas de end");
-	if (data->start_room == data->end_room)
-		ft_error("start et end sont les memes");
-	return (TRUE);
-}
-
-int get_room(t_data data, t_get_utils utils)
-{
-	get_coord_room(data, utils);
-	//	check_err_room(utils);
+	check_err_room(data);
 	return (TRUE);
 }

@@ -61,19 +61,25 @@ int lem_getter(t_data data)
 	(void) "  je set utils  ";
 	get.utils.err = new_err1();
 	get.utils.fd = open_file(DEBUG->str_file);
-
-	// toute les fonctions retourn ret ==> qui represente les erreur
-	// mes err --> nom de l'erreur, son type, sa ligne
 	if (
 	 get_nb_foumis(&get) == TRUE &&
 	 get_room(get.data, &get.utils) == TRUE &&
-	 check_err_room(data) == TRUE
-		//	 &&
-		//	 get_tunnel(data, &get.utils) == TRUE
+	 check_err_room(data) == TRUE &&
+	 get_tunnel(data, &get.utils) == TRUE
 	 )
 		return (TRUE);
 
 	return (FALSE);
+}
+
+void check_data(t_data data)
+{
+	printf("----> les rooms \n");
+	dll_func(data->room, print_room_dll_l);
+	printf("----\n");
+	printf("---->les tunnels \n");
+	dll_func(data->tunnel, print_tunnel_dll);
+	printf("---- \n");
 }
 
 /*!
@@ -92,8 +98,8 @@ int read_and_parse_data(t_lem lem)
 	data->end_room = -1;
 
 	ret = lem_getter(data);
-	//	if (lem_getter(data) == FALSE)
-	// si une err je quite en la printant --> si plusieur err je dois avoir un tab qui les listes >
 	lem->data = data;
+	if (DEBUG->parseur == TRUE)
+		check_data(data);
 	return (ret);
 }

@@ -30,37 +30,22 @@ int find_room(t_dll_l link, void *ptr_str)
 	return (FALSE);
 }
 
-t_dll_l get_tunnel_link(char **split, t_data data, t_err1 err1)
-{
-	t_dll_l tunne_link;
-	t_dll list_room;
-
-	list_room = data->room;
-	tunne_link = NULL;
-	if (dll_find(list_room, find_room, *split) != NULL &&
-		dll_find(list_room, find_room, *(split + 1)) != NULL)
-	{
-		tunne_link = new_tunnel_link(*split, *(split + 1));
-		if (DEBUG->parseur == TRUE)
-			printf("---> tunnel: %s -- %s \n", *split, *(split + 1));
-	}
-	else
-		err1_add_err(err1, "la room n'existe pas", 0, NULL);
-	return (tunne_link);
-}
-
 int build_tunnel_link(t_data data, t_get_utils utils)
 {
 	t_dll_l tunnel_link;
 	char **split;
 
 	split = ft_strsplit(utils->line, '-');
-	tunnel_link = get_tunnel_link(split, data, utils->err);
-	if (tunnel_link == NULL)
-		err1_add_err(utils->err, "err dans un tunnel", 0, NULL);
-	else
-		dll_add(tunnel_link, data->tunnel);
+	tunnel_link = NULL;
+	if (dll_find(data->room, find_room, *split) != NULL &&
+		dll_find(data->room, find_room, *(split + 1)) != NULL)
+		tunnel_link = new_tunnel_link(*split, *(split + 1));
 	ft_free_split(&split);
+
+	tunnel_link ? dll_add(tunnel_link, data->tunnel) : (void)1;
+
+//	if (DEBUG->parseur == TRUE)
+//		printf("---> tunnel: %s -- %s \n", *split, *(split + 1));
 	return (tunnel_link ? TRUE : FALSE);
 }
 
@@ -77,8 +62,6 @@ int get_tunnel(t_data data, t_get_utils utils)
 			if (build_tunnel_link(data, utils) == FALSE)
 				return (FALSE);
 		}
-		else if (ft_strchr_how_many(utils->line, '-') != 1)
-			return (FALSE);
 		else
 			break;
 		last_line = 0;
