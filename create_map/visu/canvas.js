@@ -68,7 +68,13 @@ let test_str = "15\n" +
   "17-13\n" +
   "18-5\n" +
   "14-11\n" +
-  "13-6\n"
+  "13-6\n" +
+  "F1-11 F2-3 F3-2 F4-6 \n" +
+  "F2-12 F3-5 F4-13 F5-11 F6-3 F7-2 F8-6 \n" +
+  "F2-11 F6-12 F3-18 F7-5 F4-8 F8-13 F9-11 F10-3 F11-2 F12-6 \n" +
+  "F6-11 F10-12 F3-11 F7-18 F11-5 F4-11 F8-8 F12-13 F13-11 \n" +
+  "F10-11 F7-11 F11-18 F8-11 F12-8 F14-11 \n" +
+  "F11-11 F12-11 F15-11"
 
 var name = 0
 var tab_place = 0
@@ -97,6 +103,9 @@ const get_data = (new_data = test_str) => {
 
   data.tab_room = []
   data.tab_connection = []
+  data.result = []
+  data.path = []
+
   let tab_data = new_data.split("\n")
   let i = 1
   data.nb_f = parseInt(tab_data[0])
@@ -117,10 +126,13 @@ const get_data = (new_data = test_str) => {
 	if (count_start) {
 	  room = room + " s"
 	  count_start = false
+	  data.start = parseInt(room.split(" ")[0])
 	}
 	if (count_end) {
 	  room = room + " e"
 	  count_end = false
+	  data.end = parseInt(room.split(" ")[0])
+
 	}
 	data.tab_room.push(room)
 	++i
@@ -130,6 +142,14 @@ const get_data = (new_data = test_str) => {
 	data.tab_connection.push(tab_data[i])
 	i++
   }
+
+  while (i < tab_data.length)
+  {
+	data.result.push(tab_data[i])
+	i++
+  }
+  data.path = find_path(data.result, data.start, data.end)
+  console.log(data)
 }
 
 /*------------------------------------*\
@@ -276,15 +296,15 @@ const draw_line_visu = (canvas) => {
 }
 
 
-const draw_line_visu_blue = (canvas) => {
+const draw_line_visu_color = (canvas, color, marge) => {
   let LINE = new fabric.Line([
-	room_1.getCenterPoint().x,
-	room_1.getCenterPoint().y,
-	room_2.getCenterPoint().x,
-	room_2.getCenterPoint().y
+	room_1.getCenterPoint().x + marge,
+	room_1.getCenterPoint().y + marge,
+	room_2.getCenterPoint().x + marge,
+	room_2.getCenterPoint().y + marge
   ], {
-	stroke     : "blue",
-	strokeWidth: 2,
+	stroke     : color,
+	strokeWidth: 4,
 	selectable : false
   })
   canvas.add(LINE)
@@ -311,16 +331,79 @@ const draw_map = () => {
   })
 }
 
+
+const color = [{color: "blue", marge: 5}, {color: "green", marge: -5},
+  {color: "orange", marge: 10}, {color: "purple", marge: -10}]
+
+const draw_path = (fourmis) => {
+  let all_el = CANVAS.getObjects()
+  let ii
+
+  fourmis.map((FOURNIS, index) => {
+	let path = FOURNIS.path
+	ii = 1
+	room_1 = all_el.find((room_el) => {
+	  return room_el.my === parseInt(path[0])
+	})
+
+	while (ii < path.length) {
+	  room_2 = all_el.find((room_el) => {
+		return room_el.my === parseInt(path[ii])
+	  })
+
+
+	  var rect = new fabric.Rect({
+	  left         : room_1.getCenterPoint().x - 15 ,
+	  top          : room_1.getCenterPoint().y - 15,
+	  width        : 25 +5,
+	  height       : 25 +5,
+	  stroke       : color[index].color,
+	  fill         : "transparent",
+	  strokeWidth  : 10,
+	  lockMovementX: true,
+	  lockMovementY: true,
+	  hasControls  : false
+	  })
+	  CANVAS.add(rect)
+
+
+	  // var text = new fabric.Text(name, {
+		// left      : room_1.getCenterPoint().x - 15,
+		// top       : room_1.getCenterPoint().x - 15,
+		// selectable: false,
+		// fontSize  : 20,
+		// color     : color[index].color
+	  // })
+	  // CANVAS.add(text)
+
+
+	  // var text = new fabric.Text(name, {
+	  // left: x, top: y, selectable: false, fontSize: 20
+	  // })
+
+	  console.log(room_1, room_2)
+	  draw_line_visu_color(CANVAS, color[index].color, color[index].marge)
+	  room_1 = room_2
+	  ii++
+	}
+
+
+  })
+}
+
+
 window.onload = function () {
 
-  let canvas = new fabric.StaticCanvas("mon_canvas")
+  let canvas = new fabric.StaticCanvas("mon_canvas", {preserveObjectStacking: true})
 
   set_input()
   CANVAS = canvas
 
   get_data()
   draw_map()
-  find_path(14, 11)
+  console.log(data.path)
+  draw_path(data.path)
+  // find_path(14, 11)
   // generate_tab(20, 400, true, 3)
 
   // setTimeout(draw_map(), 500)

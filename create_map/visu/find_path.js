@@ -1,15 +1,8 @@
 "use strict"
 
-let find_path = (start, end) => {
-  let data = "F1-11 F2-3 F3-2 F4-6 \n" +
-	"F2-12 F3-5 F4-13 F5-11 F6-3 F7-2 F8-6 \n" +
-	"F2-11 F6-12 F3-18 F7-5 F4-8 F8-13 F9-11 F10-3 F11-2 F12-6 \n" +
-	"F6-11 F10-12 F3-11 F7-18 F11-5 F4-11 F8-8 F12-13 F13-11 \n" +
-	"F10-11 F7-11 F11-18 F8-11 F12-8 F14-11 \n" +
-	"F11-11 F12-11 F15-11"
+let find_path = (data, start, end) => {
 
-
-  data = data.split("\n")
+  console.log(data)
   let tmp
   let tab_split = []
   let nb_f_running
@@ -49,8 +42,9 @@ let find_path = (start, end) => {
 	})
   })
 	fourmis.map((el) => {
-	    console.log(el.path) 
+	    console.log(el.path)
 	})
   // console.log(tab_split)
   // console.log(fourmis)
+  return fourmis;
 }
