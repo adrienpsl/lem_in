@@ -14,7 +14,7 @@
     changer le fd dans les functions
 \*------------------------------------*/
 
-#include "../all_includes.h"
+#include "../includes/all_includes.h"
 
 int manage_end_start(int i, t_data data, t_get_utils utils)
 {

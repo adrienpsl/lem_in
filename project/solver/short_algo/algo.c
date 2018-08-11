@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../all_includes.h"
+#include "../../includes/all_includes.h"
 
 t_move short_algo(t_cache cache, t_data data, t_map map)
 {
@@ -35,11 +35,7 @@ t_move short_algo(t_cache cache, t_data data, t_map map)
 	    genere la map des path
 	\*------------------------------------*/
 	path_map = generate_path_map(data->room, finder->valid_path);
-	//	print_path_map_2(map);
 
-
-	printf("%lu \n", cache->all_path->length);
-	printf("%lu \n", cache->valid_path->length);
 	/*------------------------------------*\
 	    trie les path
 	\*------------------------------------*/

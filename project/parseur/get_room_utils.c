@@ -14,7 +14,7 @@
     changer le fd dans les functions
 \*------------------------------------*/
 
-#include "../all_includes.h"
+#include "../includes/all_includes.h"
 
 int manage_comment(char *comment_str)
 {

@@ -14,9 +14,7 @@
     changer le fd dans les functions
 \*------------------------------------*/
 
-#include "../all_includes.h"
-
-// la fonction prends la premiere room et la recherche
+#include "../includes/all_includes.h"
 
 int find_room(t_dll_l link, void *ptr_str)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "../includes/all_includes.h"
 
 int same_name(t_dll_l current_link, void *ptr)
 {

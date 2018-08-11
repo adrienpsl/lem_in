@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "../includes/all_includes.h"
 
 
 void destroy_map(t_map map)

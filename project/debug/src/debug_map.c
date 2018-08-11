@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../all_includes.h"
+#include "../../includes/all_includes.h"
 
 /*
 **    print start
@@ -74,7 +74,7 @@ void print_line_first_int(char *tab_room, size_t size_line, int cur_line)
 		printf("%2c ", tab_room[i] ? 'X' : '.');
 		++i;
 	}
-	printf("\n\n");
+	printf("\n");
 }
 
 void print_line(char *tab_room, size_t size_line, int cur_line)
@@ -160,22 +160,22 @@ void print_path_map(char *tab_room, size_t size_line, size_t col)
 	line = 0;
 	lim = size_line * col;
 	counter = 2;
-
+	printf("----> map all path \n  ");
 	print_name(size_line);
-	printf("\n1  ");
+	printf("   1  ");
 	while (i < lim)
 	{
-		printf("%c ", tab_room[i] ? 'X' : '.');
+		printf("%2c ", tab_room[i] ? 'X' : '.');
 		++i;
 		++line;
-		if (line == size_line)
+		if (line == size_line && i < lim)
 		{
-			printf(" \n%lu  ", counter);
+			printf(" \n %3lu  ", counter);
 			line = 0;
 			++counter;
 		}
 	}
-	printf("\n");
+	printf("\n----\n");
 }
 
 void print_path_map_2(t_map map)

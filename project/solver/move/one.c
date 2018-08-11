@@ -10,30 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../all_includes.h"
-
-/*------------------------------------*\
-
-\*------------------------------------*/
-
-
-// function pour avancer dans les path + quand fourmis arrive a passer 
-// dans end, je la print
-
-
-/*------------------------------------*\
-    print la fourmis si elle est dans la salle end et la supprime
-
-\*------------------------------------*/
-
-/*------------------------------------*\
-	f pour faire avancer toute les fourmis et print celle qui sont ok
- 	boucle sur chaque chemin et avance les fourmis d'un a chaque fois
-\*------------------------------------*/
-//void move_all_f(t_move move)
-//{
-//
-//}
+#include "../../includes/all_includes.h"
 
 int is_free(t_move move, size_t nb_path, size_t room)
 {

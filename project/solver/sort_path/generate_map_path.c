@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../all_includes.h"
+#include "../../includes/all_includes.h"
 
 void add_all_path(char *map, t_dll_l path_link, size_t line)
 {
@@ -45,5 +45,7 @@ t_map generate_path_map(t_dll room, t_dll path_lst)
 		link = link->next;
 		++i;
 	}
+	if (DEBUG->map_path)
+		print_path_map(map->map, map->col, map->line);
 	return (map);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "../includes/all_includes.h"
 
 t_finder new_finder(t_data data, int new_room_start, t_map map, t_cache cache)
 {

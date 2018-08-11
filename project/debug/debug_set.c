@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "../includes/all_includes.h"
 
 t_debug_struct DEBUG;
 
@@ -24,6 +24,7 @@ t_debug_struct set_debug()
 	db->print_err = TRUE;
 	//	db->map_tunnel = TRUE;
 	//	db->print_split = TRUE;
+	db->map_path = TRUE;
 
 	(void) "  set le fichier a check  ";
 	db->str_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2";

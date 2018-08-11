@@ -14,7 +14,7 @@
     changer le fd dans les functions
 \*------------------------------------*/
 
-#include "../../all_includes.h"
+#include "../../includes/all_includes.h"
 
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
 {

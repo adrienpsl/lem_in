@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../all_includes.h"
+#include "../includes/all_includes.h"
 
 
 void     free_lem(t_lem lem)

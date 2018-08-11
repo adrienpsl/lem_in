@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../all_includes.h"
+#include "../../includes/all_includes.h"
 
 /*------------------------------------*\
     faux si les deux ligne sont vide au meme endroit
@@ -73,11 +73,9 @@ void test_current_path(t_map map, t_b_path cache, int cur_line)
 		{
 			cache->tab[line] = TRUE;
 			cache->nb += 1;
-//			print_line_first(map->start + (line * map->col), map->col, line);
 		}
 		line++;
 	}
-	//	printf("ok \n");
 }
 
 /*
@@ -131,22 +129,18 @@ void find_best_path(t_map map, t_best_path best)
 	size_t line;
 
 	line = 0;
-	//	printf(" \n");
-	//	print_line(map->start + (cur_line * map->line), map->line, 1);
-	//	printf(" \n");
-	print_line_first(map->map + (line * map->col), map->col, line);
-
 	while (line < map->line)
 	{
-		//	print_line_first_int(best->tab_good_path, map->line, line);
-
 		test_current_path(map, &best->cache, line);
 		best->cache.nb++;
 		is_bettre_best_path(best, line, map->line);
 		best->data.tab[best->data.line] = TRUE;
-//		print_line_first_int(best->data.tab, map->line, 0);
-
 		++line;
 	}
-		print_line_first_int(best->data.tab, map->line, 0);
+		if (DEBUG->map_path)
+		{
+			printf("----> les chemins independants \n");
+			print_line_first_int(best->data.tab, map->line, 0);
+			printf("---- \n");
+		}
 }

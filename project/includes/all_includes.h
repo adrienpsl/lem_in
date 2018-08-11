@@ -5,20 +5,20 @@
 /*
 **    LIBFT
 */
-# include "libft/ft_library_header.h"
+# include "../libft/ft_library_header.h"
 
 /*
 **    project includes
 */
-# include "includes/struct.h"
-# include "includes/getter.h"
-# include "includes/function.h"
-# include "includes/struct_min.h"
+# include "struct.h"
+# include "getter.h"
+# include "function.h"
+# include "struct_min.h"
 
 /*
 **    err
 */
-# include "includes/err_name.h"
+# include "err_name.h"
 
 /*
 **    debug

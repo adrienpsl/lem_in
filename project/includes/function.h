@@ -13,7 +13,7 @@
 #ifndef LEM_IN_FUNCTION_H
 # define LEM_IN_FUNCTION_H
 
-# include "../all_includes.h"
+# include "all_includes.h"
 
 /*
 **    debug ========================================================
@@ -23,6 +23,7 @@ typedef struct s_debug_struct_00
 	int parseur;
 	int print_err;
 	int map_tunnel;
+	int map_path;
 	int print_split;
 	char *str_file;
 } t_debug_struct_00;
