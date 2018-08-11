@@ -307,8 +307,6 @@ const draw_map = () => {
 	room_2 = all_el.find((el) => {
 	  return el.my === parseInt(tab_line[1])
 	})
-	// console.log(room_1, room_2)
-	console.log(tab_line[0], tab_line[1])
 	draw_line_visu(CANVAS)
   })
 }
@@ -322,6 +320,7 @@ window.onload = function () {
 
   get_data()
   draw_map()
+  find_path(14, 11)
   // generate_tab(20, 400, true, 3)
 
   // setTimeout(draw_map(), 500)
