@@ -12,16 +12,11 @@
 
 #include "../../includes/all_includes.h"
 
-int is_free(t_move move, size_t nb_path, size_t room)
+int is_free(t_move move, size_t nb_path)
 {
 	t_dll_l link;
 
-	link = move->tab[nb_path]->list_path->top;
-	while (room)
-	{
-		link = link->next;
-		--room;
-	}
+	link = move->tab[nb_path]->list_path->top->next;
 	return (
 	 ((t_path) link->content)->is_full ? FALSE : TRUE);
 }
@@ -30,27 +25,20 @@ int is_free(t_move move, size_t nb_path, size_t room)
     dois check si j'ai la fourmis est a la fin pour empty
 \*------------------------------------*/
 
-int add_f(t_move move, size_t nb_path, size_t room, int f_nb)
+int add_f(t_move move, size_t nb_path, int f_nb)
 {
-	t_dll_l link;
 	t_path path;
-	int bn;
-	int zize;
+	int path_more_longh_wait;
+	int size;
 
-	link = move->tab[nb_path]->list_path->top;
-	zize = move->tab[nb_path]->size - 2;
-	bn =  move->nb_fourmis - f_nb;
-	if (move->nb_fourmis < f_nb)
-		return TRUE;
-	if (nb_path > 0 && bn < zize)
+	path = move->tab[nb_path]->list_path->top->next->content;
+	size = move->tab[nb_path]->size - 1;
+	path_more_longh_wait = move->nb_fourmis - f_nb;
+
+	if (nb_path > 0 && path_more_longh_wait < size)
 		return FALSE;
-	while (room)
-	{
-		link = link->next;
-		--room;
-	}
-	path = link->content;
 	printf("F%d-%s ", f_nb, path->name_room);
+
 	if (path->room != move->end_room)
 		path->is_full = f_nb;
 	return (TRUE);
@@ -63,27 +51,29 @@ int add_f(t_move move, size_t nb_path, size_t room, int f_nb)
 int put_f_all_start(t_move move)
 {
 	size_t path;
-	size_t *F;
-	static size_t f = 1;
+	int *F;
+	static int f = 0;
 
 	path = 0;
 	F = &f;
-	while (path < move->size_tab)
+	while (path < move->size_tab &&
+		   move->nb_fourmis > f)
 	{
 		if (move->nb_fourmis > 0 &&
-			is_free(move, path, 1) == TRUE)
+			is_free(move, path) == TRUE)
 		{
-			if (add_f(move, path, 1, f) == TRUE)
+			if (add_f(move, path, f + 1) == TRUE)
 				++f;
 		}
 		++path;
 	}
-	return (f < (size_t) move->nb_fourmis ? TRUE : FALSE);
+	return (f < move->nb_fourmis ? TRUE : FALSE);
 }
 
 /*------------------------------------*\
     avancer tout les fourmis ?
     reccursif, tant que le link a une fourmis je decalle d'un
+    parcoutd tout car il pourrait y avpir un trou dans le passage des f
 \*------------------------------------*/
 int recursif_all_f(t_dll_l link, int new_f, int end_room)
 {
@@ -101,7 +91,7 @@ int recursif_all_f(t_dll_l link, int new_f, int end_room)
 	{
 		i = 1;
 		printf("F%d-%s ", new_f, path->name_room);
-		path->is_full = new_f != end_room ? new_f : 0;
+		path->is_full = path->room != end_room ? new_f : 0;
 	}
 	return (i);
 }
@@ -114,8 +104,10 @@ int move_all_f(t_move move)
 	i = 0;
 	while (i < move->size_tab)
 	{
-		res = recursif_all_f(move->tab[i]->list_path->top, 0, move->end_room) ?
-			  1 : 0;
+		res =
+		 recursif_all_f(move->tab[i]->list_path->top->next, 0, move->end_room)
+		 || res ?
+		 1 : 0;
 		++i;
 	}
 	return (res);
@@ -126,22 +118,14 @@ int move_all_f(t_move move)
 \*------------------------------------*/
 void manage_move(t_move move)
 {
-	(void) move;
-
 	while (put_f_all_start(move))
 	{
 		printf("\n-------------------- \n\n");
 		move_all_f(move);
 	}
-	//	printf("\n-------------------- \n\n");
 	printf("\n-------------------- \n\n");
-
-	//	move_all_f(move);
-	//	printf("\n-------------------- \n\n");
-
 	while (move_all_f(move))
 	{
-		put_f_all_start(move);
 		printf("\n-------------------- \n\n");
 	}
 }

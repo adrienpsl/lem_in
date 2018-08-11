@@ -52,7 +52,12 @@ new_real_path(t_path path, t_dll room_list)
 	real = ft_0_new_memory(sizeof(t_real_path_00));
 	real->size = path->size;
 	real->list_path = good_list(path, room_list);
-	dll_func(real->list_path, print_path_link);
+
+	if (DEBUG->final_path)
+	{
+		dll_func(real->list_path, print_path_link);
+		printf(" \n");
+	}
 
 	return (real);
 }
@@ -94,7 +99,11 @@ t_move new_move(t_data data, t_b_path best_path, t_finder finder)
 	move->tab[best_path->nb] = NULL;
 	move->size_tab = best_path->nb;
 	move->end_room = data->end_room;
+	if (DEBUG->final_path)
+		printf("----> les finals paht trouve \n");
 	fill_tab(best_path, finder, move->tab, data->room);
+	if (DEBUG->final_path)
+		printf("----\n");
 
 	return (move);
 }

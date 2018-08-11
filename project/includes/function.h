@@ -25,6 +25,7 @@ typedef struct s_debug_struct_00
 	int map_tunnel;
 	int map_path;
 	int print_split;
+	int final_path;
 	char *str_file;
 } t_debug_struct_00;
 typedef t_debug_struct_00 *t_debug_struct;
