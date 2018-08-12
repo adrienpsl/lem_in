@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "project/includes/function.h"
+#include "src/includes/function.h"
 
 void set_up()
 {

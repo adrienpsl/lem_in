@@ -19,8 +19,8 @@ set(CMAKE_C_FLAGS "-Wall -Wextra -Werror")
 #*------------------------------------*\
 #    --  PATH  --
 #*------------------------------------*/
-set(REPO "project")
-set(LIBFT "${REPO}/libft")
+set(REPO "src")
+set(LIBFT "libft")
 
 #*------------------------------------*\
 #    --  THE HEADERS --
@@ -89,7 +89,7 @@ set(
         ${head}
         ${head_lib}
         ${all_head_lib}
-        project/solver/short_algo/shorty_baby.c)
+        )
 #*------------------------------------*\
 #    --  ADD TO PROGRAMME  --
 #*------------------------------------*/

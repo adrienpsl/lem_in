@@ -13,7 +13,7 @@
 #ifndef LEM_IN_STRUCT_ALGO_H
 #define LEM_IN_STRUCT_ALGO_H
 
-#include "../libft/include/dll_header.h"
+#include "../../libft/include/dll_header.h"
 #include "struct.h"
 
 typedef struct		s_cache_finder_00

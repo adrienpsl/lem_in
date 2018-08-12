@@ -14,7 +14,7 @@
 # define LEM_IN_STRUCT_H
 
 #include "getter.h"
-#include "../libft/include/dll_header.h"
+#include "../../libft/include/dll_header.h"
 #include "struct_min.h"
 #include "struct_algo.h"
 
