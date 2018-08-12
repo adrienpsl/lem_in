@@ -120,12 +120,14 @@ void manage_move(t_move move)
 {
 	while (put_f_all_start(move))
 	{
-		printf("\n-------------------- \n\n");
+//		printf("\n-------------------- \n\n");
+		printf("\n");
 		move_all_f(move);
 	}
-	printf("\n-------------------- \n\n");
+//	printf("\n-------------------- \n\n");
 	while (move_all_f(move))
 	{
-		printf("\n-------------------- \n\n");
+//		printf("\n-------------------- \n\n");
+		printf("\n");
 	}
 }

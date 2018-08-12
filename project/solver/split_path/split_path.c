@@ -122,9 +122,11 @@ void deb_split(t_finder finder)
 size_t split_all_path(t_finder finder, t_map map)
 {
 	t_dll_l cur_working_link;
+	int i = 0;
 
-	while (finder->working_path->length < 2500000 &&
-		   finder->working_path->length)
+	//	while (i <= 10 && finder->working_path->length < 150000 &&
+	//		   finder->working_path->length)
+	while (finder->working_path->length)
 	{
 		cur_working_link = finder->working_path->top;
 		while (cur_working_link)
@@ -134,6 +136,8 @@ size_t split_all_path(t_finder finder, t_map map)
 		}
 		deb_split(finder);
 		clean_woking(finder);
+		printf("%d %zu\n", i, finder->working_path->length);
+		i++;
 	}
 	return (TRUE);
 }

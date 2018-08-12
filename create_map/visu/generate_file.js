@@ -1,4 +1,4 @@
-const generate_all_rec = (nb_room, distance, size_line, tab) => {
+const generate_all_rec = (nb_room, distance, size_line, tab, fullitute = 2) => {
   // magane rec
   let rec
   let name_room = 1
@@ -14,7 +14,7 @@ const generate_all_rec = (nb_room, distance, size_line, tab) => {
   for (let i = 0; i < nb_room; ++i)
   {
 
-	if (Math.floor(Math.random() * (10)) >= 2)
+	if (Math.floor(Math.random() * (10)) >= fullitute)
 	{
 	  rec = print_room_visu(`${name_room} ${x} ${y}`, CANVAS)
 	  if (i >= start)
@@ -38,14 +38,54 @@ const generate_all_rec = (nb_room, distance, size_line, tab) => {
 	  x = 0
 	}
   }
-
 }
 
 
-const generate_tab = (nb_room  = 100,
-					  distance = 200,
-					  mode_rec = false,
-					  connection = 1
+const generate_all_rec_hard = (nb_room, distance, size_line, tab) => {
+  // magane rec
+  let rec
+  let name_room = 1
+  let x = 0
+  let y = 0
+
+  // je set start et end
+  start = Math.floor(Math.random() * (nb_room - 1))
+  end = Math.floor(Math.random() * (nb_room - 1))
+  if (start === end)
+	start = Math.floor(Math.random() * (nb_room - 1))
+
+  for (let i = 0; i < nb_room; ++i)
+  {
+
+	rec = print_room_visu(`${name_room} ${x} ${y}`, CANVAS)
+	if (i >= start)
+	{
+	  make_start(rec)
+	  start = nb_room + 1
+	}
+	if (i >= end)
+	{
+	  make_end(rec)
+	  end = nb_room + 1
+	}
+	tab.push(rec)
+	name_room++
+
+	x += distance
+	if (x >= size_line)
+	{
+	  y += distance
+	  x = 0
+	}
+  }
+}
+
+
+const generate_tab = (nb_room    = 100,
+					  distance   = 200,
+					  mode_rec   = false,
+					  connection = 1,
+					  hard       = 2
 ) =>
 {
   let size_line = 5000
@@ -58,38 +98,68 @@ const generate_tab = (nb_room  = 100,
 
 
   let tab = []
-  generate_all_rec(nb_room, distance, size_line, tab)
 
 
   let tab_connec = []
   let conenction_print = []
 
-
-  let max = tab.length
-  nb_room *= connection
-  for (let i = 0; i < nb_room; ++i)
+  if (hard === 0)
   {
-	room_1 = tab[Math.floor(Math.random() * max)]
-	room_2 = tab[Math.floor(Math.random() * max)]
-	if (room_1 === room_2)
-	  continue
-	let tab_check = conenction_print.filter((el) => {
-	  let split = el.split("-")
-	  if (split.length > 1)
-		if (
-		  (parseInt(split[0]) === room_1.my || parseInt(split[0]) === room_2.my)
-		  &&
-		  (parseInt(split[1]) === room_1.my || parseInt(split[1]) === room_2.my)
-		)
-		  return (true)
-	})
-	if (tab_check.length === 0)
+	generate_all_rec_hard(598, 50, 1300, tab)
+
+	for (let i = 0; i < 22; ++i)
 	{
-	  tab_connec.push(draw_line_visu(CANVAS))
-	  if (room_1.my > room_2.my)
-		conenction_print.push(`${room_1.my}-${room_2.my}\n`)
-	  else
-		conenction_print.push(`${room_2.my}-${room_1.my}\n`)
+	  for (let y = 0; y < 26 - 1; ++y)
+	  {
+		room_1 = tab[y + i * 26]
+		room_2 = tab[y + 1 + i * 26]
+		tab_connec.push(draw_line_visu(CANVAS))
+
+		if (room_1.my > room_2.my)
+		  conenction_print.push(`${room_1.my}-${room_2.my}\n`)
+		else
+		  conenction_print.push(`${room_2.my}-${room_1.my}\n`)
+
+		room_2 = tab[y + (i + 1) * 26]
+		tab_connec.push(draw_line_visu(CANVAS))
+
+		if (room_1.my > room_2.my)
+		  conenction_print.push(`${room_1.my}-${room_2.my}\n`)
+		else
+		  conenction_print.push(`${room_2.my}-${room_1.my}\n`)
+	  }
+	}
+  }
+
+
+  else {
+	generate_all_rec(nb_room, distance, size_line, tab, hard)
+	let max = tab.length
+	nb_room *= connection
+	for (let i = 0; i < nb_room; ++i)
+	{
+	  room_1 = tab[Math.floor(Math.random() * max)]
+	  room_2 = tab[Math.floor(Math.random() * max)]
+	  if (room_1 === room_2)
+		continue
+	  let tab_check = conenction_print.filter((el) => {
+		let split = el.split("-")
+		if (split.length > 1)
+		  if (
+			(parseInt(split[0]) === room_1.my || parseInt(split[0]) === room_2.my)
+			&&
+			(parseInt(split[1]) === room_1.my || parseInt(split[1]) === room_2.my)
+		  )
+			return (true)
+	  })
+	  if (tab_check.length === 0)
+	  {
+		tab_connec.push(draw_line_visu(CANVAS))
+		if (room_1.my > room_2.my)
+		  conenction_print.push(`${room_1.my}-${room_2.my}\n`)
+		else
+		  conenction_print.push(`${room_2.my}-${room_1.my}\n`)
+	  }
 	}
   }
   console.log(conenction_print)

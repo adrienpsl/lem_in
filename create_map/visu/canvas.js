@@ -356,26 +356,26 @@ const draw_path = (fourmis) => {
 
 
 	  var rect = new fabric.Rect({
-	  left         : room_1.getCenterPoint().x - 15 ,
-	  top          : room_1.getCenterPoint().y - 16,
-	  width        : 25 ,
-	  height       : 25 ,
-	  stroke       : color[index].color,
-	  fill         : "transparent",
-	  strokeWidth  : 5,
-	  lockMovementX: true,
-	  lockMovementY: true,
-	  hasControls  : false
+		left         : room_1.getCenterPoint().x - 15,
+		top          : room_1.getCenterPoint().y - 16,
+		width        : 25,
+		height       : 25,
+		stroke       : color[index].color,
+		fill         : "transparent",
+		strokeWidth  : 5,
+		lockMovementX: true,
+		lockMovementY: true,
+		hasControls  : false
 	  })
 	  CANVAS.add(rect)
 
 	  //
 	  // var text = new fabric.Text(`${room_1.my}`, {
-		// left      : room_1.getCenterPoint().x - 15,
-		// top       : room_1.getCenterPoint().x - 15,
-		// selectable: false,
-		// fontSize  : 30,
-		// fill     : color[index].color
+	  // left      : room_1.getCenterPoint().x - 15,
+	  // top       : room_1.getCenterPoint().x - 15,
+	  // selectable: false,
+	  // fontSize  : 30,
+	  // fill     : color[index].color
 	  // })
 	  // CANVAS.add(text)
 
@@ -406,7 +406,7 @@ window.onload = function () {
   // console.log(data.path)
   // draw_path(data.path)
   // find_path(14, 11)
-  generate_tab(1400, 70, true, 2)
+  // generate_tab(1400, 70, true, 2, 0)
 
   // setTimeout(draw_map(), 500)
 
