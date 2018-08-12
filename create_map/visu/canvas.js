@@ -160,10 +160,13 @@ const set_input = () => {
 	var file = this.files[0]
 	var reader = new FileReader()
 	reader.onload = function () {
-	  // Entire file
+
+	  /*------------------------------------*\
+	      manage file
+	  \*------------------------------------*/
 	  get_data(this.result)
 	  draw_map()
-
+	  draw_path(data.path)
 	}
 	reader.readAsText(file)
   }
@@ -228,7 +231,7 @@ const make_start = (rect) => {
   start = -1
   rect.start = true
   rect.set({
-	fill: "red"
+	fill: "yellow"
   })
 }
 
@@ -265,7 +268,7 @@ const print_room_visu = (element, canvas) => {
   rect.my = parseInt(name)
 
   var text = new fabric.Text(name, {
-	left: x, top: y, selectable: false, fontSize: 20
+	left: x + 5, top: y, selectable: false, fontSize: 20
   })
   if (tab.length == 4) {
 	if (tab[3] == "s")
@@ -332,8 +335,8 @@ const draw_map = () => {
 }
 
 
-const color = [{color: "blue", marge: 5}, {color: "green", marge: -5},
-  {color: "orange", marge: 10}, {color: "purple", marge: -10}]
+const color = [{color: "blue", marge: 10}, {color: "green", marge: 10},
+  {color: "orange", marge: 10}, {color: "purple", marge: 10}]
 
 const draw_path = (fourmis) => {
   let all_el = CANVAS.getObjects()
@@ -354,25 +357,25 @@ const draw_path = (fourmis) => {
 
 	  var rect = new fabric.Rect({
 	  left         : room_1.getCenterPoint().x - 15 ,
-	  top          : room_1.getCenterPoint().y - 15,
-	  width        : 25 +5,
-	  height       : 25 +5,
+	  top          : room_1.getCenterPoint().y - 16,
+	  width        : 25 ,
+	  height       : 25 ,
 	  stroke       : color[index].color,
 	  fill         : "transparent",
-	  strokeWidth  : 10,
+	  strokeWidth  : 5,
 	  lockMovementX: true,
 	  lockMovementY: true,
 	  hasControls  : false
 	  })
 	  CANVAS.add(rect)
 
-
-	  // var text = new fabric.Text(name, {
+	  //
+	  // var text = new fabric.Text(`${room_1.my}`, {
 		// left      : room_1.getCenterPoint().x - 15,
 		// top       : room_1.getCenterPoint().x - 15,
 		// selectable: false,
-		// fontSize  : 20,
-		// color     : color[index].color
+		// fontSize  : 30,
+		// fill     : color[index].color
 	  // })
 	  // CANVAS.add(text)
 
@@ -381,7 +384,6 @@ const draw_path = (fourmis) => {
 	  // left: x, top: y, selectable: false, fontSize: 20
 	  // })
 
-	  console.log(room_1, room_2)
 	  draw_line_visu_color(CANVAS, color[index].color, color[index].marge)
 	  room_1 = room_2
 	  ii++
@@ -399,12 +401,12 @@ window.onload = function () {
   set_input()
   CANVAS = canvas
 
-  get_data()
-  draw_map()
-  console.log(data.path)
-  draw_path(data.path)
+  // get_data()
+  // draw_map()
+  // console.log(data.path)
+  // draw_path(data.path)
   // find_path(14, 11)
-  // generate_tab(20, 400, true, 3)
+  generate_tab(1400, 70, true, 2)
 
   // setTimeout(draw_map(), 500)
 

@@ -41,9 +41,6 @@ let find_path = (data, start, end) => {
 	  })
 	})
   })
-	fourmis.map((el) => {
-	    console.log(el.path)
-	})
   // console.log(tab_split)
   // console.log(fourmis)
   return fourmis;
