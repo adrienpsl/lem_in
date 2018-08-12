@@ -58,13 +58,11 @@ int is_already_taken2(char *tab_all_taken_room, int name_current_room)
 **			je genere un nouveau link,
 **			je l'ajoute au new_path
 */
-void split_path2(t_map map, t_finder finder, t_path cur_path)
+void split_path2(t_map map, t_finder finder, t_path cur_path, char *tab)
 {
 	char *map_line;
 	t_dll_l path_link;
 	size_t col;
-
-	char *tab = ft_0_new_memory(sizeof(char) * map->col);
 
 	map_line = map->map + (cur_path->room * map->col);
 	col = 0;
@@ -77,6 +75,7 @@ void split_path2(t_map map, t_finder finder, t_path cur_path)
 									  cur_path,
 									  finder->all_path,
 									  cur_path->size + 1);
+			tab[col] = TRUE;
 			dll_add_at_index(path_link, finder->new_path,
 							 finder->new_path->length);
 		}
@@ -84,24 +83,42 @@ void split_path2(t_map map, t_finder finder, t_path cur_path)
 	}
 }
 
-int shortty_baby(t_cache cache, t_data data, t_map map)
+size_t split_all_path2(t_finder finder, t_map map, char *tab)
+{
+	t_dll_l cur_working_link;
+	int i = 0;
+
+	while (finder->working_path->length)
+	{
+		cur_working_link = finder->working_path->top;
+		while (cur_working_link)
+		{
+			split_path2(map, finder, cur_working_link->content, tab);
+			cur_working_link = cur_working_link->next;
+		}
+		//		deb_split(finder);
+		clean_woking(finder);
+		i++;
+	}
+	return (finder->valid_path->length ? TRUE : FALSE);
+}
+
+t_finder shortty_baby(t_cache cache, t_data data, t_map map)
 {
 	t_finder finder;
 	//	t_map path_map;
 	t_dll_l path_l;
+	char *tab = ft_0_new_memory(sizeof(char) * map->col);
 
 	finder = new_finder(data, data->start_room, map, cache);
 
 	path_l = new_path_link(finder->start_room, NULL, finder->all_path, 0);
-	split_path2(map, finder, path_l->content);
+	split_path2(map, finder, path_l->content, tab);
 	clean_woking(finder);
 
-	while (finder->working_path->length)
-	{
-		split_path2(map, finder, path_l->content);
-		clean_woking(finder);
-	}
-	return (TRUE);
+	split_all_path2(finder, map, tab);
+
+	return (finder);
 }
 
 t_move algo(t_cache cache, t_data data, t_map map)
@@ -125,10 +142,9 @@ t_move algo(t_cache cache, t_data data, t_map map)
 		split_all_path(finder, map) == FALSE
 	 )
 	{
-		shortty_baby(cache, data, map);
-		exit(23);
+		finder = shortty_baby(cache, data, map);
+//		exit(23);
 	}
-
 	// si return false --> faire :
 
 	/*------------------------------------*\

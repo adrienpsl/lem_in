@@ -105,14 +105,15 @@ const generate_tab = (nb_room    = 100,
 
   if (hard === 0)
   {
-	generate_all_rec_hard(598, 50, 1300, tab)
+	generate_all_rec_hard(7968, 50, 4800, tab)
 
-	for (let i = 0; i < 22; ++i)
+	let size_ligne_hard = 96
+	for (let i = 0; i < 82; ++i)
 	{
-	  for (let y = 0; y < 26 - 1; ++y)
+	  for (let y = 0; y < size_ligne_hard - 1; ++y)
 	  {
-		room_1 = tab[y + i * 26]
-		room_2 = tab[y + 1 + i * 26]
+		room_1 = tab[y + i * size_ligne_hard]
+		room_2 = tab[y + 1 + i * size_ligne_hard]
 		tab_connec.push(draw_line_visu(CANVAS))
 
 		if (room_1.my > room_2.my)
@@ -120,7 +121,7 @@ const generate_tab = (nb_room    = 100,
 		else
 		  conenction_print.push(`${room_2.my}-${room_1.my}\n`)
 
-		room_2 = tab[y + (i + 1) * 26]
+		room_2 = tab[y + (i + 1) * size_ligne_hard]
 		tab_connec.push(draw_line_visu(CANVAS))
 
 		if (room_1.my > room_2.my)
