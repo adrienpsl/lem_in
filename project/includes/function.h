@@ -27,6 +27,7 @@ typedef struct s_debug_struct_00
 	int print_split;
 	int final_path;
 	char *str_file;
+	int little;
 } t_debug_struct_00;
 typedef t_debug_struct_00 *t_debug_struct;
 
@@ -119,7 +120,7 @@ void find_best_path(t_map map, t_best_path best);
 /*
 **    SHORT ALGO
 */
-t_move short_algo(t_cache cache, t_data data, t_map map);
+t_move algo(t_cache cache, t_data data, t_map map);
 
 
 /*

@@ -37,7 +37,7 @@ int main()
 	lem = ft_0_new_memory(sizeof(t_lem_00));
 	read_and_parse_data(lem);
 	set_up_algo(&lem->algo, lem->data);
-	move = short_algo(&lem->algo.cache, lem->data, &lem->algo.map);
+	move = algo(&lem->algo.cache, lem->data, &lem->algo.map);
 
 	// manage lem
 	//	algo = &lem->algo;
@@ -53,7 +53,7 @@ int main()
 //	    a definir ...
 //	\*------------------------------------*/
 //	t_move move;
-//	move = short_algo(cache, lem->data, map);
+//	move = algo(cache, lem->data, map);
 //
 	manage_move(move);
 //
