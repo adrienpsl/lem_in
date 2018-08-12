@@ -332,21 +332,6 @@ const draw_path = (fourmis) => {
       })
       CANVAS.add(rect)
 
-      //
-      // var text = new fabric.Text(`${room_1.my}`, {
-      // left      : room_1.getCenterPoint().x - 15,
-      // top       : room_1.getCenterPoint().x - 15,
-      // selectable: false,
-      // fontSize  : 30,
-      // fill     : color[index].color
-      // })
-      // CANVAS.add(text)
-
-
-      // var text = new fabric.Text(name, {
-      // left: x, top: y, selectable: false, fontSize: 20
-      // })
-
       draw_line_visu_color(CANVAS, color[index].color, color[index].marge)
       room_1 = room_2
       ii++
@@ -355,26 +340,10 @@ const draw_path = (fourmis) => {
 
   })
 }
+// je supprime toute les fourmis
+// pour chaque ligne de result je cherche la room corecpondante et
+// je la put dans ma map;
 
-
-const test_fu = () => {
-  var tri = new fabric.Triangle({
-    // left: room_1.getCenterPoint().x - 15,
-    left: 55,
-    // top: room_1.getCenterPoint().y - 16,
-    top: 22,
-    width: 25,
-    height: 25,
-    stroke: "#FF0080",
-    fill: "#FF0080",
-    strokeWidth: 5,
-    lockMovementX: true,
-    lockMovementY: true,
-    hasControls: false
-  })
-  CANVAS.add(tri)
-
-}
 
 
 window.onload = function () {
@@ -384,7 +353,6 @@ window.onload = function () {
     get_data()
     draw_map()
     draw_path(data.path)
-    test_fu()
   }
 
 
@@ -393,6 +361,12 @@ window.onload = function () {
   CANVAS = canvas
   // set_input()
   trace_training()
+  let i = 0;
+
+  $("#btn_start").click(() => {
+    mouve_f(i++)
+  })
+
 
   // generate_tab(50, 120, true, 0.5, 8)
 
