@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/all_includes.h"
+#include "../includes/all_includes.h"
 
 int is_free(t_move move, size_t nb_path)
 {

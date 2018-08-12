@@ -123,8 +123,9 @@ size_t split_all_path(t_finder finder, t_map map)
 {
 	t_dll_l cur_working_link;
 	int i = 0;
+//	int y = 0;
 
-	while (i <= 10 &&
+	while (i < 9 &&
 		   finder->working_path->length)
 	{
 		cur_working_link = finder->working_path->top;
@@ -132,10 +133,12 @@ size_t split_all_path(t_finder finder, t_map map)
 		{
 			split_path(map, finder, cur_working_link->content);
 			cur_working_link = cur_working_link->next;
+//			y++;
+//			printf("%d \n", y);
 		}
 		deb_split(finder);
 		clean_woking(finder);
-//		printf("%d %zu\n", i, finder->working_path->length);
+		printf("%d %zu\n", i, finder->working_path->length);
 		i++;
 	}
 	return (finder->valid_path->length ? TRUE : FALSE);

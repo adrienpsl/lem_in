@@ -58,6 +58,7 @@ int lem_getter(t_data data)
 
 	(void) "  je set utils  ";
 	get.utils.fd = open_file(DEBUG->str_file);
+//	get.utils.fd = 0;
 	if (
 	 get_nb_foumis(&get) == FALSE ||
 	 get_room(get.data, &get.utils) == FALSE ||

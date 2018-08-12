@@ -97,7 +97,7 @@ set(
 add_executable(
         ${PROJECT_NAME}
 
-        main.c
+        src/main.c
         ${sources}
         ${header}
 )
