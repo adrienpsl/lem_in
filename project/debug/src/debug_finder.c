@@ -12,11 +12,11 @@
 
 #include "../../includes/all_includes.h"
 
-void print_finder_link(t_dll_l finder_link)
+void print_finder_link(void *finder_link)
 {
 	t_finder finder;
 
-	finder = finder_link->content;
+	finder = finder_link;
 
 	if (finder->working_path)
 	{

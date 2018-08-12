@@ -89,7 +89,7 @@ set(
         ${head}
         ${head_lib}
         ${all_head_lib}
-)
+        project/solver/short_algo/shorty_baby.c)
 #*------------------------------------*\
 #    --  ADD TO PROGRAMME  --
 #*------------------------------------*/

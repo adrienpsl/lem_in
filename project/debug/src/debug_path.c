@@ -23,11 +23,11 @@ void print_cache_list(t_dll_l path_link)
 	printf("%c\n", path->room + 'A');
 }
 
-void print_path_link(t_dll_l link)
+void print_path_link(void *link)
 {
 	t_path path;
 
-	path = link->content;
+	path = link;
 	printf("%d-", path->room + 1);
 }
 
@@ -39,13 +39,6 @@ void print_path_link_nb(t_dll_l link)
 	printf("%d - ", path->room);
 }
 
-void print_list_dll_path(t_dll_l dll_path_link)
-{
-	t_dll list;
-
-	list = dll_path_link->content;
-	dll_func_where(list, print_path_link);
-}
 
 void print_path(t_path path)
 {
@@ -59,18 +52,18 @@ void print_path(t_path path)
 	printf(" \n");
 }
 
-void print_path_dll(t_dll_l link)
+void print_path_dll(void *link)
 {
-	print_path(link->content);
+	print_path(link);
 }
 
-void print_path_dll_order(t_dll_l link)
+void print_path_dll_order(void *link)
 {
 	t_path path;
 	size_t i;
 	size_t ii;
 
-	path = link->content;
+	path = link;
 	i = 0;
 	while (path)
 	{
@@ -81,7 +74,7 @@ void print_path_dll_order(t_dll_l link)
 	while (i)
 	{
 		ii = 0;
-		path = link->content;
+		path = link;
 		while (ii < i)
 		{
 			path = path->prev;
@@ -90,7 +83,7 @@ void print_path_dll_order(t_dll_l link)
 		printf("%c %d -- ", path->room + 'A', path->size);
 		--i;
 	}
-	path = link->content;
+	path = link;
 	printf("%c %d -- ", path->room + 'A', path->size);
 	printf(" \n");
 }

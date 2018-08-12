@@ -73,7 +73,6 @@ void check_data(t_data data)
 {
 	printf("----> nb fourmis : %d\n---- \n", data->nb_fourmis);
 	printf("----> les rooms \n");
-	dll_func(data->room, print_room_dll_l);
 	printf("----\n");
 	printf("----> les tunnels \n");
 	dll_func(data->tunnel, print_tunnel_dll);

@@ -58,8 +58,10 @@ size_t split_all_path(t_finder finder, t_map map);
 
 
 
-
-
+/*
+**    algo
+*/
+t_finder shorty_baby(t_cache cache, t_data data, t_map map);
 
 
 
@@ -73,21 +75,21 @@ size_t split_all_path(t_finder finder, t_map map);
 /*
 **    debugs
 */
-void     print_tunnel_dll(t_dll_l room_link);
+void     print_tunnel_dll(void *room_link);
 void     print_room(t_room room);
 void     print_map(char* tab_room, size_t size_line);
 void     print_cache_list(t_dll_l path_link);
 void     print_line(char* tab_room, size_t size_line, int cur_line);
 void     print_map_taken(char* tab_room, size_t size_line);
-void     print_path_dll(t_dll_l link);
-void	print_path_link(t_dll_l link);
-void     print_list_dll_path(t_dll_l dll_path_link);
+void     print_path_dll(void *link);
+void	print_path_link(void *link);
+void     print_list_dll_path(void *dll_path_link);
 void print_path_map(char *tab_room, size_t size_line, size_t col);
 void print_line_path(char *tab_room, size_t size_line);
 void print_path_link_nb(t_dll_l link);
 void print_line_first(char *tab_room, size_t size_line, int cur_line);
 void print_finder(t_dll finder);
-void print_path_dll_order(t_dll_l link);
+void print_path_dll_order(void *link);
 void print_line_first_int(char *tab_room, size_t size_line, int cur_line);
 
 

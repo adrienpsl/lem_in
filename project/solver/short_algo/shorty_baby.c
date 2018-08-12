@@ -10,23 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*------------------------------------*\
-    changer le fd dans les functions
-\*------------------------------------*/
-
 #include "../../includes/all_includes.h"
-
-t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
-{
-	t_path path;
-
-	path = ft_0_new_memory(sizeof(t_path_00));
-	path->room = room;
-	path->prev = prev;
-	path->size = size;
-	dll_ptr_add_create(path, all_path);
-	return (new_dll_l_ptr(path));
-}
 
 /*
 **	**** VARIABLES
@@ -41,15 +25,9 @@ t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
 **
 **
 */
-int is_already_taken(t_path cur_path, int name_current_room)
+int is_already_taken2(char *tab_all_taken_room, int name_current_room)
 {
-	while (cur_path)
-	{
-		if (cur_path->room == name_current_room)
-			return (TRUE);
-		cur_path = cur_path->prev;
-	}
-	return (FALSE);
+	return (tab_all_taken_room[name_current_room]);
 }
 
 /*
@@ -68,7 +46,7 @@ int is_already_taken(t_path cur_path, int name_current_room)
 **			je genere un nouveau link,
 **			je l'ajoute au new_path
 */
-void split_path(t_map map, t_finder finder, t_path cur_path)
+void split_path2(t_map map, t_finder finder, t_path cur_path, char *tab)
 {
 	char *map_line;
 	t_dll_l path_link;
@@ -79,12 +57,13 @@ void split_path(t_map map, t_finder finder, t_path cur_path)
 	while (col < map->col)
 	{
 		if (map_line[col] &&
-			is_already_taken(cur_path, col) == FALSE)
+			is_already_taken2(tab, col) == FALSE)
 		{
 			path_link = new_path_link(col,
 									  cur_path,
 									  finder->all_path,
 									  cur_path->size + 1);
+			tab[col] = TRUE;
 			dll_add_at_index(path_link, finder->new_path,
 							 finder->new_path->length);
 		}
@@ -92,51 +71,38 @@ void split_path(t_map map, t_finder finder, t_path cur_path)
 	}
 }
 
-void deb_split(t_finder finder)
-{
-	if (DEBUG->print_split)
-	{
-		printf("----> working path -- %lu\n", finder->working_path->length);
-		dll_func(finder->working_path, print_path_dll);
-		printf("---- \n");
-		printf("----> valid path -- %lu \n", finder->valid_path->length);
-		dll_func(finder->valid_path, print_path_dll);
-		printf("---- \n");
-	}
-}
-
-/*
-**	**** VARIABLES
-**	map					>	stock les connections entre toutes les rooms
-**	finder				>	stock les data
-**	cur_working_link	>	stock les data
-**
-**	**** RETURN
-**	=> la taille de working_path
-**
-**	**** MAKING
-**	parcourt les links de working_path
-**	genere avec -- split_path --  les nouveaux path
-**	nettoie et genere un nouveau cache avec --  clean_woking --
-*/
-size_t split_all_path(t_finder finder, t_map map)
+size_t split_all_path2(t_finder finder, t_map map, char *tab)
 {
 	t_dll_l cur_working_link;
 	int i = 0;
 
-	while (i <= 10 &&
-		   finder->working_path->length)
+	while (finder->working_path->length)
 	{
 		cur_working_link = finder->working_path->top;
 		while (cur_working_link)
 		{
-			split_path(map, finder, cur_working_link->content);
+			split_path2(map, finder, cur_working_link->content, tab);
 			cur_working_link = cur_working_link->next;
 		}
-		deb_split(finder);
+		//		deb_split(finder);
 		clean_woking(finder);
-//		printf("%d %zu\n", i, finder->working_path->length);
 		i++;
 	}
 	return (finder->valid_path->length ? TRUE : FALSE);
+}
+
+t_finder shorty_baby(t_cache cache, t_data data, t_map map)
+{
+	t_finder finder;
+	t_dll_l path_l;
+
+	char *tab = ft_0_new_memory(sizeof(char) * map->col);
+	finder = new_finder(data, data->start_room, map, cache);
+	path_l = new_path_link(finder->start_room, NULL, finder->all_path, 0);
+	split_path2(map, finder, path_l->content, tab);
+	clean_woking(finder);
+
+	split_all_path2(finder, map, tab);
+
+	return (finder);
 }

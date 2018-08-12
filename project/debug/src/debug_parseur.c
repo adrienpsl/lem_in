@@ -38,11 +38,11 @@ void     print_all_tunnel(t_dll tunnel_list)
 	link = tunnel_list->top;
 }
 
-void print_room_dll_l(t_dll_l room_link)
+void print_room_dll_l(void *room_ptr)
 {
 	t_room room;
 
-	room = room_link->content;
+	room = room_ptr;
 	ft_printf("%5s || ", room->name);
 	ft_printf("%5d ||", room->x);
 	ft_printf("%5d || ", room->y);
@@ -53,11 +53,11 @@ void print_room_dll_l(t_dll_l room_link)
 	printf(" \n");
 }
 
-void print_tunnel_dll(t_dll_l room_link)
+void print_tunnel_dll(void *room_link)
 {
 	t_tunnel tunnel;
 
-	tunnel = room_link->content;
+	tunnel = room_link;
 
 	ft_printf("%s", tunnel->room_1->name);
 	ft_printf(" - ");

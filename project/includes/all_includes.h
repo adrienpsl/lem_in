@@ -23,7 +23,7 @@
 /*
 **    debug
 */
-void     print_room_dll_l(t_dll_l room_link);
+void print_room_dll_l(void *room_ptr);
 
 
 
