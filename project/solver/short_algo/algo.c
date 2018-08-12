@@ -145,6 +145,11 @@ t_move algo(t_cache cache, t_data data, t_map map)
 		finder = shortty_baby(cache, data, map);
 //		exit(23);
 	}
+	if (finder->valid_path->length == 0)
+	{
+		printf("no solution \n");
+		exit(42);
+	}
 	// si return false --> faire :
 
 	/*------------------------------------*\
