@@ -55,7 +55,7 @@ __ALL_HADER__ = $(shell cd ${__HEADER_DIR__} ; find . -type f -name '*.h' | sed 
 all: push_push
 
 
-push_push: $(__NAME__) clean
+push_push: $(__NAME__)
 
 #*------------------------------------*\
 #    buld and push
@@ -68,7 +68,9 @@ $(__NAME__): $(__OBJ__)
 #	compile project 	################################
 	@$(__CC__) $(__CFLAGS__) -o $(__NAME__) $(__OBJ__) -L${__LIB_FT_PATH__} -lft
 
+	$(shell mv lem ./test)
 	$(__TEXT_1__) $(__NAME__) $(__TEXT_2__)
+
 #*------------------------------------*\
 #    if change into .c
 #*------------------------------------*/

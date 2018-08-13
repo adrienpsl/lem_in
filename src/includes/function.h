@@ -20,13 +20,14 @@
 */
 typedef struct s_debug_struct_00
 {
+	int error_handler;
 	int parseur;
 	int print_err;
 	int map_tunnel;
 	int map_path;
 	int print_split;
 	int final_path;
-	char *str_file;
+	int fd_file;
 	int little;
 } t_debug_struct_00;
 

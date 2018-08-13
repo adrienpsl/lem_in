@@ -32,9 +32,9 @@ void print_room_end(void *room_ptr)
 
 	room = room_ptr;
 	if (room->type == L_START)
-	    printf("##start\n");
-	if (room->type ==L_END)
-	    printf("##end\n");;
+		printf("##start\n");
+	if (room->type == L_END)
+		printf("##end\n");;
 	printf("%s %d %d\n", room->name, room->x, room->y);
 }
 
@@ -60,17 +60,23 @@ int main()
 	DEBUG = set_debug();
 
 	t_lem lem;
-	t_move move;
-	lem = ft_0_new_memory(sizeof(t_lem_00));
-	read_and_parse_data(lem);
-	set_up_algo(&lem->algo, lem->data);
-	move = algo(&lem->algo.cache, lem->data, &lem->algo.map);
-	if (move != NULL)
-	{
-		print_data(lem->data);
-		manage_move(move);
-	}
+	t_move move = NULL;
 
+	lem = ft_0_new_memory(sizeof(t_lem_00));
+	if (read_and_parse_data(lem) == TRUE)
+	{
+		set_up_algo(&lem->algo, lem->data);
+		move = algo(&lem->algo.cache, lem->data, &lem->algo.map);
+		if (move != NULL)
+		{
+			print_data(lem->data);
+			manage_move(move);
+		}
+		else
+			printf("no solution\n");
+	}
+	else
+		printf("no solution\n");
 	free_lem(lem);
 	return EXIT_SUCCESS;
 }

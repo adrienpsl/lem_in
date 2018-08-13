@@ -62,16 +62,15 @@ t_dll_l add_room_link(t_data data, t_get_utils utils)
 **	et affiche un message d'erreur en  consequence
 */
 
-
-
 int check_err_room(t_data data)
 {
 	if (data->start_room < 0)
-		ft_error("pas de start");
+		return print_err_retrun_int("pas de start", DEBUG->print_err);
 	if (data->end_room < 0)
-		ft_error("pas de end");
+		return print_err_retrun_int("pas de end", DEBUG->print_err);
 	if (data->start_room == data->end_room)
-		ft_error("start et end sont les memes");
+		return print_err_retrun_int("start et end sont les memes",
+									DEBUG->print_err);
 	return (TRUE);
 }
 
@@ -87,15 +86,18 @@ int get_room(t_data data, t_get_utils utils)
 			utils->type_salle = manage_comment(utils->line);
 		else if (ft_strchr_how_many(utils->line, ' ') == 2)
 		{
-			if (ft_strchr_how_many(utils->line, '-') > 0)
-				return (print_err_retrun_int("- dans le nom de la room",
-											 DEBUG->print_err));
+			if (ft_strchr_how_many(utils->line, '-') > 0 ||
+				utils->line[0] == 'L')
+			{
+				print_err_retrun_int("- dans le nom de la room",
+									 DEBUG->print_err);
+				break;
+			}
 			if (add_room_link(data, utils) == FALSE)
 				break;
 		}
 		else
 			break;
 	}
-	check_err_room(data);
-	return (TRUE);
+	return (check_err_room(data));
 }

@@ -202,7 +202,7 @@ const generate_file = (conenction_print) => {
 	}
   })
   console.log(new_tab)
-  let blob = new Blob([`${nb_fourmis}\n`, ...new_tab, ...conenction_print], {type: "text/plain;charset=ascii"})
+  let blob = new Blob([`10\n`, ...new_tab, ...conenction_print], {type: "text/plain;charset=ascii"})
   saveAs(blob, "map")
 }
 

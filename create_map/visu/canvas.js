@@ -359,14 +359,15 @@ window.onload = function () {
   let canvas = new fabric.StaticCanvas("mon_canvas", {preserveObjectStacking: true})
 
   CANVAS = canvas
-  // set_input()
-  trace_training()
+  set_input()
+  // trace_training()
   let i = 0;
 
   $("#btn_start").click(() => {
     mouve_f(i++)
   })
 
+  // generate_tab(10, 120, true, 2, 0.1)
 
   // generate_tab(50, 120, true, 0.5, 8)
 

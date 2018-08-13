@@ -26,15 +26,17 @@ t_debug_struct set_debug()
 	//	db->print_split = TRUE;
 	//	db->map_path = TRUE;
 	//	db->final_path = TRUE;
-//	db->little = TRUE;
+	//	db->little = TRUE;
 
 	(void) "  set le fichier a check  ";
-		db->str_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2_test";
-		db->str_file = "/Users/adpusel/Dropbox/42/projects/lem_in/src/test/big";
-	//		db->str_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/big";
-//	db->str_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/map (5).txt";
-	//		db->str_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/hard";
-	//	db->str_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/big_2";
+//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2_test";
+//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/src/test/big";
+//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/src/test/fourmis/f_big";
+	db->fd_file = open_file("/Users/adpusel/Dropbox/42/projects/lem_in/rendu/test/3__link/notf_same_link_2");
+	//		db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/big";
+	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/map (5).txt";
+	//		db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/hard";
+	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/big_2";
 
 
 	DEBUG = db;
