@@ -32,13 +32,13 @@ t_debug_struct set_debug()
 	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/test_2_test";
 	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/src/test/big";
 	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/src/test/fourmis/f_big";
-//	db->fd_file = open_file(
-//	 "/Users/adpusel/Dropbox/42/projects/lem_in/rendu/test/3__link/work");
+	//	db->fd_file = open_file(
+	//	 "/Users/adpusel/Dropbox/42/projects/lem_in/rendu/test/3__link/work");
 	//		db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/big";
 	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/map (5).txt";
 	//		db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/hard";
-		db->fd_file = open_file("/Users/adpusel/Dropbox/42/projects/lem_in/rendu/test/3__link_no_work/nopath");
-
+	db->fd_file = open_file(
+	 "/Users/adpusel/Dropbox/42/projects/lem_in/rendu/test/other_good/simple2");
 
 //	db->fd_file = 0;
 

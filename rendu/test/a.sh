@@ -24,7 +24,10 @@ function run_test()
 }
 
 
-run_test "1__bad_ants"
-run_test "2__err_room"
-run_test "3__link_no_work"
-run_test "4__link_work"
+#run_test "1__bad_ants"
+#run_test "2__err_room"
+#run_test "3__link_no_work"
+#run_test "4__link_work"
+#run_test "5__comment"
+run_test "other_test"
+run_test "other_good"

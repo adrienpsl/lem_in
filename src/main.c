@@ -77,6 +77,7 @@ int main()
 	}
 	else
 		printf("no solution\n");
+	print_data(lem->data);
 	free_lem(lem);
 	return EXIT_SUCCESS;
 }

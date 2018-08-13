@@ -74,7 +74,7 @@ int get_tunnel(t_data data, t_get_utils utils)
 {
 	int last_line = 1;
 
-	while (utils->line && (last_line || ask_gnl(utils->fd, &utils->line, NULL)))
+	while (utils->line && (last_line || ask_gnl(utils->fd, &utils->line, NULL))
 	{
 		if (utils->line[0] == '#')
 			continue;
