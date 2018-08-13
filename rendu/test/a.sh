@@ -25,5 +25,5 @@ function run_test()
 
 
 #run_test "1__bad_ants"
-#run_test "2__err_room"
-run_test "3__link"
+run_test "2__err_room"
+#run_test "3__link"
