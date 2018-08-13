@@ -367,7 +367,6 @@ window.onload = function () {
     mouve_f(i++)
   })
 
-  // generate_tab(10, 120, true, 2, 0.1)
 
   // generate_tab(50, 120, true, 0.5, 8)
 

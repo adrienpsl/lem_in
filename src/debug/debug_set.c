@@ -37,10 +37,10 @@ t_debug_struct set_debug()
 	//		db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/big";
 	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/map (5).txt";
 	//		db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/hard";
-	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/big_2";
+		db->fd_file = open_file("/Users/adpusel/Dropbox/42/projects/lem_in/rendu/test/3__link_no_work/nopath");
 
 
-	db->fd_file = 0;
+//	db->fd_file = 0;
 
 	DEBUG = db;
 	return (db);
