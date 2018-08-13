@@ -138,7 +138,7 @@ size_t split_all_path(t_finder finder, t_map map)
 		}
 		deb_split(finder);
 		clean_woking(finder);
-		printf("%d %zu\n", i, finder->working_path->length);
+//		printf("%d %zu\n", i, finder->working_path->length);
 		i++;
 	}
 	return (finder->valid_path->length ? TRUE : FALSE);

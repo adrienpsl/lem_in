@@ -61,7 +61,7 @@ int build_tunnel_link(t_data data, t_get_utils utils)
 	room_2 = link ? link->content : NULL;
 	if (room_1 && room_2)
 		tunnel_link = new_tunnel_link(room_1, room_2);
-	if (dll_find(data->tunnel,
+	if (tunnel_link && dll_find(data->tunnel,
 				 check_same_tunnel_link,
 				 tunnel_link->content) != NULL)
 		destroy_dll_l(&tunnel_link);
