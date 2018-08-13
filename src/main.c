@@ -7,12 +7,16 @@ void set_up()
 	setbuf(stdout, NULL);
 }
 
-void set_up_algo(t_algo algo, t_data data)
+void set_up_algo(t_lem lem, t_data data)
 {
 	t_map map;
 	t_cache cache;
+	t_algo algo;
 
 	(void) "  set up cache  ";
+	lem->algo = ft_0_new_memory(sizeof(t_algo_00));
+	algo = lem->algo;
+
 	cache = &algo->cache;
 	cache->all_path = new_dll();
 	cache->valid_path = new_dll();
@@ -65,19 +69,18 @@ int main()
 	lem = ft_0_new_memory(sizeof(t_lem_00));
 	if (read_and_parse_data(lem) == TRUE)
 	{
-		set_up_algo(&lem->algo, lem->data);
-		move = algo(&lem->algo.cache, lem->data, &lem->algo.map);
+		set_up_algo(lem, lem->data);
+		move = algo(&lem->algo->cache, lem->data, &lem->algo->map);
 		if (move != NULL)
 		{
 			print_data(lem->data);
 			manage_move(move);
 		}
-		else
-			printf("no solution\n");
+//		else
+//			printf("no solution\n");
 	}
-	else
-		printf("no solution\n");
-	print_data(lem->data);
+//	else
+//		printf("no solution\n");
 	free_lem(lem);
 	return EXIT_SUCCESS;
 }

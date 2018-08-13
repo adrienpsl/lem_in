@@ -24,7 +24,7 @@
 typedef struct s_lem
 {
 	t_data data;
-	t_algo_00 algo;
+	t_algo algo;
 } t_lem_00;
 
 typedef t_lem_00 *t_lem;

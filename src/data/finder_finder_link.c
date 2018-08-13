@@ -31,14 +31,6 @@ t_finder new_finder(t_data data, int new_room_start, t_map map, t_cache cache)
 	return (finder);
 }
 
-void destroy_finder(t_finder finder)
-{
-	free(finder->taken_room);
-	destroy_dll_func(&finder->working_path, dll_l_notfree_content);
-	destroy_dll_func(&finder->new_path, dll_l_notfree_content);
-	free(finder);
-}
-
 
 t_dll_l new_finder_link(t_data data, t_map map, int new_start_room, t_cache cache)
 {

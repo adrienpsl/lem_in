@@ -76,7 +76,7 @@ size_t split_all_path2(t_finder finder, t_map map, char *tab)
 	t_dll_l cur_working_link;
 	int i = 0;
 
-	while (finder->working_path->length)
+	while (finder->valid_path->length == 0 && finder->working_path->length)
 	{
 		cur_working_link = finder->working_path->top;
 		while (cur_working_link)
@@ -84,7 +84,6 @@ size_t split_all_path2(t_finder finder, t_map map, char *tab)
 			split_path2(map, finder, cur_working_link->content, tab);
 			cur_working_link = cur_working_link->next;
 		}
-		//		deb_split(finder);
 		clean_woking(finder);
 		i++;
 	}
@@ -97,12 +96,30 @@ t_finder shorty_baby(t_cache cache, t_data data, t_map map)
 	t_dll_l path_l;
 
 	char *tab = ft_0_new_memory(sizeof(char) * map->col);
+
+
 	finder = new_finder(data, data->start_room, map, cache);
+
+
+
 	path_l = new_path_link(finder->start_room, NULL, finder->all_path, 0);
+
+
+
 	split_path2(map, finder, path_l->content, tab);
+
+
+
+
 	clean_woking(finder);
 
+
+
+
+	destroy_dll_l_func(&path_l, dll_l_notfree_content);
+
 	split_all_path2(finder, map, tab);
+	free(tab);
 
 	return (finder);
 }
