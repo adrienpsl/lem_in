@@ -59,6 +59,22 @@ void print_data(t_data data)
 	printf(" \n");
 }
 
+void kill_move(t_move move, size_t lim)
+{
+	t_real_path real;
+	size_t i = 0;
+
+	while (i < lim)
+	{
+		real = move->tab[i];
+		destroy_dll(&real->list_path);
+		free(real);
+		++i;
+	}
+	free(move->tab);
+	free(move);
+}
+
 int main()
 {
 	set_up();
@@ -76,6 +92,7 @@ int main()
 		{
 			print_data(lem->data);
 			manage_move(move);
+			kill_move(move, move->size_tab);
 		}
 //		else
 //			printf("no solution\n");

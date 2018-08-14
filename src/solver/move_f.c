@@ -102,6 +102,7 @@ int move_all_f(t_move move)
 	int res;
 
 	i = 0;
+	res = 0;
 	while (i < move->size_tab)
 	{
 		res =

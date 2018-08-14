@@ -43,7 +43,7 @@ t_move is_solution(t_finder finder, t_data data)
 	//	\*------------------------------------*/
 	best = new_best_path(path_map->line);
 	find_best_path(path_map, best);
-	//	return (new_move(data, &best->data, finder));
+	move = new_move(data, &best->data, finder);
 
 	free_str(&best->cache.tab);
 	free_str(&best->data.tab);
@@ -55,9 +55,8 @@ t_move is_solution(t_finder finder, t_data data)
 t_move algo(t_cache cache, t_data data, t_map map)
 {
 	t_finder finder;
-
+	t_move move = NULL;
 	t_dll_l path_l;
-	(void) path_l;
 
 	finder = new_finder(data, data->start_room, map, cache);
 
@@ -76,12 +75,8 @@ t_move algo(t_cache cache, t_data data, t_map map)
 		destroy_finder(finder);
 		finder = shorty_baby(cache, data, map);
 	}
-
 	if (finder->valid_path->length > 0)
-	{
-		is_solution(finder, data);
-	}
+		move = is_solution(finder, data);
 	destroy_finder(finder);
-
-	return (NULL);
+	return (move);
 }

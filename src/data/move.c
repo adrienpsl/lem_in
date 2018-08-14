@@ -104,6 +104,5 @@ t_move new_move(t_data data, t_b_path best_path, t_finder finder)
 	fill_tab(best_path, finder, move->tab, data->room);
 	if (DEBUG->final_path)
 		printf("----\n");
-
 	return (move);
 }
