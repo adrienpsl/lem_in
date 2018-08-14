@@ -12,7 +12,7 @@
 
 #include "../../includes/all_includes.h"
 
-void * destroy_finder(t_finder finder)
+void *destroy_finder(t_finder finder)
 {
 	free(finder->taken_room);
 	destroy_dll_func(&finder->working_path, dll_l_notfree_content);
@@ -21,11 +21,41 @@ void * destroy_finder(t_finder finder)
 	return (NULL);
 }
 
+//static t_move algo_end(t_move move, t_map map, t_finder finder)
+//{
+//
+//	destroy_map(map);
+//	destroy_finder(finder);
+//	return (move);
+//}
+
+t_move is_solution(t_finder finder, t_data data)
+{
+	t_move move;
+	t_map path_map;
+	t_best_path best;
+
+	move = NULL;
+
+	path_map = generate_path_map(data->room, finder->valid_path);
+	//	/*------------------------------------*\
+//	    trie les path
+	//	\*------------------------------------*/
+	best = new_best_path(path_map->line);
+	find_best_path(path_map, best);
+	//	return (new_move(data, &best->data, finder));
+
+	free_str(&best->cache.tab);
+	free_str(&best->data.tab);
+	free(best);
+	destroy_map(path_map);
+	return (move);
+}
+
 t_move algo(t_cache cache, t_data data, t_map map)
 {
 	t_finder finder;
-	t_map path_map;
-	//	t_best_path best;
+
 	t_dll_l path_l;
 	(void) path_l;
 
@@ -46,23 +76,12 @@ t_move algo(t_cache cache, t_data data, t_map map)
 		destroy_finder(finder);
 		finder = shorty_baby(cache, data, map);
 	}
-	if (finder->valid_path->length == 0)
-		return (destroy_finder(finder));
-	//	// si return false --> faire :
-	//
-	//	/*------------------------------------*\
-//	    genere la map des path
-	//	\*------------------------------------*/
-		path_map = generate_path_map(data->room, finder->valid_path);
-	//
-	//	/*------------------------------------*\
-//	    trie les path
-	//	\*------------------------------------*/
-	//	best = new_best_path(path_map->line);
-	//	find_best_path(path_map, best);
-	//	return (new_move(data, &best->data, finder));
-	// clear finder
-	destroy_map(path_map);
+
+	if (finder->valid_path->length > 0)
+	{
+		is_solution(finder, data);
+	}
 	destroy_finder(finder);
+
 	return (NULL);
 }

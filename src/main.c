@@ -22,7 +22,8 @@ void set_up_algo(t_lem lem, t_data data)
 	cache->valid_path = new_dll();
 	cache->end_room = data->end_room;
 	(void) "  set up map  ";
-	map = &algo->map;
+	algo->map = ft_0_new_memory(sizeof(t_map_00));
+	map = algo->map;
 	map->col = data->room->length;
 	map->line = data->room->length;
 	map->size = data->room->length * data->room->length;
@@ -70,7 +71,7 @@ int main()
 	if (read_and_parse_data(lem) == TRUE)
 	{
 		set_up_algo(lem, lem->data);
-		move = algo(&lem->algo->cache, lem->data, &lem->algo->map);
+		move = algo(&lem->algo->cache, lem->data, lem->algo->map);
 		if (move != NULL)
 		{
 			print_data(lem->data);

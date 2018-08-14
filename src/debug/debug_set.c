@@ -38,7 +38,7 @@ t_debug_struct set_debug()
 	//	db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/map (5).txt";
 	//		db->fd_file = "/Users/adpusel/Dropbox/42/projects/lem_in/project/test/hard";
 	db->fd_file = open_file(
-	 "/Users/adpusel/Dropbox/42/projects/lem_in/rendu/test/test_violent/test_2");
+	 "/Users/adpusel/code/42/lem_in/rendu/test/test_violent/test_2");
 
 //	db->fd_file = 0;
 

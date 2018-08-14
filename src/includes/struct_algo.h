@@ -53,7 +53,7 @@ typedef t_cache_00 *t_cache;
 typedef struct s_algo_00
 {
 	t_cache_00 cache;
-	t_map_00 map;
+	t_map map;
 } t_algo_00;
 
 typedef t_algo_00 *t_algo;

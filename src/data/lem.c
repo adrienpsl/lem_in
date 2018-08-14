@@ -15,7 +15,7 @@
 
 void kill_algo(t_algo algo)
 {
-	destroy_map(&algo->map);
+	destroy_map(algo->map);
 	destroy_dll(&algo->cache.all_path);
 	destroy_dll_func(&algo->cache.valid_path, dll_l_notfree_content);
 //	destroy_dll(&algo->cache.valid_path);
