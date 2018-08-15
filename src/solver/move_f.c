@@ -51,11 +51,9 @@ int add_f(t_move move, size_t nb_path, int f_nb)
 int put_f_all_start(t_move move)
 {
 	size_t path;
-	int *L;
 	static int f = 0;
 
 	path = 0;
-	L = &f;
 	while (path < move->size_tab &&
 		   move->nb_fourmis > f)
 	{

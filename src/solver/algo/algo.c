@@ -77,6 +77,6 @@ t_move algo(t_cache cache, t_data data, t_map map)
 	}
 	if (finder->valid_path->length > 0)
 		move = is_solution(finder, data);
-	destroy_finder(finder);
+//	destroy_finder(finder);
 	return (move);
 }
