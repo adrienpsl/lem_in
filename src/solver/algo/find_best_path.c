@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   find_best_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
-/*   Updated: 2017/11/16 12:45:50 by adpusel          ###   ########.fr       */
+/*   Created: 2018/08/17 15:46:36 by mipham            #+#    #+#             */
+/*   Updated: 2018/08/17 15:51:42 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/all_includes.h"
 
-/*------------------------------------*\
-    faux si les deux ligne sont vide au meme endroit
-\*------------------------------------*/
-int cmp_line(char *cur_line, char *line, size_t lim)
+int		cmp_line(char *cur_line, char *line, size_t lim)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
-	//	print_line_first(cur_line, lim, 1);
-	//	print_line_first(line, lim, 25);
 	if (cur_line == line)
 		return (TRUE);
 	while (i < lim)
@@ -33,19 +28,17 @@ int cmp_line(char *cur_line, char *line, size_t lim)
 	return (FALSE);
 }
 
-int test_prev_good_path(t_map map, t_b_path cache, int cur_line)
+int		test_prev_good_path(t_map map, t_b_path cache, int cur_line)
 {
-	size_t col;
+	size_t		col;
 
 	col = 0;
-	//	print_line_first_int(best->cur_tab_good_path, map->line, 1);
 	while (col < map->col)
 	{
 		if (cache->tab[col] == TRUE)
 		{
 			if (cmp_line(map->map + (col * map->col),
-						 map->map + (cur_line * map->col),
-						 map->col) == TRUE)
+						map->map + (cur_line * map->col), map->col) == TRUE)
 				return (FALSE);
 		}
 		++col;
@@ -53,23 +46,22 @@ int test_prev_good_path(t_map map, t_b_path cache, int cur_line)
 	return (TRUE);
 }
 
-/*------------------------------------*\
-	return le nombre de chemin entierement different du path que j'envoie
- 	et les print dans best path
- 	les path doivents aussi etre differents des path deja get
-\*------------------------------------*/
-void test_current_path(t_map map, t_b_path cache, int cur_line)
+/*
+**	return le nombre de chemin entierement different du path que j'envoie
+** 	et les print dans best path
+** 	les path doivents aussi etre differents des path deja get
+*/
+
+void	test_current_path(t_map map, t_b_path cache, int cur_line)
 {
-	size_t line;
+	size_t	line;
 
 	line = 0;
 	while (line < map->line)
 	{
 		if (cmp_line(map->map + (line * map->col),
-					 map->map + (cur_line * map->col),
-					 map->col) == FALSE
-			&& test_prev_good_path(map, cache, line) == TRUE
-		 )
+					map->map + (cur_line * map->col), map->col) == FALSE
+				&& test_prev_good_path(map, cache, line) == TRUE)
 		{
 			cache->tab[line] = TRUE;
 			cache->nb += 1;
@@ -91,15 +83,13 @@ void test_current_path(t_map map, t_b_path cache, int cur_line)
 **		je reset le cache
 */
 
-void is_bettre_best_path(t_best_path best, int cur_line, size_t nb_path)
+void	is_bettre_best_path(t_best_path best, int cur_line, size_t nb_path)
 {
-
-	t_b_path cache;
-	t_b_path data;
+	t_b_path	cache;
+	t_b_path	data;
 
 	cache = &best->cache;
 	data = &best->data;
-
 	if (data->nb < cache->nb)
 	{
 		data->line = cur_line;
@@ -111,22 +101,9 @@ void is_bettre_best_path(t_best_path best, int cur_line, size_t nb_path)
 	cache->nb = 0;
 }
 
-/*
-**	**** VARIABLES
-**	map			>	all_path x nb_room
-**	best_line	> 	save le nb de path different compatible d'in path avec un autre
-**
-**
-**	**** RETURN
-**	=> le best past
-**
-**	**** MAKING
-**	genere le best_line, que apres je set dedans
-*/
-
-void find_best_path(t_map map, t_best_path best)
+void	find_best_path(t_map map, t_best_path best)
 {
-	size_t line;
+	size_t		line;
 
 	line = 0;
 	while (line < map->line)
@@ -137,10 +114,10 @@ void find_best_path(t_map map, t_best_path best)
 		best->data.tab[best->data.line] = TRUE;
 		++line;
 	}
-		if (DEBUG->map_path)
-		{
-			ft_printf("----> les chemins independants \n");
-			print_line_first_int(best->data.tab, map->line, 0);
-			ft_printf("---- \n");
-		}
+	if (DEBUG->map_path)
+	{
+		ft_printf("----> les chemins independants \n");
+		print_line_first_int(best->data.tab, map->line, 0);
+		ft_printf("---- \n");
+	}
 }

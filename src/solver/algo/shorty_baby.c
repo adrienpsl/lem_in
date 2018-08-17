@@ -6,51 +6,22 @@
 /*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
-/*   Updated: 2017/11/16 12:45:50 by adpusel          ###   ########.fr       */
+/*   Updated: 2018/08/17 16:05:27 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/all_includes.h"
 
-/*
-**	**** VARIABLES
-**	cur_path			>	list des room deja traverser par ce path
-**	name_current_room	>	room linker avec la cur_room
-**
-**	**** RETURN
-**	=> TRUE if the room if name_current_room is in cur_path
-**
-**	**** MAKING
-**	Parcours tout les path precedent et compare a cur_room
-**
-**
-*/
-int is_already_taken2(char *tab_all_taken_room, int name_current_room)
+int		is_already_taken2(char *tab_all_taken_room, int name_current_room)
 {
 	return (tab_all_taken_room[name_current_room]);
 }
 
-/*
-**	**** VARIABLES
-**	map			>	stock les connections entre toutes les rooms
-**	finder		>	stock les data
-**	cur_path	>	room dont je cherche les path
-**
-**	**** RETURN
-**	=>//
-**
-**	**** MAKING
-**	charge la ligne de la map de cur_path
-**	tant que col < taille map
-**		si room est connecter avec cur_room et pas deja parcouru
-**			je genere un nouveau link,
-**			je l'ajoute au new_path
-*/
-void split_path2(t_map map, t_finder finder, t_path cur_path, char *tab)
+void	split_path2(t_map map, t_finder finder, t_path cur_path, char *tab)
 {
-	char *map_line;
-	t_dll_l path_link;
-	size_t col;
+	char		*map_line;
+	t_dll_l		path_link;
+	size_t		col;
 
 	map_line = map->map + (cur_path->room * map->col);
 	col = 0;
