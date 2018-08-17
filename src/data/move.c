@@ -6,13 +6,13 @@
 /*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
-/*   Updated: 2018/08/17 15:10:40 by mipham           ###   ########.fr       */
+/*   Updated: 2018/08/17 16:41:14 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/all_includes.h"
 
-t_dll_l	dll_ptr_at_index(t_dll room_list, size_t i)
+t_dll_l		dll_ptr_at_index(t_dll room_list, size_t i)
 {
 	t_dll_l	link;
 
@@ -25,7 +25,7 @@ t_dll_l	dll_ptr_at_index(t_dll room_list, size_t i)
 	return (link);
 }
 
-t_dll	good_list(t_path path, t_dll room_list)
+t_dll		good_list(t_path path, t_dll room_list)
 {
 	t_dll		path_list;
 	t_dll_l		link_room;

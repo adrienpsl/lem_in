@@ -6,7 +6,7 @@
 /*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
-/*   Updated: 2017/11/16 12:45:50 by adpusel          ###   ########.fr       */
+/*   Updated: 2018/08/17 16:40:34 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,15 @@ void	get_max_path(t_data data, t_map map_ptr)
 	int		start;
 	size_t	i;
 
-	i = 0;
+	i = -1;
 	map = map_ptr->map + (data->start_room * map_ptr->col);
 	print_map(map, map_ptr->col);
 	print_line_first(map, map_ptr->col, 1);
 	end = 0;
-	while (i < map_ptr->col)
+	while (++i < map_ptr->col)
 	{
 		if (map[i] == 1)
 			end++;
-		++i;
 	}
 	i = 0;
 	map = map_ptr->map + (data->end_room * map_ptr->col);
@@ -76,8 +75,9 @@ void	fill_map_with_tunnel(t_data data, t_map map)
 t_dll_l	new_tunnel_link(t_room room_1, t_room room_2)
 {
 	t_tunnel_00		tunnel;
-	t_dll_l			tunnel_link = NULL;
+	t_dll_l			tunnel_link;
 
+	tunnel_link = NULL;
 	tunnel.room_1 = room_1;
 	tunnel.room_2 = room_2;
 	tunnel_link = new_dll_l(&tunnel, sizeof(t_tunnel_00));

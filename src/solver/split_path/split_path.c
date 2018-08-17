@@ -6,19 +6,15 @@
 /*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
-/*   Updated: 2017/11/16 12:45:50 by adpusel          ###   ########.fr       */
+/*   Updated: 2018/08/17 16:38:05 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*------------------------------------*\
-    changer le fd dans les functions
-\*------------------------------------*/
-
 #include "../../includes/all_includes.h"
 
-t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
+t_dll_l		new_path_link(int room, t_path prev, t_dll all_path, int size)
 {
-	t_path path;
+	t_path	path;
 
 	path = ft_0_new_memory(sizeof(t_path_00));
 	path->room = room;
@@ -29,19 +25,16 @@ t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size)
 }
 
 /*
-**	**** VARIABLES
+** VARIABLES
 **	cur_path			>	list des room deja traverser par ce path
 **	name_current_room	>	room linker avec la cur_room
-**
 **	**** RETURN
 **	=> TRUE if the room if name_current_room is in cur_path
-**
 **	**** MAKING
 **	Parcours tout les path precedent et compare a cur_room
-**
-**
 */
-int is_already_taken(t_path cur_path, int name_current_room)
+
+int			is_already_taken(t_path cur_path, int name_current_room)
 {
 	while (cur_path)
 	{
@@ -68,31 +61,30 @@ int is_already_taken(t_path cur_path, int name_current_room)
 **			je genere un nouveau link,
 **			je l'ajoute au new_path
 */
-void split_path(t_map map, t_finder finder, t_path cur_path)
+
+void		split_path(t_map map, t_finder finder, t_path cur_path)
 {
-	char *map_line;
-	t_dll_l path_link;
-	size_t col;
+	char	*map_line;
+	t_dll_l	path_link;
+	size_t	col;
 
 	map_line = map->map + (cur_path->room * map->col);
 	col = 0;
 	while (col < map->col)
 	{
-		if (map_line[col] &&
-			is_already_taken(cur_path, col) == FALSE)
+		if (map_line[col]
+				&& is_already_taken(cur_path, col) == FALSE)
 		{
-			path_link = new_path_link(col,
-									  cur_path,
-									  finder->all_path,
-									  cur_path->size + 1);
+			path_link = new_path_link(col, cur_path,
+					finder->all_path, cur_path->size + 1);
 			dll_add_at_index(path_link, finder->new_path,
-							 finder->new_path->length);
+					finder->new_path->length);
 		}
 		++col;
 	}
 }
 
-void deb_split(t_finder finder)
+void		deb_split(t_finder finder)
 {
 	if (DEBUG->print_split)
 	{
@@ -119,26 +111,22 @@ void deb_split(t_finder finder)
 **	genere avec -- split_path --  les nouveaux path
 **	nettoie et genere un nouveau cache avec --  clean_woking --
 */
-size_t split_all_path(t_finder finder, t_map map)
-{
-	t_dll_l cur_working_link;
-	int i = 0;
-//	int y = 0;
 
-	while (i < 9 &&
-		   finder->working_path->length)
+size_t		split_all_path(t_finder finder, t_map map)
+{
+	t_dll_l		cur_working_link;
+	static int	i = 0;
+
+	while (i < 9 && finder->working_path->length)
 	{
 		cur_working_link = finder->working_path->top;
 		while (cur_working_link)
 		{
 			split_path(map, finder, cur_working_link->content);
 			cur_working_link = cur_working_link->next;
-//			y++;
-//			ft_printf("%d \n", y);
 		}
 		deb_split(finder);
 		clean_woking(finder);
-//		ft_printf("%d %zu\n", i, finder->working_path->length);
 		i++;
 	}
 	return (finder->valid_path->length ? TRUE : FALSE);
