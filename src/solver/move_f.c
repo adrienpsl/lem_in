@@ -37,7 +37,7 @@ int add_f(t_move move, size_t nb_path, int f_nb)
 
 	if (nb_path > 0 && path_more_longh_wait < size)
 		return FALSE;
-	printf("L%d-%s ", f_nb, path->name_room);
+	ft_printf("L%d-%s ", f_nb, path->name_room);
 
 	if (path->room != move->end_room)
 		path->is_full = f_nb;
@@ -88,7 +88,7 @@ int recursif_all_f(t_dll_l link, int new_f, int end_room)
 	if (new_f)
 	{
 		i = 1;
-		printf("L%d-%s ", new_f, path->name_room);
+		ft_printf("L%d-%s ", new_f, path->name_room);
 		path->is_full = path->room != end_room ? new_f : 0;
 	}
 	return (i);
@@ -119,14 +119,14 @@ void manage_move(t_move move)
 {
 	while (put_f_all_start(move))
 	{
-		//		printf("\n-------------------- \n\n");
-		printf("\n");
+		//		ft_printf("\n-------------------- \n\n");
+		ft_printf("\n");
 		move_all_f(move);
 	}
-	printf("\n");
+	ft_printf("\n");
 	while (move_all_f(move))
 	{
-		//		printf("\n-------------------- \n\n");
-		printf("\n");
+		//		ft_printf("\n-------------------- \n\n");
+		ft_printf("\n");
 	}
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   struct_algo.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,13 +15,6 @@
 
 #include "../../libft/include/dll_header.h"
 #include "struct.h"
-
-typedef struct		s_cache_finder_00
-{
-
-} 					t_cache_finder_00;
-typedef t_cache_finder_00 *t_cache_finder;
-
 /*
 **    stocke le cache et les data de recherche de path
 */

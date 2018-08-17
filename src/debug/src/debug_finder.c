@@ -20,7 +20,7 @@ void print_finder_link(void *finder_link)
 
 	if (finder->working_path)
 	{
-		printf("working finder \n");
+		ft_printf("working finder \n");
 		dll_func(finder->working_path, print_path_dll);
 	}
 }
@@ -35,9 +35,9 @@ void print_finder(t_dll finder_list)
 		finder = finder_list->top->content;
 		if (finder->valid_path)
 		{
-			printf("closed finder \n");
+			ft_printf("closed finder \n");
 			dll_func(finder->valid_path, print_path_dll_order);
 		}
 	}
-	printf("------------------------------------------ \n");
+	ft_printf("------------------------------------------ \n");
 }

@@ -67,12 +67,12 @@ int lem_getter(t_data data)
 
 void check_data(t_data data)
 {
-	printf("----> nb fourmis : %d\n---- \n", data->nb_fourmis);
-	printf("----> les rooms \n");
-	printf("----\n");
-	printf("----> les tunnels \n");
+	ft_printf("----> nb fourmis : %d\n---- \n", data->nb_fourmis);
+	ft_printf("----> les rooms \n");
+	ft_printf("----\n");
+	ft_printf("----> les tunnels \n");
 	dll_func(data->tunnel, print_tunnel_dll);
-	printf("---- \n");
+	ft_printf("---- \n");
 }
 
 /*!

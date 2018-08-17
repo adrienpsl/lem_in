@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   lem.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
-/*   Updated: 2017/11/16 12:45:50 by adpusel          ###   ########.fr       */
+/*   Created: 2018/08/17 15:02:33 by mipham            #+#    #+#             */
+/*   Updated: 2018/08/17 15:03:27 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/all_includes.h"
 
-
-void kill_algo(t_algo algo)
+void	kill_algo(t_algo algo)
 {
 	destroy_map(algo->map);
 	destroy_dll(&algo->cache.all_path);
 	destroy_dll_func(&algo->cache.valid_path, dll_l_notfree_content);
-//	destroy_dll(&algo->cache.valid_path);
 	free(algo);
 }
 
-void free_lem(t_lem lem)
+void	free_lem(t_lem lem)
 {
 	if (lem->data != NULL)
 	{

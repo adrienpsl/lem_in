@@ -12,9 +12,9 @@
 
 #include "../includes/all_includes.h"
 
-int same_name(t_dll_l current_link, void *ptr)
+int		same_name(t_dll_l current_link, void *ptr)
 {
-	t_room room;
+	t_room	room;
 
 	room = current_link->content;
 	if (ft_strcmp(room->name, ptr) == 0)
@@ -22,12 +22,12 @@ int same_name(t_dll_l current_link, void *ptr)
 	return (FALSE);
 }
 
-void get_max_path(t_data data, t_map map_ptr)
+void	get_max_path(t_data data, t_map map_ptr)
 {
-	char *map;
-	int end;
-	int start;
-	size_t i;
+	char	*map;
+	int		end;
+	int		start;
+	size_t	i;
 
 	i = 0;
 	map = map_ptr->map + (data->start_room * map_ptr->col);
@@ -52,12 +52,12 @@ void get_max_path(t_data data, t_map map_ptr)
 	data->lim = start > end ? end : start;
 }
 
-void fill_map_with_tunnel(t_data data, t_map map)
+void	fill_map_with_tunnel(t_data data, t_map map)
 {
-	t_dll_l tunnel_link;
-	t_tunnel tunnel;
-	size_t x;
-	size_t y;
+	t_dll_l		tunnel_link;
+	t_tunnel	tunnel;
+	size_t		x;
+	size_t		y;
 
 	tunnel_link = data->tunnel->top;
 	while (tunnel_link)
@@ -73,10 +73,10 @@ void fill_map_with_tunnel(t_data data, t_map map)
 		print_map(map->map, map->col);
 }
 
-t_dll_l new_tunnel_link(t_room room_1, t_room room_2)
+t_dll_l	new_tunnel_link(t_room room_1, t_room room_2)
 {
-	t_tunnel_00 tunnel;
-	t_dll_l tunnel_link = NULL;
+	t_tunnel_00		tunnel;
+	t_dll_l			tunnel_link = NULL;
 
 	tunnel.room_1 = room_1;
 	tunnel.room_2 = room_2;
@@ -84,9 +84,9 @@ t_dll_l new_tunnel_link(t_room room_1, t_room room_2)
 	return (tunnel_link);
 }
 
-void destroy_tunnel(void *ptr_tunnel)
+void	destroy_tunnel(void *ptr_tunnel)
 {
-	static t_tunnel tunnel;
+	static t_tunnel	tunnel;
 
 	tunnel = ptr_tunnel;
 	free(tunnel);

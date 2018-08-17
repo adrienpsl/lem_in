@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "all_includes.h"
-
 #ifndef GETTER_H
 # define GETTER_H
-
+#include "all_includes.h"
 /*
 **    data
 */
@@ -54,4 +52,4 @@ typedef struct		s_getter_00
 } 					t_getter_00;
 typedef t_getter_00 *t_getter;
 
-#endif //LEM_IN_GETTER_H
+#endif

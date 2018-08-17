@@ -47,10 +47,10 @@ void print_room_dll_l(void *room_ptr)
 	ft_printf("%5d ||", room->x);
 	ft_printf("%5d || ", room->y);
 	if (room->type == L_START)
-	    printf("start");
+	    ft_printf("start");
 	if (room->type == L_END)
-		printf("end");
-	printf(" \n");
+		ft_printf("end");
+	ft_printf(" \n");
 }
 
 void print_tunnel_dll(void *room_link)
@@ -62,6 +62,6 @@ void print_tunnel_dll(void *room_link)
 	ft_printf("%s", tunnel->room_1->name);
 	ft_printf(" - ");
 	ft_printf("%s \n", tunnel->room_2->name);
-	//	printf("%d - %d\n", tunnel->room_1, tunnel->room_2);
+	//	ft_printf("%d - %d\n", tunnel->room_1, tunnel->room_2);
 
 }

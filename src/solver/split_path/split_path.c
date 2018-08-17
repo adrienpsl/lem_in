@@ -96,12 +96,12 @@ void deb_split(t_finder finder)
 {
 	if (DEBUG->print_split)
 	{
-		printf("----> working path -- %lu\n", finder->working_path->length);
+		ft_printf("----> working path -- %lu\n", finder->working_path->length);
 		dll_func(finder->working_path, print_path_dll);
-		printf("---- \n");
-		printf("----> valid path -- %lu \n", finder->valid_path->length);
+		ft_printf("---- \n");
+		ft_printf("----> valid path -- %lu \n", finder->valid_path->length);
 		dll_func(finder->valid_path, print_path_dll);
-		printf("---- \n");
+		ft_printf("---- \n");
 	}
 }
 
@@ -134,11 +134,11 @@ size_t split_all_path(t_finder finder, t_map map)
 			split_path(map, finder, cur_working_link->content);
 			cur_working_link = cur_working_link->next;
 //			y++;
-//			printf("%d \n", y);
+//			ft_printf("%d \n", y);
 		}
 		deb_split(finder);
 		clean_woking(finder);
-//		printf("%d %zu\n", i, finder->working_path->length);
+//		ft_printf("%d %zu\n", i, finder->working_path->length);
 		i++;
 	}
 	return (finder->valid_path->length ? TRUE : FALSE);

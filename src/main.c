@@ -3,7 +3,7 @@
 
 void set_up()
 {
-	(void) "  printf dans besoin du \n  ";
+	(void) "  ft_printf dans besoin du \n  ";
 	setbuf(stdout, NULL);
 }
 
@@ -37,10 +37,10 @@ void print_room_end(void *room_ptr)
 
 	room = room_ptr;
 	if (room->type == L_START)
-		printf("##start\n");
+		ft_printf("##start\n");
 	if (room->type == L_END)
-		printf("##end\n");;
-	printf("%s %d %d\n", room->name, room->x, room->y);
+		ft_printf("##end\n");;
+	ft_printf("%s %d %d\n", room->name, room->x, room->y);
 }
 
 void print_tunnel_end(void *tunnel_ptr)
@@ -48,15 +48,15 @@ void print_tunnel_end(void *tunnel_ptr)
 	t_tunnel tunnel;
 
 	tunnel = tunnel_ptr;
-	printf("%s-%s\n", tunnel->room_1->name, tunnel->room_2->name);
+	ft_printf("%s-%s\n", tunnel->room_1->name, tunnel->room_2->name);
 }
 
 void print_data(t_data data)
 {
-	printf("%d \n", data->nb_fourmis);
+	ft_printf("%d \n", data->nb_fourmis);
 	dll_func(data->room, &print_room_end);
 	dll_func(data->tunnel, print_tunnel_end);
-	printf(" \n");
+	ft_printf(" \n");
 }
 
 void kill_move(t_move move, size_t lim)
@@ -95,10 +95,10 @@ int main()
 			kill_move(move, move->size_tab);
 		}
 //		else
-//			printf("no solution\n");
+//			ft_printf("no solution\n");
 	}
 //	else
-//		printf("no solution\n");
+//		ft_printf("no solution\n");
 	free_lem(lem);
 	return EXIT_SUCCESS;
 }

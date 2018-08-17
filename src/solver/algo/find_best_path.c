@@ -139,8 +139,8 @@ void find_best_path(t_map map, t_best_path best)
 	}
 		if (DEBUG->map_path)
 		{
-			printf("----> les chemins independants \n");
+			ft_printf("----> les chemins independants \n");
 			print_line_first_int(best->data.tab, map->line, 0);
-			printf("---- \n");
+			ft_printf("---- \n");
 		}
 }

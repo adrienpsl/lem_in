@@ -93,7 +93,6 @@ void manage_move(t_move move);
 /*
 **    path
 */
-//t_path new_path(int room, t_path prev);
 t_dll_l new_path_link(int room, t_path prev, t_dll all_path, int size);
 void print_path(t_path path);
 t_map generate_path_map(t_dll room, t_dll path_lst);

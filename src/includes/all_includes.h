@@ -25,8 +25,6 @@
 */
 void print_room_dll_l(void *room_ptr);
 
-
-
 /*
 **    DEFINE
 */
@@ -34,4 +32,4 @@ void print_room_dll_l(void *room_ptr);
 #define L_END -1
 
 
-#endif //LEM_IN_ALL_INCLUDES_H
+#endif
