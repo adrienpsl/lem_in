@@ -6,7 +6,7 @@
 /*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
-/*   Updated: 2017/11/16 12:45:50 by adpusel          ###   ########.fr       */
+/*   Updated: 2018/08/17 15:43:34 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ t_dll_l	add_room_link(t_data data, t_get_utils utils)
 {
 	static t_dll_l		room_link;
 	char				**room_splited;
-	static				int i = 0;
+	static int			i = 0;
 
 	room_splited = ft_strsplit(utils->line, ' ');
 	room_link = new_checked_room_link(*room_splited, *(room_splited + 1),
 									*(room_splited + 2), data);
 	if (room_link)
-		((t_room) room_link->content)->type = manage_end_start(i, data, utils);
+		((t_room)room_link->content)->type = manage_end_start(i, data, utils);
 	dll_add_at_index(room_link, data->room, data->room->length);
 	ft_free_split(&room_splited);
 	i++;
@@ -66,14 +66,16 @@ int		check_err_room(t_data data)
 		return (print_err_retrun_int("pas de end", DEBUG->print_err));
 	if (data->start_room == data->end_room)
 		return (print_err_retrun_int("start et end sont les memes",
-									DEBUG->print_err));
-	return (TRUE);
+					DEBUG->print_err));
+	else
+		return (TRUE);
 }
 
 /*
 **si count space == 2 --> je split et donne les 3 a create room_link
 **si pas de space je stop
 */
+
 int		get_room(t_data data, t_get_utils utils)
 {
 	while (ask_gnl(utils->fd, &utils->line, NULL))
@@ -86,14 +88,14 @@ int		get_room(t_data data, t_get_utils utils)
 				utils->line[0] == 'L')
 			{
 				print_err_retrun_int("- dans le nom de la room",
-									 DEBUG->print_err);
-				break;
+						DEBUG->print_err);
+				break ;
 			}
 			if (add_room_link(data, utils) == FALSE)
-				break;
+				break ;
 		}
 		else
-			break;
+			break ;
 	}
 	return (check_err_room(data));
 }

@@ -6,17 +6,13 @@
 /*   By: adpusel <adpusel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 10:48:07 by adpusel           #+#    #+#             */
-/*   Updated: 2017/11/16 12:45:50 by adpusel          ###   ########.fr       */
+/*   Updated: 2018/08/17 15:31:46 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*------------------------------------*\
-    changer le fd dans les functions
-\*------------------------------------*/
-
 #include "../includes/all_includes.h"
 
-int manage_comment(char *comment_str)
+int			manage_comment(char *comment_str)
 {
 	if (ft_strcmp(comment_str, "##start") == 0)
 		return (L_START);
@@ -25,7 +21,7 @@ int manage_comment(char *comment_str)
 	return (FALSE);
 }
 
-int lim_same_coord(t_room current_room, t_room new_room)
+int			lim_same_coord(t_room current_room, t_room new_room)
 {
 	if (current_room->x == new_room->x)
 	{
@@ -38,7 +34,7 @@ int lim_same_coord(t_room current_room, t_room new_room)
 	return (FALSE);
 }
 
-int lim_same_name(t_room current_room, t_room new_room)
+int			lim_same_name(t_room current_room, t_room new_room)
 {
 	if (ft_strcmp(current_room->name, new_room->name) == 0)
 	{
@@ -48,12 +44,12 @@ int lim_same_name(t_room current_room, t_room new_room)
 	return (FALSE);
 }
 
-int is_right_room(t_dll_l link, void *ptr_new_room)
+int			is_right_room(t_dll_l link, void *ptr_new_room)
 {
-	t_room new_room;
-	t_room current_room;
+	t_room	new_room;
+	t_room	current_room;
 
-	new_room = ((t_dll_l) ptr_new_room)->content;
+	new_room = ((t_dll_l)ptr_new_room)->content;
 	current_room = link->content;
 	if (lim_same_coord(current_room, new_room) == TRUE)
 		return (TRUE);
