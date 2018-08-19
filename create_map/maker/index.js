@@ -114,7 +114,7 @@ const make_end = (rect) => {
 /*------------------------------------*\
     biuld and draw room
 \*------------------------------------*/
-const room = (x: number, y: number) => {
+const room = (x, y) => {
   // build le rectangle
   let rect = new fabric.Rect({
     left: x,
@@ -213,7 +213,7 @@ window.onload = function () {
   })
 
   CANVAS = canvas
-  room(500, 500, canvas)
-  room(250, 500, canvas)
+  // room(500, 500, canvas)
+  // room(250, 500, canvas)
 
 }
