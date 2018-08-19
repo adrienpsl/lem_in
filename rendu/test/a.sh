@@ -14,10 +14,10 @@ function run_test()
 
     for file in `cd "$name_test" ; ls`
         do
-            if [[ "$file" != "lem" && "$file" != "a.sh" ]]
+            if [[ "$file" != "lem-in" && "$file" != "a.sh" ]]
             then
                     echo "\033[1;31m----> $file \033[0m"
-                    ./lem < "$name_test/$file" | head -n 1
+                    ./lem-in < "$name_test/$file" | head -n 1
             fi
     done
     echo
