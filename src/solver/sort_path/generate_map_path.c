@@ -44,6 +44,10 @@ t_map		generate_path_map(t_dll room, t_dll path_lst)
 		++i;
 	}
 	if (DEBUG->map_path)
+	{
+		printf("\n\n \n");
 		print_path_map(map->map, map->col, map->line);
+		printf("\n \n");
+	}
 	return (map);
 }

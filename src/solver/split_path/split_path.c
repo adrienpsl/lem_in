@@ -88,12 +88,13 @@ void		deb_split(t_finder finder)
 {
 	if (DEBUG->print_split)
 	{
-		ft_printf("----> working path -- %lu\n", finder->working_path->length);
+		ft_printf("\n\n----> working path -- %lu\n", finder->working_path->length);
 		dll_func(finder->working_path, print_path_dll);
 		ft_printf("---- \n");
 		ft_printf("----> valid path -- %lu \n", finder->valid_path->length);
 		dll_func(finder->valid_path, print_path_dll);
-		ft_printf("---- \n");
+		ft_printf("-------------------------------------------------------\n"
+			"------------------------------------------------------------- \n");
 	}
 }
 

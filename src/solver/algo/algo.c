@@ -43,14 +43,14 @@ t_move		algo(t_cache cache, t_data data, t_map map)
 {
 	t_finder		finder;
 	t_move			move;
-	t_dll_l			path_l;
+//	t_dll_l			path_l;
 
 	move = NULL;
 	finder = new_finder(data, data->start_room, map, cache);
-	path_l = new_path_link(finder->start_room, NULL, finder->all_path, 0);
-	split_path(map, finder, path_l->content);
-	clean_woking(finder);
-	destroy_dll_l_func(&path_l, dll_l_notfree_content);
+//	path_l = new_path_link(finder->start_room, NULL, finder->all_path, 0);
+//	split_path(map, finder, path_l->content);
+//	clean_woking(finder);
+//	destroy_dll_l_func(&path_l, dll_l_notfree_content);
 	if (DEBUG->little == TRUE
 			|| split_all_path(finder, map) == FALSE)
 	{
@@ -58,7 +58,7 @@ t_move		algo(t_cache cache, t_data data, t_map map)
 		destroy_finder(finder);
 		finder = shorty_baby(cache, data, map);
 	}
-	if (finder->valid_path->length > 0)
+//	if (finder->valid_path->length > 0)
 		move = is_solution(finder, data);
 	return (move);
 }

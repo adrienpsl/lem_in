@@ -33,7 +33,7 @@ typedef struct s_debug_struct_00
 
 typedef t_debug_struct_00 *t_debug_struct;
 
-t_debug_struct set_debug();
+t_debug_struct set_debug(int is_on);
 
 extern t_debug_struct DEBUG;
 

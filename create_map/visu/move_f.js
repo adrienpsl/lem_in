@@ -50,7 +50,6 @@ const mouve_f = (tour) => {
       tab_f.map((el_split) => {
 
         el_split = el_split.split("-")
-        console.log(el_split)
 
         let F = el_split[1]
         let R = el_split[0].substr(1)

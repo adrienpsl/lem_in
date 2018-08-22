@@ -96,9 +96,9 @@ t_move		new_move(t_data data, t_b_path best_path, t_finder finder)
 	move->size_tab = best_path->nb;
 	move->end_room = data->end_room;
 	if (DEBUG->final_path)
-		ft_printf("----> les finals paht trouve \n");
+		ft_printf("\n\n----> les finals paht trouve \n");
 	fill_tab(best_path, finder, move->tab, data->room);
 	if (DEBUG->final_path)
-		ft_printf("----\n");
+		ft_printf("----\n\n\n");
 	return (move);
 }

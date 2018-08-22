@@ -69,7 +69,11 @@ void	fill_map_with_tunnel(t_data data, t_map map)
 		tunnel_link = tunnel_link->next;
 	}
 	if (DEBUG->map_tunnel)
+	{
+		printf("\n\n---> la carte des link enter les salles \n\n");
 		print_map(map->map, map->col);
+		printf("\n-------------------------------- \n\n");
+	}
 }
 
 t_dll_l	new_tunnel_link(t_room room_1, t_room room_2)

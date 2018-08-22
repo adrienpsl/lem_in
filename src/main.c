@@ -89,12 +89,10 @@ void kill_move(t_move move, size_t lim)
 
 int main()
 {
-	set_up();
-	DEBUG = set_debug();
-
 	t_lem lem;
 	t_move move = NULL;
 
+	DEBUG = set_debug(FALSE);
 	lem = ft_0_new_memory(sizeof(t_lem_00));
 	if (read_and_parse_data(lem) == TRUE)
 	{
@@ -106,11 +104,12 @@ int main()
 			manage_move(move);
 			kill_move(move, move->size_tab);
 		}
-//		else
-//			ft_printf("no solution\n");
+		else
+			ft_printf("no solution\n");
 	}
-//	else
-//		ft_printf("no solution\n");
+	else
+		ft_printf("no solution\n");
 	free_lem(lem);
-	return EXIT_SUCCESS;
+	free(DEBUG);
+	return (EXIT_SUCCESS);
 }

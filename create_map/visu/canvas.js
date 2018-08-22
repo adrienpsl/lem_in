@@ -1,44 +1,5 @@
 "use strict"
 
-let test_str =
-  "4 \n" +
-  "##start\n" +
-  "1 14 14\n" +
-  "2 374 254\n" +
-  "3 494 254\n" +
-  "4 14 374\n" +
-  "5 254 374\n" +
-  "6 374 374\n" +
-  "7 254 494\n" +
-  "##end\n" +
-  "8 614 614\n" +
-  "9 734 614\n" +
-  "10 854 614\n" +
-  "11 14 734\n" +
-  "6-3\n" +
-  "7-6\n" +
-  "3-2\n" +
-  "11-8\n" +
-  "6-4\n" +
-  "11-9\n" +
-  "4-3\n" +
-  "3-1\n" +
-  "11-2\n" +
-  "7-3\n" +
-  "10-9\n" +
-  "11-6\n" +
-  "8-2\n" +
-  "8-7\n" +
-  "9-7\n" +
-  "6-1\n" +
-  "11-4\n" +
-  " \n" +
-  "L1-3 L2-6 \n" +
-  "L1-2 L2-7 L3-3 \n" +
-  "L1-8 L3-2 L2-8 L4-3 \n" +
-  "L3-8 L4-2 \n" +
-  "L4-8 "
-
 var name = 0
 var tab_place = 0
 /*------------------------------------*\
@@ -111,7 +72,8 @@ const get_data = (new_data = test_str) => {
     data.result.push(tab_data[i])
     i++
   }
-  data.path = find_path(data.result, data.start, data.end)
+  if (data.result.length)
+    data.path = find_path(data.result, data.start, data.end)
   console.log(data)
 }
 
@@ -340,11 +302,6 @@ const draw_path = (fourmis) => {
 
   })
 }
-// je supprime toute les fourmis
-// pour chaque ligne de result je cherche la room corecpondante et
-// je la put dans ma map;
-
-
 
 window.onload = function () {
 
